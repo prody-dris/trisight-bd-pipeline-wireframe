@@ -1192,81 +1192,383 @@
     }
 
     /* ================================================================
-       DRILL MODAL
+       VIEW CONTAINERS — router hides/shows these
        ================================================================ */
-    .drill-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      z-index: 800;
+    #view-dashboard { display: block; }
+    #view-list      { display: none;  }
+    #view-kanban    { display: none;  }
+
+    /* ================================================================
+       SYSTEM LIST VIEW — .sys-list
+       ================================================================ */
+    .sys-list-page { padding: 20px 24px; }
+
+    /* Header row: title + actions */
+    .sys-list-header {
+      display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 10px;
+      margin-bottom: 14px;
     }
-    .drill-overlay.open {
+    .sys-list-back {
+      font-size: 12px;
+      color: var(--maroon);
+      cursor: pointer;
+      text-decoration: none;
       display: flex;
-    }
-    .drill-modal {
-      background: var(--bg-card);
-      border-radius: 10px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
-      width: 860px;
-      max-width: calc(100vw - 48px);
-      max-height: calc(100vh - 80px);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .drill-modal-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding: 18px 22px 14px;
-      border-bottom: 1px solid var(--border);
+      align-items: center;
+      gap: 4px;
       flex-shrink: 0;
+      padding: 4px 0;
+      margin-right: 6px;
+      opacity: 0.85;
+      transition: opacity 0.12s;
     }
-    .drill-modal-title {
-      font-size: 16px;
+    .sys-list-back:hover { opacity: 1; text-decoration: underline; }
+    .sys-list-title-block { flex: 1; }
+    .sys-list-title {
+      font-size: 20px;
       font-weight: 700;
       color: var(--value);
-      line-height: 1.2;
+      line-height: 1;
     }
-    .drill-modal-subtitle {
-      font-size: 12px;
+    .sys-list-caption {
+      font-size: 11.5px;
       color: var(--text-muted);
-      margin-top: 3px;
+      margin-top: 4px;
     }
-    .drill-modal-close {
-      width: 28px;
-      height: 28px;
-      border-radius: 5px;
+
+    /* View switcher pill group */
+    .view-switch {
+      display: inline-flex;
       border: 1px solid var(--border);
-      background: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--label);
-      font-size: 16px;
+      border-radius: 6px;
+      overflow: hidden;
       flex-shrink: 0;
-      margin-left: 12px;
+    }
+    .view-switch-btn {
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      background: var(--bg-card);
+      color: var(--text-sidebar);
+      border: none;
+      cursor: pointer;
+      border-right: 1px solid var(--border);
       transition: background 0.12s, color 0.12s;
     }
-    .drill-modal-close:hover { background: #f0f0f0; color: var(--text-primary); }
-    .drill-modal-body {
+    .view-switch-btn:last-child { border-right: none; }
+    .view-switch-btn:hover { background: #f5f5f5; color: var(--text-primary); }
+    .view-switch-btn.active {
+      background: var(--maroon);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Filter bar for list/kanban views */
+    .sys-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 0;
+    }
+    .sys-filter-input {
+      height: 30px;
+      padding: 0 10px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: var(--bg);
+      font-family: var(--font);
+      font-size: 12.5px;
+      color: var(--text-primary);
+      min-width: 120px;
+    }
+    .sys-filter-input:focus { outline: none; border-color: var(--maroon); }
+    .sys-filter-input::placeholder { color: var(--text-muted); }
+    .sys-filter-spacer { flex: 1; }
+    .sys-sort-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* List table area */
+    .sys-list-table-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 10px;
+      box-shadow: var(--shadow-card);
+    }
+
+    /* List column header */
+    .sys-list-col-header {
+      display: grid;
+      grid-template-columns: 28px 2fr 120px 1fr 110px 130px 110px 80px 32px;
+      align-items: center;
+      background: var(--bg-header);
+      border-bottom: 1px solid var(--border);
+      padding: 0 12px;
+      height: 34px;
+      gap: 0;
+    }
+    .sys-list-col-header span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--label);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0 8px 0 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sys-list-col-header .col-count {
+      text-align: right;
+      margin-left: auto;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* Each list row */
+    .sys-row {
+      display: grid;
+      grid-template-columns: 28px 2fr 120px 1fr 110px 130px 110px 80px 32px;
+      align-items: center;
+      border-bottom: 1px solid var(--border-table);
+      padding: 0 12px;
+      min-height: 40px;
+      gap: 0;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sys-row:last-child { border-bottom: none; }
+    .sys-row:hover { background: #fafafa; }
+    .sys-row > span, .sys-row > div {
+      font-size: 13px;
+      color: var(--text-primary);
+      padding: 8px 8px 8px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .sys-row .col-name {
+      font-weight: 600;
+      color: var(--maroon);
+    }
+    .sys-row .col-fund {
+      font-size: 12.5px;
+      color: var(--text-primary);
+      text-align: right;
+      padding-right: 12px;
+    }
+    .sys-row .col-id {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .sys-row .col-muted {
+      color: var(--text-muted);
+      font-size: 12.5px;
+    }
+
+    /* Status pill */
+    .status-pill {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      background: #fce8ec;
+      color: #8a1020;
+      border: 1px solid #f4c0ca;
+    }
+    .status-pill.stage-awarded    { background: #e8f5e9; color: #2a6a2a; border-color: #b8ddb8; }
+    .status-pill.stage-lost       { background: #f5f5f5; color: #777;    border-color: #e0e0e0; }
+    .status-pill.stage-hold       { background: #fff8e1; color: #7a5800; border-color: #f0d88a; }
+    .status-pill.stage-mou        { background: #e8f0fe; color: #1a47a0; border-color: #b0c4f4; }
+    .status-pill.stage-concept    { background: #fce8ec; color: #8a1020; border-color: #f4c0ca; }
+    .status-pill.stage-early      { background: #f3e8fd; color: #6a1a9a; border-color: #d8b0f4; }
+
+    /* List footer */
+    .sys-list-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-top: 1px solid var(--border-table);
+      background: var(--bg-card);
+    }
+    .sys-page-sizes {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .sys-page-size {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--label);
+      cursor: pointer;
+      border-right: 1px solid var(--border);
+      background: var(--bg-card);
+      user-select: none;
+      transition: background 0.1s, color 0.1s;
+      font-family: var(--font);
+      border-top: none;
+      border-bottom: none;
+    }
+    .sys-page-size:last-child { border-right: none; }
+    .sys-page-size:hover { background: #f5f5f5; color: var(--text-primary); }
+    .sys-page-size.active { background: var(--maroon); color: #fff; font-weight: 600; }
+    .sys-load-more {
+      font-size: 12.5px;
+      color: var(--maroon);
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sys-load-more:hover { text-decoration: underline; }
+
+    /* ================================================================
+       KANBAN VIEW — .kanban-board
+       ================================================================ */
+    .sys-kanban-page { padding: 16px 24px; display: flex; flex-direction: column; height: 100%; }
+    .kanban-board {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      flex: 1;
+      align-items: flex-start;
+    }
+    .kanban-board::-webkit-scrollbar { height: 6px; }
+    .kanban-board::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+    .kanban-col {
+      flex-shrink: 0;
+      width: 230px;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      max-height: calc(100vh - 220px);
+    }
+    .kanban-col-header {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 12px 8px;
+      border-bottom: 1px solid #e8e8e8;
+      flex-shrink: 0;
+    }
+    .kanban-col-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--maroon);
+      flex-shrink: 0;
+    }
+    .kanban-col-dot.dot-awarded  { background: #2a7a2a; }
+    .kanban-col-dot.dot-lost     { background: #aaa; }
+    .kanban-col-dot.dot-hold     { background: #c98a00; }
+    .kanban-col-dot.dot-mou      { background: #1a47a0; }
+    .kanban-col-dot.dot-early    { background: #7a3aaa; }
+    .kanban-col-dot.dot-proposal { background: #c04060; }
+
+    .kanban-col-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .kanban-col-count {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: #e8e8e8;
+      border-radius: 10px;
+      padding: 1px 7px;
+      font-weight: 600;
+    }
+    .kanban-col-menu {
+      font-size: 14px;
+      color: var(--label);
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    .kanban-col-menu:hover { background: #e8e8e8; color: var(--text-primary); }
+
+    .kanban-col-add {
+      padding: 6px 12px 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 1px solid #ebebeb;
+      flex-shrink: 0;
+    }
+    .kanban-col-add:hover { color: var(--maroon); }
+
+    .kanban-cards {
       overflow-y: auto;
       flex: 1;
-      padding: 0;
+      padding: 8px 8px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-    .drill-modal-empty {
-      padding: 40px 22px;
-      text-align: center;
+    .kanban-cards::-webkit-scrollbar { width: 4px; }
+    .kanban-cards::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+    .kanban-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      cursor: pointer;
+      transition: box-shadow 0.12s, transform 0.1s;
+    }
+    .kanban-card:hover {
+      box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+      transform: translateY(-1px);
+    }
+    .kanban-card-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 7px;
+      line-height: 1.35;
+    }
+    .kanban-card-meta {
+      font-size: 11.5px;
+      color: var(--label);
+      line-height: 1.5;
+    }
+    .kanban-card-meta span { color: var(--text-primary); }
+    .kanban-col-empty {
+      padding: 12px;
+      font-size: 12px;
       color: var(--text-muted);
-      font-size: 13px;
       font-style: italic;
+      text-align: center;
     }
-    .drill-modal-body::-webkit-scrollbar { width: 5px; }
-    .drill-modal-body::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
 
   </style>
 </head>
@@ -1500,8 +1802,9 @@
     </header>
 
     <!-- ================================================================
-         PAGE SCROLL AREA
+         VIEW: DASHBOARD (default)
          ================================================================ -->
+    <div id="view-dashboard">
     <div class="page-scroll">
 
       <!-- Page title row -->
@@ -2008,27 +2311,116 @@
       <div style="height:40px;"></div>
 
     </div><!-- /page-scroll -->
+    </div><!-- /view-dashboard -->
+
+    <!-- ================================================================
+         VIEW: PROPOSAL LIST
+         ================================================================ -->
+    <div id="view-list">
+      <div class="page-scroll">
+        <div class="sys-list-page">
+
+          <!-- Header -->
+          <div class="sys-list-header">
+            <a class="sys-list-back" id="listBackBtn" onclick="showView('dashboard'); return false;">‹ Back to dashboard</a>
+            <div class="sys-list-title-block">
+              <div class="sys-list-title">Pipeline</div>
+              <div class="sys-list-caption" id="listCaption"></div>
+            </div>
+            <div class="view-switch">
+              <button class="view-switch-btn active" onclick="showView('list', window._activeSegment)">List View</button>
+              <button class="view-switch-btn" onclick="showView('kanban')">Kanban View</button>
+            </div>
+            <button class="icon-btn" title="Refresh">
+              <svg width="13" height="13" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 7.5A5.5 5.5 0 012 7.5M2 4v3.5H5.5"/><path d="M13 11v-3.5H9.5"/></svg>
+            </button>
+            <button class="icon-btn" title="More options">⋯</button>
+            <button class="btn btn-primary" style="height:32px;font-size:12.5px;padding:0 14px;">+ Add Proposal</button>
+          </div>
+
+          <!-- Filter bar -->
+          <div class="sys-filter-bar">
+            <input class="sys-filter-input" type="text" placeholder="ID" style="max-width:80px;" />
+            <input class="sys-filter-input" type="text" placeholder="Project Title" style="max-width:180px;" />
+            <input class="sys-filter-input" type="text" placeholder="Lead Generation Date" style="max-width:160px;" />
+            <input class="sys-filter-input" type="text" placeholder="MoU Signing Date" style="max-width:150px;" />
+            <select class="sys-filter-input" style="max-width:140px;"><option value="">Financial Year</option><option>FY 2025-26</option><option>FY 2024-25</option></select>
+            <button class="btn btn-outline" style="height:30px;font-size:12.5px;padding:0 12px;">Filter</button>
+            <div class="sys-filter-spacer"></div>
+            <span class="sys-sort-label">Created On <span style="font-size:10px;">⌄</span></span>
+          </div>
+
+          <!-- Column header -->
+          <div class="sys-list-table-wrap">
+            <div class="sys-list-col-header">
+              <span><input type="checkbox" style="accent-color:var(--maroon);cursor:pointer;" /></span>
+              <span>Project Title</span>
+              <span>Status</span>
+              <span>Donor</span>
+              <span>Fund (₹ L)</span>
+              <span>Grant Anchor</span>
+              <span>Lead Gen. Date</span>
+              <span>ID</span>
+              <span class="col-count" id="listColCount"></span>
+            </div>
+            <!-- Rows injected by renderListView() -->
+            <div id="listRows"></div>
+            <div class="sys-list-footer">
+              <div class="sys-page-sizes">
+                <span class="sys-page-size active">20</span>
+                <span class="sys-page-size">100</span>
+                <span class="sys-page-size">500</span>
+                <span class="sys-page-size">2500</span>
+              </div>
+              <a class="sys-load-more">Load More</a>
+            </div>
+          </div>
+
+        </div><!-- /sys-list-page -->
+      </div><!-- /page-scroll -->
+    </div><!-- /view-list -->
+
+    <!-- ================================================================
+         VIEW: KANBAN
+         ================================================================ -->
+    <div id="view-kanban">
+      <div class="page-scroll" style="display:flex;flex-direction:column;overflow:hidden;padding:0;">
+        <div class="sys-kanban-page">
+
+          <!-- Header -->
+          <div class="sys-list-header" style="margin-bottom:12px;">
+            <a class="sys-list-back" onclick="showView('dashboard'); return false;">‹ Back to dashboard</a>
+            <div class="sys-list-title-block">
+              <div class="sys-list-title">Pipeline</div>
+              <div class="sys-list-caption" id="kanbanCaption"></div>
+            </div>
+            <div class="view-switch">
+              <button class="view-switch-btn" onclick="showView('list')">List View</button>
+              <button class="view-switch-btn active">Kanban View</button>
+            </div>
+            <button class="btn btn-outline" style="height:32px;font-size:12.5px;padding:0 12px;">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11M3 6.5h7M5 10h3"/></svg>
+              Filter
+            </button>
+            <button class="icon-btn" title="Refresh">
+              <svg width="13" height="13" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 7.5A5.5 5.5 0 012 7.5M2 4v3.5H5.5"/><path d="M13 11v-3.5H9.5"/></svg>
+            </button>
+            <button class="icon-btn" title="More options">⋯</button>
+            <button class="btn btn-primary" style="height:32px;font-size:12.5px;padding:0 14px;">+ Add Proposal</button>
+          </div>
+
+          <!-- Kanban board -->
+          <div class="kanban-board" id="kanbanBoard">
+            <!-- Columns injected by renderKanbanView() -->
+          </div>
+
+        </div><!-- /sys-kanban-page -->
+      </div><!-- /page-scroll -->
+    </div><!-- /view-kanban -->
 
   </div><!-- /content-col -->
 
 </div><!-- /app-shell -->
-
-<!-- ================================================================
-     DRILL MODAL (hidden by default)
-     ================================================================ -->
-<div class="drill-overlay" id="drillOverlay">
-  <div class="drill-modal" id="drillModal">
-    <div class="drill-modal-header">
-      <div>
-        <div class="drill-modal-title" id="drillModalTitle">Proposals</div>
-        <div class="drill-modal-subtitle" id="drillModalSubtitle"></div>
-      </div>
-      <button class="drill-modal-close" id="drillModalClose">✕</button>
-    </div>
-    <div class="drill-modal-body" id="drillModalBody"></div>
-  </div>
-</div>
-
 
 <!-- ================================================================
      JAVASCRIPT — data-driven render engine + interactions
@@ -2449,80 +2841,170 @@
   const SORT_BY_FUND_DESC = new Set(['largest-awarded', 'largest-pipeline']);
 
   /* ================================================================
-     DRILL MODAL — open / close / render
+     VIEW ROUTER
   ================================================================ */
-  const drillOverlay = document.getElementById('drillOverlay');
-  const drillTitle   = document.getElementById('drillModalTitle');
-  const drillSub     = document.getElementById('drillModalSubtitle');
-  const drillBody    = document.getElementById('drillModalBody');
+  window._activeSegment = null;
 
-  function openDrillModal(segment) {
-    const def = SEGMENT_FILTERS[segment];
-    if (!def) return;
+  const STAGE_DATE_OFFSETS = {
+    'P-001': 45, 'P-002': 90, 'P-003': 30, 'P-004': 120,
+    'P-005': 60, 'P-006': 95, 'P-007': 80, 'P-008': 20,
+    'P-009': 110, 'P-010': 55, 'P-011': 75, 'P-012': 100,
+    'P-013': 65, 'P-014': 40,
+  };
 
-    const proposals = getScopedProposals(currentScope);
-    let rows = proposals.filter(def.fn);
-
-    // Sort by fund descending for largest-* cards
-    if (SORT_BY_FUND_DESC.has(segment)) {
-      rows = rows.slice().sort((a, b) => (b.fund || 0) - (a.fund || 0));
-    }
-
-    drillTitle.textContent = 'Proposals — ' + def.label;
-    drillSub.textContent   = 'Within: ' + (currentScope === 'mine'
-      ? 'My Pipeline · ' + CURRENT_USER
-      : 'All proposals');
-
-    if (rows.length === 0) {
-      drillBody.innerHTML = '<div class="drill-modal-empty">No proposals in this segment for the current view.</div>';
-    } else {
-      const cols = SEGMENT_COLS[segment] || COLS_PIPELINE;
-      const headCells = cols.map(c => `<th>${c.header}</th>`).join('');
-      const bodyRows  = rows.map((p, i) => {
-        const dataCells = cols.map(c => `<td>${c.render(p)}</td>`).join('');
-        return `<tr><td>${i + 1}</td>${dataCells}</tr>`;
-      }).join('');
-
-      drillBody.innerHTML = `
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              ${headCells}
-            </tr>
-          </thead>
-          <tbody>
-            ${bodyRows}
-          </tbody>
-        </table>`;
-    }
-
-    drillOverlay.classList.add('open');
+  function sampleDate(p) {
+    const offset = STAGE_DATE_OFFSETS[p.id] || p.days + 5;
+    const d = new Date();
+    d.setDate(d.getDate() - offset);
+    return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
   }
 
-  function closeDrillModal() {
-    drillOverlay.classList.remove('open');
+  function stagePillClass(stage) {
+    if (stage === 'Grant Awarded')    return 'status-pill stage-awarded';
+    if (stage === 'Lost opportunity') return 'status-pill stage-lost';
+    if (stage === 'Project on Hold')  return 'status-pill stage-hold';
+    if (stage === 'MoU')              return 'status-pill stage-mou';
+    if (stage === 'Concept Note' || stage === 'Proposal') return 'status-pill stage-concept';
+    return 'status-pill stage-early';
   }
 
-  /* Close via X button */
-  document.getElementById('drillModalClose').addEventListener('click', closeDrillModal);
+  function showView(name, segment) {
+    window._activeSegment = segment || null;
+    document.getElementById('view-dashboard').style.display = 'none';
+    document.getElementById('view-list').style.display      = 'none';
+    document.getElementById('view-kanban').style.display    = 'none';
 
-  /* Close via backdrop click */
-  drillOverlay.addEventListener('click', function(e) {
-    if (e.target === drillOverlay) closeDrillModal();
-  });
-
-  /* Close via Esc key */
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeDrillModal();
-  });
+    // Update sidebar active state
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    if (name === 'dashboard') {
+      document.getElementById('view-dashboard').style.display = 'block';
+      const navBd = document.querySelector('.nav-item[data-nav="bd-pipeline"]');
+      if (navBd) navBd.classList.add('active');
+    } else if (name === 'list') {
+      document.getElementById('view-list').style.display = 'block';
+      const navBd = document.querySelector('.nav-item[data-nav="bd-pipeline"]');
+      if (navBd) navBd.classList.add('active');
+      renderListView(segment);
+    } else if (name === 'kanban') {
+      document.getElementById('view-kanban').style.display = 'block';
+      const navKb = document.querySelector('.nav-item[data-nav="bd-kanban"]');
+      if (navKb) navKb.classList.add('active');
+      renderKanbanView();
+    }
+  }
 
   /* ================================================================
-     CARD CLICK — delegate from document to all stat-cards
+     LIST VIEW RENDERER
+  ================================================================ */
+  function renderListView(segment) {
+    const proposals = getScopedProposals(currentScope);
+    let rows = proposals;
+    let captionText = '';
+
+    if (segment && SEGMENT_FILTERS[segment]) {
+      const def = SEGMENT_FILTERS[segment];
+      rows = proposals.filter(def.fn);
+      if (SORT_BY_FUND_DESC.has(segment)) {
+        rows = rows.slice().sort((a, b) => (b.fund || 0) - (a.fund || 0));
+      }
+      const scopeLabel = currentScope === 'mine' ? 'My Pipeline (' + CURRENT_USER + ')' : 'All Pipeline';
+      captionText = 'Filtered: ' + def.label + ' · ' + scopeLabel;
+    } else {
+      const scopeLabel = currentScope === 'mine' ? 'My Pipeline (' + CURRENT_USER + ')' : 'All Pipeline';
+      captionText = scopeLabel;
+    }
+
+    document.getElementById('listCaption').textContent = captionText;
+    document.getElementById('listColCount').textContent = rows.length + ' of ' + proposals.length + ' ♥';
+
+    const listRowsEl = document.getElementById('listRows');
+    if (rows.length === 0) {
+      listRowsEl.innerHTML = '<div style="padding:32px;text-align:center;color:var(--text-muted);font-style:italic;">No proposals match this filter.</div>';
+      return;
+    }
+
+    listRowsEl.innerHTML = rows.map(p => `
+      <div class="sys-row">
+        <span><input type="checkbox" style="accent-color:var(--maroon);cursor:pointer;" /></span>
+        <div class="col-name">${p.name}</div>
+        <div><span class="${stagePillClass(p.stage)}">${p.stage}</span></div>
+        <div>${p.donor}</div>
+        <div class="col-fund">${p.fund !== null ? p.fund.toFixed(2) : '<span style="color:var(--text-muted)">—</span>'}</div>
+        <div>${p.anchor}</div>
+        <div class="col-muted">${sampleDate(p)}</div>
+        <div class="col-id">${p.id}</div>
+        <div><button style="background:none;border:none;cursor:pointer;color:var(--label);font-size:15px;padding:2px 4px;border-radius:3px;">⋮</button></div>
+      </div>`).join('');
+
+    // Page size toggles in list view
+    document.querySelectorAll('#view-list .sys-page-size').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('#view-list .sys-page-size').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  }
+
+  /* ================================================================
+     KANBAN VIEW RENDERER
+  ================================================================ */
+  const KANBAN_STAGE_DOTS = {
+    'Initial Conversation': 'dot-early',
+    'Initial outreach':     'dot-early',
+    'Concept Note':         'dot-proposal',
+    'Proposal':             'dot-proposal',
+    'MoU':                  'dot-mou',
+    'Grant Awarded':        'dot-awarded',
+    'Project on Hold':      'dot-hold',
+    'Lost opportunity':     'dot-lost',
+  };
+
+  function renderKanbanView() {
+    const proposals = getScopedProposals(currentScope);
+    const scopeLabel = currentScope === 'mine' ? 'My Pipeline (' + CURRENT_USER + ')' : 'All Pipeline';
+    document.getElementById('kanbanCaption').textContent = scopeLabel;
+
+    const board = document.getElementById('kanbanBoard');
+    let html = '';
+
+    CHART_STAGES.forEach(function(stage) {
+      const cards = proposals.filter(p => p.stage === stage);
+      const dotClass = KANBAN_STAGE_DOTS[stage] || '';
+
+      const cardHTML = cards.length === 0
+        ? '<div class="kanban-col-empty">No proposals</div>'
+        : cards.map(p => `
+            <div class="kanban-card">
+              <div class="kanban-card-title">${p.name || 'Title Not Set'}</div>
+              <div class="kanban-card-meta">
+                Donor: <span>${p.donor}</span><br>
+                Grant Anchor: <span>${p.anchor}</span><br>
+                Lead Generated On: <span>${sampleDate(p)}</span>
+              </div>
+            </div>`).join('');
+
+      html += `
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <div class="kanban-col-dot ${dotClass}"></div>
+            <div class="kanban-col-title">${stage}</div>
+            <div class="kanban-col-count">${cards.length}</div>
+            <div class="kanban-col-menu">⋯</div>
+          </div>
+          <div class="kanban-col-add">+ Add Proposal</div>
+          <div class="kanban-cards">${cardHTML}</div>
+        </div>`;
+    });
+
+    board.innerHTML = html;
+  }
+
+  /* ================================================================
+     CARD CLICK — navigate to list view filtered to segment
   ================================================================ */
   document.addEventListener('click', function(e) {
     const card = e.target.closest('.stat-card[data-segment]');
-    if (card) openDrillModal(card.dataset.segment);
+    if (card) showView('list', card.dataset.segment);
   });
 
   /* ================================================================
@@ -2562,6 +3044,15 @@
         item.classList.toggle('open', isOpen);
       }
     } else {
+      const navKey = item.dataset.nav;
+      if (navKey === 'bd-pipeline') {
+        showView('dashboard');
+        return;
+      }
+      if (navKey === 'bd-kanban') {
+        showView('kanban');
+        return;
+      }
       document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
       document.querySelectorAll('.nav-child').forEach(c => c.classList.remove('active'));
       item.classList.add('active');
