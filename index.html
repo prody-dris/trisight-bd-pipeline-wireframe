@@ -1238,7 +1238,7 @@
       margin-top: 4px;
     }
 
-    /* View switcher pill group */
+    /* View switcher pill group — kept for kanban header back-compat */
     .view-switch {
       display: inline-flex;
       border: 1px solid var(--border);
@@ -1265,6 +1265,78 @@
       color: #fff;
       font-weight: 600;
     }
+
+    /* Frappe-style "List View ⌄" dropdown view switcher */
+    .frappe-view-dropdown {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .frappe-view-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-card);
+      font-family: var(--font);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .frappe-view-btn:hover { background: #f5f5f5; border-color: #ccc; }
+    .frappe-view-btn .view-caret { font-size: 10px; color: var(--label); margin-left: 2px; }
+    .frappe-view-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      min-width: 160px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      z-index: 200;
+      padding: 4px 0;
+    }
+    .frappe-view-dropdown.open .frappe-view-menu { display: block; }
+    .frappe-view-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .frappe-view-option:hover { background: #f5f5f5; }
+    .frappe-view-option.active { color: var(--maroon); font-weight: 600; }
+
+    /* Segment filter tag in list filter bar */
+    .seg-filter-tag {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      background: #e8f0fe;
+      border: 1px solid #b0c4f4;
+      border-radius: 12px;
+      padding: 3px 10px;
+      font-size: 12px;
+      color: #1a47a0;
+      font-weight: 500;
+    }
+    .seg-tag-remove {
+      cursor: pointer;
+      font-size: 13px;
+      color: #7a9ad0;
+      line-height: 1;
+      margin-left: 2px;
+    }
+    .seg-tag-remove:hover { color: #1a47a0; }
 
     /* Filter bar for list/kanban views */
     .sys-filter-bar {
@@ -1312,7 +1384,7 @@
     /* List column header */
     .sys-list-col-header {
       display: grid;
-      grid-template-columns: 28px 2fr 120px 1fr 110px 130px 110px 80px 32px;
+      grid-template-columns: 28px 2fr 100px 1fr 120px 130px 130px 110px 80px 32px;
       align-items: center;
       background: var(--bg-header);
       border-bottom: 1px solid var(--border);
@@ -1344,7 +1416,7 @@
     /* Each list row */
     .sys-row {
       display: grid;
-      grid-template-columns: 28px 2fr 120px 1fr 110px 130px 110px 80px 32px;
+      grid-template-columns: 28px 2fr 100px 1fr 120px 130px 130px 110px 80px 32px;
       align-items: center;
       border-bottom: 1px solid var(--border-table);
       padding: 0 12px;
@@ -1363,10 +1435,18 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .sys-row .col-name {
-      font-weight: 600;
-      color: var(--maroon);
+    /* Frappe list view: project title link — dark, not branded */
+    .sys-row .col-name-link {
+      font-weight: 400;
+      color: #1f272e;
+      text-decoration: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 8px 8px 8px 0;
+      display: block;
     }
+    .sys-row .col-name-link:hover { color: #2490ef; text-decoration: none; }
     .sys-row .col-fund {
       font-size: 12.5px;
       color: var(--text-primary);
@@ -1382,24 +1462,20 @@
       font-size: 12.5px;
     }
 
-    /* Status pill */
-    .status-pill {
-      display: inline-block;
+    /* Frappe indicator-pill — matches real Frappe list view status indicator */
+    .indicator-pill {
+      display: inline-flex;
+      align-items: center;
       padding: 2px 9px;
       border-radius: 10px;
       font-size: 11.5px;
-      font-weight: 600;
+      font-weight: 500;
       white-space: nowrap;
-      background: #fce8ec;
-      color: #8a1020;
-      border: 1px solid #f4c0ca;
     }
-    .status-pill.stage-awarded    { background: #e8f5e9; color: #2a6a2a; border-color: #b8ddb8; }
-    .status-pill.stage-lost       { background: #f5f5f5; color: #777;    border-color: #e0e0e0; }
-    .status-pill.stage-hold       { background: #fff8e1; color: #7a5800; border-color: #f0d88a; }
-    .status-pill.stage-mou        { background: #e8f0fe; color: #1a47a0; border-color: #b0c4f4; }
-    .status-pill.stage-concept    { background: #fce8ec; color: #8a1020; border-color: #f4c0ca; }
-    .status-pill.stage-early      { background: #f3e8fd; color: #6a1a9a; border-color: #d8b0f4; }
+    .indicator-pill.red {
+      background: #fce8ec;
+      color: #c0392b;
+    }
 
     /* List footer */
     .sys-list-footer {
@@ -1821,7 +1897,7 @@
       <!-- SCOPE BAR — anchor + toggle -->
       <div class="scope-bar">
         <div class="scope-bar-text">
-          <div class="scope-states" id="scopeStatesLabel">Showing proposals you are the Grant Anchor on — Priya Nair</div>
+          <div class="scope-states" id="scopeStatesLabel">Showing the proposals you are the Grant Anchor on</div>
           <div class="scope-note">Row-level access: each user sees the proposals assigned to them as Grant Anchor. Leadership roles see all.</div>
         </div>
         <div class="scope-toggle" id="scopeToggle">
@@ -2322,14 +2398,34 @@
 
           <!-- Header -->
           <div class="sys-list-header">
-            <a class="sys-list-back" id="listBackBtn" onclick="showView('dashboard'); return false;">‹ Back to dashboard</a>
             <div class="sys-list-title-block">
               <div class="sys-list-title">Pipeline</div>
-              <div class="sys-list-caption" id="listCaption"></div>
             </div>
-            <div class="view-switch">
-              <button class="view-switch-btn active" onclick="showView('list', window._activeSegment)">List View</button>
-              <button class="view-switch-btn" onclick="showView('kanban')">Kanban View</button>
+            <!-- Frappe-style "List View ⌄" dropdown -->
+            <div class="frappe-view-dropdown" id="listViewDropdown">
+              <button class="frappe-view-btn" id="listViewBtn" onclick="document.getElementById('listViewDropdown').classList.toggle('open'); return false;">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="1" y1="3" x2="12" y2="3"/><line x1="1" y1="6.5" x2="12" y2="6.5"/><line x1="1" y1="10" x2="12" y2="10"/></svg>
+                List View
+                <span class="view-caret">▾</span>
+              </button>
+              <div class="frappe-view-menu" id="listViewMenu">
+                <div class="frappe-view-option active">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="1" y1="3" x2="12" y2="3"/><line x1="1" y1="6.5" x2="12" y2="6.5"/><line x1="1" y1="10" x2="12" y2="10"/></svg>
+                  List View
+                </div>
+                <div class="frappe-view-option" onclick="showView('list', window._activeSegment); document.getElementById('listViewDropdown').classList.remove('open'); return false;">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="5" height="5" rx="0.5"/><rect x="7" y="1" width="5" height="5" rx="0.5"/><rect x="1" y="7" width="5" height="5" rx="0.5"/><rect x="7" y="7" width="5" height="5" rx="0.5"/></svg>
+                  Report View
+                </div>
+                <div class="frappe-view-option" onclick="showView('kanban'); document.getElementById('listViewDropdown').classList.remove('open'); return false;">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="3" height="11" rx="0.5"/><rect x="5" y="1" width="3" height="7" rx="0.5"/><rect x="9" y="1" width="3" height="9" rx="0.5"/></svg>
+                  Kanban View
+                </div>
+                <div class="frappe-view-option">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2" width="11" height="9" rx="1"/><line x1="1" y1="5.5" x2="12" y2="5.5"/><line x1="4.5" y1="2" x2="4.5" y2="11"/><line x1="8.5" y1="2" x2="8.5" y2="11"/></svg>
+                  Calendar
+                </div>
+              </div>
             </div>
             <button class="icon-btn" title="Refresh">
               <svg width="13" height="13" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M13 7.5A5.5 5.5 0 012 7.5M2 4v3.5H5.5"/><path d="M13 11v-3.5H9.5"/></svg>
@@ -2346,6 +2442,11 @@
             <input class="sys-filter-input" type="text" placeholder="MoU Signing Date" style="max-width:150px;" />
             <select class="sys-filter-input" style="max-width:140px;"><option value="">Financial Year</option><option>FY 2025-26</option><option>FY 2024-25</option></select>
             <button class="btn btn-outline" style="height:30px;font-size:12.5px;padding:0 12px;">Filter</button>
+            <!-- Segment filter tag: shown when arriving from a dashboard card -->
+            <span class="seg-filter-tag" id="listSegmentTag">
+              <span class="seg-tag-label"></span>
+              <span class="seg-tag-remove" onclick="document.getElementById('listSegmentTag').style.display='none'; renderListView(null);" title="Remove filter">×</span>
+            </span>
             <div class="sys-filter-spacer"></div>
             <span class="sys-sort-label">Created On <span style="font-size:10px;">⌄</span></span>
           </div>
@@ -2357,9 +2458,10 @@
               <span>Project Title</span>
               <span>Status</span>
               <span>Donor</span>
-              <span>Fund (₹ L)</span>
-              <span>Grant Anchor</span>
-              <span>Lead Gen. Date</span>
+              <span>Fund Requested (INR in lacs)</span>
+              <span>Grant Anchor Engaged</span>
+              <span>Project Stage</span>
+              <span>Lead Generation Date</span>
               <span>ID</span>
               <span class="col-count" id="listColCount"></span>
             </div>
@@ -2389,14 +2491,35 @@
 
           <!-- Header -->
           <div class="sys-list-header" style="margin-bottom:12px;">
-            <a class="sys-list-back" onclick="showView('dashboard'); return false;">‹ Back to dashboard</a>
             <div class="sys-list-title-block">
               <div class="sys-list-title">Pipeline</div>
               <div class="sys-list-caption" id="kanbanCaption"></div>
             </div>
-            <div class="view-switch">
-              <button class="view-switch-btn" onclick="showView('list')">List View</button>
-              <button class="view-switch-btn active">Kanban View</button>
+            <!-- Frappe-style view dropdown for kanban -->
+            <div class="frappe-view-dropdown" id="kanbanViewDropdown">
+              <button class="frappe-view-btn" onclick="document.getElementById('kanbanViewDropdown').classList.toggle('open'); return false;">
+                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="3" height="11" rx="0.5"/><rect x="5" y="1" width="3" height="7" rx="0.5"/><rect x="9" y="1" width="3" height="9" rx="0.5"/></svg>
+                Kanban View
+                <span class="view-caret">▾</span>
+              </button>
+              <div class="frappe-view-menu">
+                <div class="frappe-view-option" onclick="showView('list'); document.getElementById('kanbanViewDropdown').classList.remove('open'); return false;">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="1" y1="3" x2="12" y2="3"/><line x1="1" y1="6.5" x2="12" y2="6.5"/><line x1="1" y1="10" x2="12" y2="10"/></svg>
+                  List View
+                </div>
+                <div class="frappe-view-option" onclick="showView('list'); document.getElementById('kanbanViewDropdown').classList.remove('open'); return false;">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="5" height="5" rx="0.5"/><rect x="7" y="1" width="5" height="5" rx="0.5"/><rect x="1" y="7" width="5" height="5" rx="0.5"/><rect x="7" y="7" width="5" height="5" rx="0.5"/></svg>
+                  Report View
+                </div>
+                <div class="frappe-view-option active">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="3" height="11" rx="0.5"/><rect x="5" y="1" width="3" height="7" rx="0.5"/><rect x="9" y="1" width="3" height="9" rx="0.5"/></svg>
+                  Kanban View
+                </div>
+                <div class="frappe-view-option">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="2" width="11" height="9" rx="1"/><line x1="1" y1="5.5" x2="12" y2="5.5"/><line x1="4.5" y1="2" x2="4.5" y2="11"/><line x1="8.5" y1="2" x2="8.5" y2="11"/></svg>
+                  Calendar
+                </div>
+              </div>
             </div>
             <button class="btn btn-outline" style="height:32px;font-size:12.5px;padding:0 12px;">
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11M3 6.5h7M5 10h3"/></svg>
@@ -2429,13 +2552,12 @@
   /* ================================================================
      DATASET — single source of truth
   ================================================================ */
-  const CURRENT_USER = 'Priya Nair';
   const PROPOSALS = [
-    {id:'P-001', name:'Rural WASH Initiative',        donor:'Asha Kiran Trust',     anchor:'Priya Nair',  stage:'MoU',                  funding:'Indian',  fund:36.0, days:12, lostReason:'', reengage:''},
-    {id:'P-002', name:'Girls Education Access',        donor:'Vidya Foundation',     anchor:'Priya Nair',  stage:'Initial outreach',     funding:'Indian',  fund:null, days:42, lostReason:'', reengage:''},
-    {id:'P-003', name:'Clean Energy Villages',         donor:'GreenEarth Fund',      anchor:'Priya Nair',  stage:'Concept Note',         funding:'Foreign', fund:12.0, days:8,  lostReason:'', reengage:''},
-    {id:'P-004', name:'Farmer Livelihoods Programme',  donor:'Annadata Trust',       anchor:'Priya Nair',  stage:'Grant Awarded',        funding:'Indian',  fund:90.0, days:3,  lostReason:'', reengage:''},
-    {id:'P-005', name:'Maternal Health Drive',         donor:'Arogya Foundation',    anchor:'Priya Nair',  stage:'Lost opportunity',     funding:'Indian',  fund:5.0,  days:20, lostReason:'Donor priorities did not match the programme', reengage:''},
+    {id:'P-001', name:'Rural WASH Initiative',        donor:'Asha Kiran Trust',     anchor:'Grant Anchor 1',  stage:'MoU',                  funding:'Indian',  fund:36.0, days:12, lostReason:'', reengage:''},
+    {id:'P-002', name:'Girls Education Access',        donor:'Vidya Foundation',     anchor:'Grant Anchor 1',  stage:'Initial outreach',     funding:'Indian',  fund:null, days:42, lostReason:'', reengage:''},
+    {id:'P-003', name:'Clean Energy Villages',         donor:'GreenEarth Fund',      anchor:'Grant Anchor 1',  stage:'Concept Note',         funding:'Foreign', fund:12.0, days:8,  lostReason:'', reengage:''},
+    {id:'P-004', name:'Farmer Livelihoods Programme',  donor:'Annadata Trust',       anchor:'Grant Anchor 1',  stage:'Grant Awarded',        funding:'Indian',  fund:90.0, days:3,  lostReason:'', reengage:''},
+    {id:'P-005', name:'Maternal Health Drive',         donor:'Arogya Foundation',    anchor:'Grant Anchor 1',  stage:'Lost opportunity',     funding:'Indian',  fund:5.0,  days:20, lostReason:'Donor priorities did not match the programme', reengage:''},
     {id:'P-006', name:'Watershed Management',          donor:'BlueDrop Foundation',  anchor:'Rahul Verma', stage:'Initial outreach',     funding:'Foreign', fund:22.0, days:41, lostReason:'', reengage:''},
     {id:'P-007', name:'Skill Development Hubs',        donor:'Kaushal Trust',        anchor:'Rahul Verma', stage:'MoU',                  funding:'Indian',  fund:15.0, days:36, lostReason:'', reengage:''},
     {id:'P-008', name:'Nutrition for Children',        donor:'Poshan Fund',          anchor:'Rahul Verma', stage:'Initial Conversation', funding:'Indian',  fund:null, days:5,  lostReason:'', reengage:''},
@@ -2505,7 +2627,9 @@
   let currentScope = 'mine';
 
   function getScopedProposals(scope) {
-    if (scope === 'mine') return PROPOSALS.filter(p => p.anchor === CURRENT_USER);
+    // "mine" scope: in a real system this would be filtered to the logged-in user's proposals.
+    // For wireframe purposes, "mine" shows the first anchor's proposals (Grant Anchor 1).
+    if (scope === 'mine') return PROPOSALS.filter(p => p.anchor === PROPOSALS[0].anchor);
     return PROPOSALS.slice();
   }
 
@@ -2519,7 +2643,7 @@
     /* ---- Scope bar label ---- */
     const label = document.getElementById('scopeStatesLabel');
     if (scope === 'mine') {
-      label.textContent = 'Showing proposals you are the Grant Anchor on — ' + CURRENT_USER;
+      label.textContent = 'Showing the proposals you are the Grant Anchor on';
     } else {
       label.textContent = 'Showing all proposals — leadership view';
     }
@@ -2899,22 +3023,23 @@
   function renderListView(segment) {
     const proposals = getScopedProposals(currentScope);
     let rows = proposals;
-    let captionText = '';
 
+    // Active segment filter tag (shown in filter bar as a removable pill, no user name)
+    const filterTagEl = document.getElementById('listSegmentTag');
     if (segment && SEGMENT_FILTERS[segment]) {
       const def = SEGMENT_FILTERS[segment];
       rows = proposals.filter(def.fn);
       if (SORT_BY_FUND_DESC.has(segment)) {
         rows = rows.slice().sort((a, b) => (b.fund || 0) - (a.fund || 0));
       }
-      const scopeLabel = currentScope === 'mine' ? 'My Pipeline (' + CURRENT_USER + ')' : 'All Pipeline';
-      captionText = 'Filtered: ' + def.label + ' · ' + scopeLabel;
+      if (filterTagEl) {
+        filterTagEl.style.display = 'inline-flex';
+        filterTagEl.querySelector('.seg-tag-label').textContent = 'Project Stage = ' + def.label;
+      }
     } else {
-      const scopeLabel = currentScope === 'mine' ? 'My Pipeline (' + CURRENT_USER + ')' : 'All Pipeline';
-      captionText = scopeLabel;
+      if (filterTagEl) filterTagEl.style.display = 'none';
     }
 
-    document.getElementById('listCaption').textContent = captionText;
     document.getElementById('listColCount').textContent = rows.length + ' of ' + proposals.length + ' ♥';
 
     const listRowsEl = document.getElementById('listRows');
@@ -2926,11 +3051,12 @@
     listRowsEl.innerHTML = rows.map(p => `
       <div class="sys-row">
         <span><input type="checkbox" style="accent-color:var(--maroon);cursor:pointer;" /></span>
-        <div class="col-name">${p.name}</div>
-        <div><span class="${stagePillClass(p.stage)}">${p.stage}</span></div>
+        <a href="#" class="col-name-link">${p.name}</a>
+        <div><span class="indicator-pill red">Draft</span></div>
         <div>${p.donor}</div>
         <div class="col-fund">${p.fund !== null ? p.fund.toFixed(2) : '<span style="color:var(--text-muted)">—</span>'}</div>
         <div>${p.anchor}</div>
+        <div>${p.stage}</div>
         <div class="col-muted">${sampleDate(p)}</div>
         <div class="col-id">${p.id}</div>
         <div><button style="background:none;border:none;cursor:pointer;color:var(--label);font-size:15px;padding:2px 4px;border-radius:3px;">⋮</button></div>
@@ -2961,8 +3087,7 @@
 
   function renderKanbanView() {
     const proposals = getScopedProposals(currentScope);
-    const scopeLabel = currentScope === 'mine' ? 'My Pipeline (' + CURRENT_USER + ')' : 'All Pipeline';
-    document.getElementById('kanbanCaption').textContent = scopeLabel;
+    document.getElementById('kanbanCaption').textContent = '';
 
     const board = document.getElementById('kanbanBoard');
     let html = '';
@@ -3106,6 +3231,16 @@
     const chevron  = document.getElementById('glossaryChevron');
     const collapsed = glossary.classList.toggle('collapsed');
     chevron.textContent = collapsed ? '▸' : '▾';
+  });
+
+  /* ================================================================
+     VIEW DROPDOWN — close on outside click
+  ================================================================ */
+  document.addEventListener('click', function(e) {
+    ['listViewDropdown', 'kanbanViewDropdown'].forEach(function(id) {
+      const el = document.getElementById(id);
+      if (el && !el.contains(e.target)) el.classList.remove('open');
+    });
   });
 
   /* ================================================================
