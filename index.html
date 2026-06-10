@@ -963,6 +963,152 @@
     .sidebar-nav::-webkit-scrollbar { width: 4px; }
     .sidebar-nav::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 4px; }
 
+    /* ================================================================
+       RLS SCOPE BAR (Change 1)
+       ================================================================ */
+    .scope-bar {
+      background: #fbeef0;
+      border-left: 3px solid var(--maroon);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      margin-bottom: 16px;
+      font-size: 12.5px;
+    }
+    .scope-bar .scope-states {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .scope-bar .scope-note {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ================================================================
+       COVERAGE CHIP (Change 2)
+       ================================================================ */
+    .coverage-chip {
+      display: inline-block;
+      background: #fff4e5;
+      color: #8a5a00;
+      border: 1px solid #f0d9a8;
+      border-radius: 12px;
+      padding: 2px 10px;
+      font-size: 11.5px;
+      font-weight: 500;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    /* ================================================================
+       CARD SUB-NOTE (Change 2)
+       ================================================================ */
+    .card-subnote {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      line-height: 1.3;
+    }
+
+    /* ================================================================
+       SECTION HEADING ROW (to align heading + chip inline)
+       ================================================================ */
+    .section-heading-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .section-heading-row .section-heading {
+      margin-bottom: 0;
+    }
+
+    /* ================================================================
+       TOOLTIP COMPONENT (Change 3a)
+       ================================================================ */
+    .tip {
+      display: inline-block;
+      position: relative;
+      margin-left: 4px;
+      vertical-align: middle;
+      cursor: default;
+      color: #bbb;
+      font-size: 13px;
+      line-height: 1;
+      /* ensure parent overflow doesn't clip tooltip bubble */
+      overflow: visible;
+    }
+    .tip-bubble {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      max-width: 240px;
+      min-width: 160px;
+      border-radius: 6px;
+      padding: 8px 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.22);
+      z-index: 500;
+      line-height: 1.45;
+      white-space: normal;
+      pointer-events: none;
+    }
+    .tip:hover .tip-bubble {
+      display: block;
+    }
+    /* Arrow on tooltip bubble */
+    .tip-bubble::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #222;
+    }
+
+    /* ================================================================
+       STAGE GLOSSARY (Change 3b)
+       ================================================================ */
+    .glossary {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 14px;
+      box-shadow: var(--shadow-card);
+    }
+    .glossary-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+    }
+    .glossary-item {
+      display: flex;
+      gap: 8px;
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+    .glossary-stage {
+      font-weight: 600;
+      color: var(--maroon);
+      flex-shrink: 0;
+      min-width: 150px;
+    }
+    .glossary-meaning {
+      color: var(--label);
+    }
+
   </style>
 </head>
 
@@ -1210,6 +1356,12 @@
         </button>
       </div>
 
+      <!-- RLS SCOPE BAR -->
+      <div class="scope-bar">
+        <div class="scope-states">🔒 Showing data for: Odisha, Bihar, Jharkhand</div>
+        <div class="scope-note">All figures below are scoped to the geographies assigned to your account. A national-access user sees all states.</div>
+      </div>
+
       <!-- Filter bar -->
       <div class="filter-bar">
         <select class="filter-select" id="filterFY">
@@ -1242,19 +1394,19 @@
         <h2 class="section-heading">Pipeline Overview</h2>
         <div class="card-row card-row-4">
           <div class="stat-card">
-            <div class="card-label">Total in Pipeline</div>
+            <div class="card-label">Total in Pipeline<span class="tip">ⓘ<span class="tip-bubble">Every active funding opportunity we're working on right now.</span></span></div>
             <div class="card-value">14</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">New leads (last 30 days)</div>
+            <div class="card-label">New leads (last 30 days)<span class="tip">ⓘ<span class="tip-bubble">Opportunities that entered the pipeline in the last 30 days.</span></span></div>
             <div class="card-value">1</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Awarded</div>
+            <div class="card-label">Awarded<span class="tip">ⓘ<span class="tip-bubble">Opportunities where the donor has confirmed the grant.</span></span></div>
             <div class="card-value">2</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Active donors</div>
+            <div class="card-label">Active donors<span class="tip">ⓘ<span class="tip-bubble">Donors we currently have a live opportunity with.</span></span></div>
             <div class="card-value">2</div>
           </div>
         </div>
@@ -1264,23 +1416,30 @@
            SECTION 2: FUND VALUE
            ============================================================ -->
       <section class="section" id="section-fund-value">
-        <h2 class="section-heading">Fund Value</h2>
+        <div class="section-heading-row">
+          <h2 class="section-heading">Fund Value</h2>
+          <span class="coverage-chip">⚠ 7 of 14 proposals have a fund amount — 7 still need one</span>
+        </div>
         <div class="card-row card-row-4">
           <div class="stat-card">
-            <div class="card-label">Pipeline Value</div>
+            <div class="card-label">Pipeline Value<span class="tip">ⓘ<span class="tip-bubble">Total funding we could win, added up across opportunities that have a fund figure entered. Fund amounts are optional, so this is a partial total.</span></span></div>
             <div class="card-value">₹ 36.65 L</div>
+            <div class="card-subnote">from 7 of 14 proposals with a fund figure</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Awarded Value</div>
+            <div class="card-label">Awarded Value<span class="tip">ⓘ<span class="tip-bubble">Total funding already confirmed by donors.</span></span></div>
             <div class="card-value">₹ 93.50 L</div>
+            <div class="card-subnote">from 7 of 14 proposals with a fund figure</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Largest awarded</div>
+            <div class="card-label">Largest awarded<span class="tip">ⓘ<span class="tip-bubble">The single biggest grant confirmed so far, within your geographies.</span></span></div>
             <div class="card-value">₹ 90.00 L</div>
+            <div class="card-subnote">from 7 of 14 proposals with a fund figure</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Largest in pipeline</div>
+            <div class="card-label">Largest in pipeline<span class="tip">ⓘ<span class="tip-bubble">The single biggest opportunity still open, within your geographies.</span></span></div>
             <div class="card-value">₹ 36.00 L</div>
+            <div class="card-subnote">from 7 of 14 proposals with a fund figure</div>
           </div>
         </div>
       </section>
@@ -1292,19 +1451,19 @@
         <h2 class="section-heading">Stage Distribution</h2>
         <div class="card-row card-row-4">
           <div class="stat-card">
-            <div class="card-label">Early Stage (Outreach + Pitching)</div>
+            <div class="card-label">Early Stage (Outreach + Pitching)<span class="tip">ⓘ<span class="tip-bubble">Opportunities at first contact or pitching — the top of the funnel.</span></span></div>
             <div class="card-value">7</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Mid Stage (Concept + Proposal)</div>
+            <div class="card-label">Mid Stage (Concept + Proposal)<span class="tip">ⓘ<span class="tip-bubble">A concept note or full proposal is with the donor.</span></span></div>
             <div class="card-value">1</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Near close (MoU)</div>
+            <div class="card-label">Near close (MoU)<span class="tip">ⓘ<span class="tip-bubble">Close to a deal — a Memorandum of Understanding (the near-final agreement) is in progress.</span></span></div>
             <div class="card-value">6</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Stalled (30+ days)</div>
+            <div class="card-label">Stalled (30+ days)<span class="tip">ⓘ<span class="tip-bubble">Opportunities with no movement for over 30 days — they need attention.</span></span></div>
             <div class="card-value">11</div>
           </div>
         </div>
@@ -1459,6 +1618,42 @@
           </div><!-- /h-bar-chart -->
 
         </div><!-- /chart-card -->
+
+        <!-- Stage Glossary -->
+        <div class="glossary">
+          <div class="glossary-title">What each stage means</div>
+          <div class="glossary-grid">
+            <div class="glossary-item">
+              <span class="glossary-stage">Initial outreach / Initial Conversation</span>
+              <span class="glossary-meaning">First contact has been made with the donor.</span>
+            </div>
+            <div class="glossary-item">
+              <span class="glossary-stage">Concept Note</span>
+              <span class="glossary-meaning">A short summary of the proposed project has been shared with the donor.</span>
+            </div>
+            <div class="glossary-item">
+              <span class="glossary-stage">Proposal</span>
+              <span class="glossary-meaning">A full proposal has been submitted to the donor.</span>
+            </div>
+            <div class="glossary-item">
+              <span class="glossary-stage">MoU (incl. MoU WIP)</span>
+              <span class="glossary-meaning">Memorandum of Understanding — the near-final agreement before the grant. 'WIP' means it is still being drafted.</span>
+            </div>
+            <div class="glossary-item">
+              <span class="glossary-stage">Grant Awarded</span>
+              <span class="glossary-meaning">The donor has confirmed the grant.</span>
+            </div>
+            <div class="glossary-item">
+              <span class="glossary-stage">Project on Hold</span>
+              <span class="glossary-meaning">Paused for now; may resume later.</span>
+            </div>
+            <div class="glossary-item">
+              <span class="glossary-stage">Lost opportunity</span>
+              <span class="glossary-meaning">Did not proceed.</span>
+            </div>
+          </div>
+        </div><!-- /glossary -->
+
       </section>
 
       <!-- ============================================================
@@ -1470,16 +1665,17 @@
         <!-- 3 stat cards -->
         <div class="card-row card-row-3">
           <div class="stat-card">
-            <div class="card-label">Total Proposals</div>
+            <div class="card-label">Total Proposals<span class="tip">ⓘ<span class="tip-bubble">Count of all proposals in your scope.</span></span></div>
             <div class="card-value">14</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Proposals with Fund</div>
+            <div class="card-label">Proposals with Fund<span class="tip">ⓘ<span class="tip-bubble">How many proposals have a fund amount entered (the rest are blank).</span></span></div>
             <div class="card-value">7</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Total Fund Ask</div>
+            <div class="card-label">Total Fund Ask<span class="tip">ⓘ<span class="tip-bubble">Total funding requested across proposals that have a figure entered.</span></span></div>
             <div class="card-value">₹ 5.13 K</div>
+            <div class="card-subnote">from 7 of 14 proposals with a fund figure</div>
           </div>
         </div>
 
@@ -1634,6 +1830,7 @@
           <!-- Right: Proposals by state (India choropleth placeholder) -->
           <div class="placeholder-card">
             <div class="placeholder-card-title">Proposals by state</div>
+            <div class="card-subnote" style="margin-top:-10px; margin-bottom:10px;">Map reflects only your assigned states.</div>
             <div class="map-placeholder">
               <div class="map-placeholder-inner">
                 <!-- Simplified India silhouette as a styled shape -->
@@ -1677,15 +1874,15 @@
         <!-- 3 stat cards -->
         <div class="card-row card-row-3">
           <div class="stat-card">
-            <div class="card-label">Lost Opportunities</div>
+            <div class="card-label">Lost Opportunities<span class="tip">ⓘ<span class="tip-bubble">Opportunities that did not proceed.</span></span></div>
             <div class="card-value">4</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Lost Opportunity Value</div>
+            <div class="card-label">Lost Opportunity Value<span class="tip">ⓘ<span class="tip-bubble">Total funding value of the opportunities we lost.</span></span></div>
             <div class="card-value">₹ 50.00 K</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Potential to re-engage</div>
+            <div class="card-label">Potential to re-engage<span class="tip">ⓘ<span class="tip-bubble">Lost opportunities the team marked as worth revisiting later.</span></span></div>
             <div class="card-value">1</div>
           </div>
         </div>
@@ -1787,15 +1984,15 @@
         <!-- 3 stat cards -->
         <div class="card-row card-row-3">
           <div class="stat-card">
-            <div class="card-label">Stalled</div>
+            <div class="card-label">Stalled<span class="tip">ⓘ<span class="tip-bubble">Opportunities with no stage movement for over 30 days.</span></span></div>
             <div class="card-value">11</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Stalled value</div>
+            <div class="card-label">Stalled value<span class="tip">ⓘ<span class="tip-bubble">Total funding value sitting in stalled opportunities.</span></span></div>
             <div class="card-value">₹ 35.00 K</div>
           </div>
           <div class="stat-card">
-            <div class="card-label">Stalled at advanced stages (Concept + Proposal + MoU)</div>
+            <div class="card-label">Stalled at advanced stages (Concept + Proposal + MoU)<span class="tip">ⓘ<span class="tip-bubble">Stalled opportunities that were already close to a deal — the most urgent to chase.</span></span></div>
             <div class="card-value">4</div>
           </div>
         </div>
