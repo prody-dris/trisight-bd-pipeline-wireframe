@@ -1165,6 +1165,33 @@
     }
 
     /* ================================================================
+       GLOSSARY COLLAPSIBLE
+       ================================================================ */
+    .glossary-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      padding: 0;
+      margin-bottom: 0;
+    }
+    .glossary-toggle .glossary-chevron {
+      font-size: 12px;
+      color: var(--label);
+      flex-shrink: 0;
+    }
+    .glossary.collapsed .glossary-body {
+      display: none;
+    }
+    .glossary.collapsed .glossary-toggle {
+      margin-bottom: 0;
+    }
+    .glossary:not(.collapsed) .glossary-toggle {
+      margin-bottom: 12px;
+    }
+
+    /* ================================================================
        DRILL MODAL
        ================================================================ */
     .drill-overlay {
@@ -1635,36 +1662,41 @@
         </div><!-- /chart-card -->
 
         <!-- Stage Glossary -->
-        <div class="glossary">
-          <div class="glossary-title">What each stage means</div>
-          <div class="glossary-grid">
-            <div class="glossary-item">
-              <span class="glossary-stage">Initial outreach / Initial Conversation</span>
-              <span class="glossary-meaning">First contact has been made with the donor.</span>
-            </div>
-            <div class="glossary-item">
-              <span class="glossary-stage">Concept Note</span>
-              <span class="glossary-meaning">A short summary of the proposed project has been shared with the donor.</span>
-            </div>
-            <div class="glossary-item">
-              <span class="glossary-stage">Proposal</span>
-              <span class="glossary-meaning">A full proposal has been submitted to the donor.</span>
-            </div>
-            <div class="glossary-item">
-              <span class="glossary-stage">MoU (incl. MoU WIP)</span>
-              <span class="glossary-meaning">Memorandum of Understanding — the near-final agreement before the grant. 'WIP' means it is still being drafted.</span>
-            </div>
-            <div class="glossary-item">
-              <span class="glossary-stage">Grant Awarded</span>
-              <span class="glossary-meaning">The donor has confirmed the grant.</span>
-            </div>
-            <div class="glossary-item">
-              <span class="glossary-stage">Project on Hold</span>
-              <span class="glossary-meaning">Paused for now; may resume later.</span>
-            </div>
-            <div class="glossary-item">
-              <span class="glossary-stage">Lost opportunity</span>
-              <span class="glossary-meaning">Did not proceed.</span>
+        <div class="glossary collapsed" id="stageGlossary">
+          <div class="glossary-title glossary-toggle" id="glossaryToggle">
+            What each stage means
+            <span class="glossary-chevron" id="glossaryChevron">▸</span>
+          </div>
+          <div class="glossary-body">
+            <div class="glossary-grid">
+              <div class="glossary-item">
+                <span class="glossary-stage">Initial outreach / Initial Conversation</span>
+                <span class="glossary-meaning">First contact has been made with the donor.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">Concept Note</span>
+                <span class="glossary-meaning">A short summary of the proposed project has been shared with the donor.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">Proposal</span>
+                <span class="glossary-meaning">A full proposal has been submitted to the donor.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">MoU (incl. MoU WIP)</span>
+                <span class="glossary-meaning">Memorandum of Understanding — the near-final agreement before the grant. 'WIP' means it is still being drafted.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">Grant Awarded</span>
+                <span class="glossary-meaning">The donor has confirmed the grant.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">Project on Hold</span>
+                <span class="glossary-meaning">Paused for now; may resume later.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">Lost opportunity</span>
+                <span class="glossary-meaning">Did not proceed.</span>
+              </div>
             </div>
           </div>
         </div><!-- /glossary -->
@@ -1823,23 +1855,23 @@
            SECTION 7: LOST OPPORTUNITY
            ============================================================ -->
       <section class="section" id="section-lost-opportunity">
-        <h2 class="section-heading">Lost Opportunity</h2>
+        <h2 class="section-heading">Opportunities Not Secured</h2>
 
         <!-- 3 stat cards -->
         <div class="card-row card-row-3">
           <div class="stat-card" data-segment="lost-count">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Lost Opportunities<span class="tip">ⓘ<span class="tip-bubble">Opportunities that did not proceed.</span></span></div>
+            <div class="card-label">Not Secured<span class="tip">ⓘ<span class="tip-bubble">Opportunities that did not proceed.</span></span></div>
             <div class="card-value" id="m-lost-count">—</div>
           </div>
           <div class="stat-card" data-segment="lost-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Lost Opportunity Value<span class="tip">ⓘ<span class="tip-bubble">Total funding value of the opportunities we lost.</span></span></div>
+            <div class="card-label">Value Not Secured<span class="tip">ⓘ<span class="tip-bubble">Total funding value of the opportunities we lost.</span></span></div>
             <div class="card-value" id="m-lost-value">—</div>
           </div>
           <div class="stat-card" data-segment="reengage">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Potential to re-engage<span class="tip">ⓘ<span class="tip-bubble">Lost opportunities the team marked as worth revisiting later.</span></span></div>
+            <div class="card-label">Worth Re-engaging<span class="tip">ⓘ<span class="tip-bubble">Lost opportunities the team marked as worth revisiting later.</span></span></div>
             <div class="card-value" id="m-reengage">—</div>
           </div>
         </div>
@@ -1847,7 +1879,7 @@
         <!-- Lost Opportunity Details table -->
         <div class="table-card">
           <div class="table-card-header">
-            <div class="table-card-title">Lost Opportunity – Details</div>
+            <div class="table-card-title">Not Secured – Details</div>
             <div class="table-actions">
               <button class="btn btn-ghost">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11M3 6.5h7M5 10h3"/></svg>
@@ -2065,14 +2097,14 @@
      CHART STAGES — fixed display order
   ================================================================ */
   const CHART_STAGES = [
-    'Initial outreach',
-    'MoU',
-    'Lost opportunity',
-    'Grant Awarded',
-    'Concept Note',
     'Initial Conversation',
-    'Project on Hold',
+    'Initial outreach',
+    'Concept Note',
     'Proposal',
+    'MoU',
+    'Grant Awarded',
+    'Project on Hold',
+    'Lost opportunity',
   ];
 
   /* ================================================================
@@ -2312,9 +2344,9 @@
     'fin-total':      { label: 'Total Proposals',                  fn: p => true },
     'fin-with-fund':  { label: 'Proposals with Fund',              fn: p => p.fund !== null },
     'fin-total-ask':  { label: 'Total Fund Ask',                   fn: p => p.fund !== null },
-    'lost-count':     { label: 'Lost Opportunities',               fn: p => p.stage === 'Lost opportunity' },
-    'lost-value':     { label: 'Lost Opportunity Value',           fn: p => p.stage === 'Lost opportunity' && p.fund !== null },
-    'reengage':       { label: 'Potential to Re-engage',           fn: p => p.stage === 'Lost opportunity' && p.reengage === 'Yes' },
+    'lost-count':     { label: 'Not Secured',                      fn: p => p.stage === 'Lost opportunity' },
+    'lost-value':     { label: 'Value Not Secured',                fn: p => p.stage === 'Lost opportunity' && p.fund !== null },
+    'reengage':       { label: 'Worth Re-engaging',                fn: p => p.stage === 'Lost opportunity' && p.reengage === 'Yes' },
     'stalled-count':  { label: 'Stalled',                          fn: isStalled },
     'stalled-value':  { label: 'Stalled Value',                    fn: p => isStalled(p) && p.fund !== null },
     'stalled-advanced':{ label: 'Stalled at Advanced Stages',      fn: p => isStalled(p) && ['Concept Note','Proposal','MoU'].includes(p.stage) },
@@ -2574,6 +2606,16 @@
       btn.classList.add('active');
     });
   }
+
+  /* ================================================================
+     GLOSSARY TOGGLE
+  ================================================================ */
+  document.getElementById('glossaryToggle').addEventListener('click', function() {
+    const glossary = document.getElementById('stageGlossary');
+    const chevron  = document.getElementById('glossaryChevron');
+    const collapsed = glossary.classList.toggle('collapsed');
+    chevron.textContent = collapsed ? '▸' : '▾';
+  });
 
   /* ================================================================
      INITIALISE — render My Pipeline scope on load
