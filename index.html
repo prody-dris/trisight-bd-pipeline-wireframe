@@ -1079,19 +1079,8 @@
     }
 
     /* ================================================================
-       TOOLTIP COMPONENT (Change 3a)
+       TOOLTIP COMPONENT — .tip enhanced in bottom of style block
        ================================================================ */
-    .tip {
-      display: inline-block;
-      position: relative;
-      margin-left: 4px;
-      vertical-align: middle;
-      cursor: default;
-      color: #bbb;
-      font-size: 13px;
-      line-height: 1;
-      overflow: visible;
-    }
     .tip-bubble {
       display: none;
       position: absolute;
@@ -1653,6 +1642,112 @@
       text-align: center;
     }
 
+    /* ================================================================
+       DRILL-DOWN MODAL (Change 6)
+       ================================================================ */
+    #drillModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+    }
+    #drillModal.open { display: flex; align-items: center; justify-content: center; }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.38);
+      cursor: pointer;
+    }
+    .modal-panel {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      width: 90%;
+      max-width: 820px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--value);
+    }
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: var(--label);
+      transition: background 0.12s, color 0.12s;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { background: #f0f0f0; color: var(--text-primary); }
+    .modal-body {
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-body::-webkit-scrollbar { width: 6px; }
+    .modal-body::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+    .modal-empty {
+      padding: 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .modal-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 10px;
+      font-weight: 400;
+    }
+
+    /* ================================================================
+       TOOLTIP — enhanced (i) icon (Change 7)
+       ================================================================ */
+    .tip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #ccc;
+      background: #f7f7f7;
+      position: relative;
+      margin-left: 5px;
+      vertical-align: middle;
+      cursor: default;
+      font-size: 10px;
+      font-weight: 700;
+      color: #999;
+      line-height: 1;
+      overflow: visible;
+      transition: border-color 0.12s, color 0.12s;
+      font-style: normal;
+    }
+    .tip:hover {
+      border-color: var(--maroon);
+      color: var(--maroon);
+      background: var(--maroon-dim);
+    }
+
   </style>
 </head>
 
@@ -1928,6 +2023,14 @@
           <option value="foreign">Foreign</option>
         </select>
 
+        <select class="filter-select" id="filterAnchor">
+          <option value="">Grant Anchor</option>
+          <option value="Grant Anchor 1">Grant Anchor 1</option>
+          <option value="Grant Anchor 2">Grant Anchor 2</option>
+          <option value="Grant Anchor 3">Grant Anchor 3</option>
+          <option value="Grant Anchor 4">Grant Anchor 4</option>
+        </select>
+
         <div class="filter-date-wrap">
           <span class="filter-date-icon">📅</span>
           <input type="text" class="filter-date-input" placeholder="Lead Generation Date" />
@@ -1947,99 +2050,35 @@
         <div class="card-row card-row-4">
           <div class="stat-card" data-segment="total">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Total in Pipeline<span class="tip">ⓘ<span class="tip-bubble">Every active funding opportunity we're working on right now.</span></span></div>
+            <div class="card-label">Total in Pipeline<span class="tip">i<span class="tip-bubble">Every proposal in your current view, across all stages.</span></span></div>
             <div class="card-value" id="m-total">—</div>
           </div>
           <div class="stat-card" data-segment="new-leads">
             <span class="drill-icon">↗</span>
-            <div class="card-label">New leads (last 30 days)<span class="tip">ⓘ<span class="tip-bubble">Opportunities that entered the pipeline in the last 30 days.</span></span></div>
+            <div class="card-label">New leads (last 30 days)<span class="tip">i<span class="tip-bubble">Proposals that entered the pipeline (Initial Conversation or Initial Outreach) within the last 30 days.</span></span></div>
             <div class="card-value" id="m-new-leads">—</div>
           </div>
           <div class="stat-card" data-segment="awarded">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Awarded<span class="tip">ⓘ<span class="tip-bubble">Opportunities where the donor has confirmed the grant.</span></span></div>
+            <div class="card-label">Awarded<span class="tip">i<span class="tip-bubble">Proposals where the donor has confirmed the grant.</span></span></div>
             <div class="card-value" id="m-awarded">—</div>
           </div>
           <div class="stat-card" data-segment="active-donors">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Active donors<span class="tip">ⓘ<span class="tip-bubble">Donors we currently have a live opportunity with.</span></span></div>
+            <div class="card-label">In Conversation<span class="tip">i<span class="tip-bubble">Live conversations: Concept Note + Proposal + MoU (WIP). Excludes Initial Outreach, MoU Signed, Awarded, On Hold and Not Secured.</span></span></div>
             <div class="card-value" id="m-active-donors">—</div>
           </div>
         </div>
       </section>
 
       <!-- ============================================================
-           SECTION 2: FUND VALUE
-           ============================================================ -->
-      <section class="section" id="section-fund-value">
-        <div class="section-heading-row">
-          <h2 class="section-heading">Fund Value</h2>
-          <span class="coverage-chip" id="m-coverage-chip">—</span>
-        </div>
-        <div class="card-row card-row-4">
-          <div class="stat-card" data-segment="pipeline-value">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Pipeline Value<span class="tip">ⓘ<span class="tip-bubble">Total funding we could win, added up across opportunities that have a fund figure entered. Fund amounts are optional, so this is a partial total.</span></span></div>
-            <div class="card-value" id="m-pipeline-value">—</div>
-            <div class="card-subnote" id="m-pipeline-value-note">—</div>
-          </div>
-          <div class="stat-card" data-segment="awarded-value">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Awarded Value<span class="tip">ⓘ<span class="tip-bubble">Total funding already confirmed by donors.</span></span></div>
-            <div class="card-value" id="m-awarded-value">—</div>
-            <div class="card-subnote" id="m-awarded-value-note">—</div>
-          </div>
-          <div class="stat-card" data-segment="largest-awarded">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Largest awarded<span class="tip">ⓘ<span class="tip-bubble">The single biggest grant confirmed so far, within your current view.</span></span></div>
-            <div class="card-value" id="m-largest-awarded">—</div>
-            <div class="card-subnote" id="m-largest-awarded-note">—</div>
-          </div>
-          <div class="stat-card" data-segment="largest-pipeline">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Largest in pipeline<span class="tip">ⓘ<span class="tip-bubble">The single biggest opportunity still open, within your current view.</span></span></div>
-            <div class="card-value" id="m-largest-pipeline">—</div>
-            <div class="card-subnote" id="m-largest-pipeline-note">—</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           SECTION 3: STAGE DISTRIBUTION
-           ============================================================ -->
-      <section class="section" id="section-stage-distribution">
-        <h2 class="section-heading">Stage Distribution</h2>
-        <div class="card-row card-row-4">
-          <div class="stat-card" data-segment="early">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Early Stage (Outreach + Pitching)<span class="tip">ⓘ<span class="tip-bubble">Opportunities at first contact or pitching — the top of the funnel.</span></span></div>
-            <div class="card-value" id="m-early">—</div>
-          </div>
-          <div class="stat-card" data-segment="mid">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Mid Stage (Concept + Proposal)<span class="tip">ⓘ<span class="tip-bubble">A concept note or full proposal is with the donor.</span></span></div>
-            <div class="card-value" id="m-mid">—</div>
-          </div>
-          <div class="stat-card" data-segment="mou">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Near close (MoU)<span class="tip">ⓘ<span class="tip-bubble">Close to a deal — a Memorandum of Understanding (the near-final agreement) is in progress.</span></span></div>
-            <div class="card-value" id="m-mou">—</div>
-          </div>
-          <div class="stat-card" data-segment="stalled-card">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Stalled (30+ days)<span class="tip">ⓘ<span class="tip-bubble">Opportunities with no movement for over 30 days — they need attention.</span></span></div>
-            <div class="card-value" id="m-stalled-dist">—</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============================================================
-           SECTION 4: PIPELINE BY STAGE (Horizontal Bar Chart)
+           SECTION 2: STAGE DISTRIBUTION (bar chart only — no stat cards)
            ============================================================ -->
       <section class="section" id="section-pipeline-chart">
+        <h2 class="section-heading">Stage Distribution</h2>
         <div class="chart-card">
           <div class="chart-card-header">
-            <div class="chart-card-title">Stage Distribution (Count of entries per pipeline stage)</div>
+            <div class="chart-card-title">Count of proposals per pipeline stage — click a bar to drill in</div>
             <button class="icon-btn" title="More options">⋯</button>
           </div>
 
@@ -2057,7 +2096,11 @@
           <div class="glossary-body">
             <div class="glossary-grid">
               <div class="glossary-item">
-                <span class="glossary-stage">Initial outreach / Initial Conversation</span>
+                <span class="glossary-stage">Initial Conversation</span>
+                <span class="glossary-meaning">First discussion with the donor — no formal submission yet.</span>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-stage">Initial outreach</span>
                 <span class="glossary-meaning">First contact has been made with the donor.</span>
               </div>
               <div class="glossary-item">
@@ -2070,11 +2113,11 @@
               </div>
               <div class="glossary-item">
                 <span class="glossary-stage">MoU WIP</span>
-                <span class="glossary-meaning">Memorandum of Understanding still being drafted.</span>
+                <span class="glossary-meaning">Memorandum of Understanding still being drafted — close to a deal.</span>
               </div>
               <div class="glossary-item">
                 <span class="glossary-stage">MoU Signed</span>
-                <span class="glossary-meaning">The MoU has been signed — the near-final agreement before the grant is in place.</span>
+                <span class="glossary-meaning">The MoU has been signed — the near-final agreement before the grant is confirmed.</span>
               </div>
               <div class="glossary-item">
                 <span class="glossary-stage">Grant Awarded</span>
@@ -2095,28 +2138,35 @@
       </section>
 
       <!-- ============================================================
-           SECTION 5: FINANCIAL OVERVIEW
+           SECTION 3: FINANCIAL OVERVIEW (consolidated — was §2+§5)
            ============================================================ -->
       <section class="section" id="section-financial-overview">
         <h2 class="section-heading">Financial Overview</h2>
 
-        <!-- 3 stat cards -->
-        <div class="card-row card-row-3">
+        <!-- 4 stat cards -->
+        <div class="card-row card-row-4">
           <div class="stat-card" data-segment="fin-total">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Total Proposals<span class="tip">ⓘ<span class="tip-bubble">Proposals currently in conversation — Initial Outreach through MoU Signed. Excludes Awarded, On Hold and Not Secured.</span></span></div>
+            <div class="card-label">Total Proposals<span class="tip">i<span class="tip-bubble">All live proposals — everything except Awarded, On Hold and Not Secured. Same basis as Stalled.</span></span></div>
             <div class="card-value" id="m-fin-total">—</div>
           </div>
-          <div class="stat-card" data-segment="fin-with-fund">
+          <div class="stat-card" data-segment="pipeline-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Proposals with Fund<span class="tip">ⓘ<span class="tip-bubble">How many proposals have a fund amount entered (the rest are blank).</span></span></div>
-            <div class="card-value" id="m-fin-with-fund">—</div>
+            <div class="card-label">Pipeline Value<span class="tip">i<span class="tip-bubble">Total funding in play across in-conversation proposals (Concept + Proposal + MoU WIP) that have a fund figure. Fund is optional, so this is partial.</span></span></div>
+            <div class="card-value" id="m-pipeline-value">—</div>
+            <div class="card-subnote" id="m-pipeline-value-note">—</div>
           </div>
-          <div class="stat-card" data-segment="fin-total-ask">
+          <div class="stat-card" data-segment="largest-pipeline">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Total Fund Ask<span class="tip">ⓘ<span class="tip-bubble">Total funding requested across proposals that have a figure entered.</span></span></div>
-            <div class="card-value" id="m-fin-total-ask">—</div>
-            <div class="card-subnote" id="m-fin-total-ask-note">—</div>
+            <div class="card-label">Largest in Pipeline<span class="tip">i<span class="tip-bubble">Biggest single in-conversation opportunity, by fund requested.</span></span></div>
+            <div class="card-value" id="m-largest-pipeline">—</div>
+            <div class="card-subnote" id="m-largest-pipeline-note">—</div>
+          </div>
+          <div class="stat-card" data-segment="awarded-value">
+            <span class="drill-icon">↗</span>
+            <div class="card-label">Awarded Value<span class="tip">i<span class="tip-bubble">Total sanctioned amount across all Awarded proposals for the selected financial year.</span></span></div>
+            <div class="card-value" id="m-awarded-value">—</div>
+            <div class="card-subnote" id="m-awarded-value-note">—</div>
           </div>
         </div>
 
@@ -2147,7 +2197,6 @@
                 <th>Grant Anchor</th>
                 <th>Funding Type</th>
                 <th>Fund Requested (INR)</th>
-                <th>Pipeline Stage</th>
                 <th></th>
               </tr>
             </thead>
@@ -2167,7 +2216,7 @@
       </section>
 
       <!-- ============================================================
-           SECTION 6: PORTFOLIO DISTRIBUTION
+           SECTION 4: PORTFOLIO DISTRIBUTION
            ============================================================ -->
       <section class="section" id="section-portfolio-distribution">
         <h2 class="section-heading">Portfolio Distribution</h2>
@@ -2252,17 +2301,17 @@
         <div class="card-row card-row-3">
           <div class="stat-card" data-segment="lost-count">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Not Secured<span class="tip">ⓘ<span class="tip-bubble">Opportunities that did not proceed.</span></span></div>
+            <div class="card-label">Not Secured<span class="tip">i<span class="tip-bubble">Opportunities that did not proceed.</span></span></div>
             <div class="card-value" id="m-lost-count">—</div>
           </div>
           <div class="stat-card" data-segment="lost-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Value Not Secured<span class="tip">ⓘ<span class="tip-bubble">Total funding value of the opportunities we lost.</span></span></div>
+            <div class="card-label">Value Not Secured<span class="tip">i<span class="tip-bubble">Total funding value of the opportunities we lost.</span></span></div>
             <div class="card-value" id="m-lost-value">—</div>
           </div>
           <div class="stat-card" data-segment="reengage">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Worth Re-engaging<span class="tip">ⓘ<span class="tip-bubble">Lost opportunities the team marked as worth revisiting later.</span></span></div>
+            <div class="card-label">Worth Re-engaging<span class="tip">i<span class="tip-bubble">Lost opportunities the team marked as worth revisiting later.</span></span></div>
             <div class="card-value" id="m-reengage">—</div>
           </div>
         </div>
@@ -2323,22 +2372,22 @@
         <h2 class="section-heading">Stalled Proposals</h2>
         <p class="section-subtitle">Proposals with no stage movement in 30+ days</p>
 
-        <!-- 3 stat cards -->
+        <!-- 3 stat cards: Stalled → Stalled at MoU stage → Total Stalled Value -->
         <div class="card-row card-row-3">
           <div class="stat-card" data-segment="stalled-count">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Stalled<span class="tip">ⓘ<span class="tip-bubble">Opportunities with no stage movement for over 30 days.</span></span></div>
+            <div class="card-label">Stalled<span class="tip">i<span class="tip-bubble">No stage movement in 30+ days. Everything except Awarded, On Hold and Not Secured — includes Initial Outreach and MoU Signed.</span></span></div>
             <div class="card-value" id="m-stalled-count">—</div>
-          </div>
-          <div class="stat-card" data-segment="stalled-value">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Stalled value<span class="tip">ⓘ<span class="tip-bubble">Total funding value sitting in stalled opportunities.</span></span></div>
-            <div class="card-value" id="m-stalled-value">—</div>
           </div>
           <div class="stat-card" data-segment="stalled-advanced">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Stalled at advanced stages (Concept + Proposal + MoU WIP + MoU Signed)<span class="tip">ⓘ<span class="tip-bubble">Stalled opportunities that were already close to a deal — the most urgent to chase.</span></span></div>
+            <div class="card-label">Stalled at MoU stage<span class="tip">i<span class="tip-bubble">Stalled proposals sitting at MoU (WIP) — closest to a deal, most urgent to chase. Excludes MoU Signed.</span></span></div>
             <div class="card-value" id="m-stalled-advanced">—</div>
+          </div>
+          <div class="stat-card" data-segment="stalled-value">
+            <span class="drill-icon">↗</span>
+            <div class="card-label">Total Stalled Value<span class="tip">i<span class="tip-bubble">Total fund value sitting in stalled proposals.</span></span></div>
+            <div class="card-value" id="m-stalled-value">—</div>
           </div>
         </div>
 
@@ -2368,7 +2417,7 @@
                 <th>Proposal Name</th>
                 <th>Donor Name</th>
                 <th>Stage</th>
-                <th>Days since update</th>
+                <th>Stage movement</th>
                 <th>Funding Type</th>
                 <th></th>
               </tr>
@@ -2560,6 +2609,28 @@
 </div><!-- /app-shell -->
 
 <!-- ================================================================
+     DRILL-DOWN MODAL
+     ================================================================ -->
+<div id="drillModal">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <div>
+        <span class="modal-title" id="modalTitle">—</span>
+        <span class="modal-count" id="modalCount"></span>
+      </div>
+      <button class="modal-close" id="modalClose">×</button>
+    </div>
+    <div class="modal-body">
+      <table class="data-table" id="modalTable">
+        <thead id="modalThead"></thead>
+        <tbody id="modalTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
      JAVASCRIPT — data-driven render engine + interactions
      ================================================================ -->
 <script>
@@ -2567,20 +2638,30 @@
      DATASET — single source of truth
   ================================================================ */
   const PROPOSALS = [
-    {id:'P-001', name:'Rural WASH Initiative',        donor:'Asha Kiran Trust',     anchor:'Grant Anchor 1',  stage:'MoU WIP',              funding:'Indian',  fund:36.0, days:12, lostReason:'', reengage:''},
-    {id:'P-002', name:'Girls Education Access',        donor:'Vidya Foundation',     anchor:'Grant Anchor 1',  stage:'Initial outreach',     funding:'Indian',  fund:null, days:42, lostReason:'', reengage:''},
-    {id:'P-003', name:'Clean Energy Villages',         donor:'GreenEarth Fund',      anchor:'Grant Anchor 1',  stage:'Concept Note',         funding:'Foreign', fund:12.0, days:8,  lostReason:'', reengage:''},
-    {id:'P-004', name:'Farmer Livelihoods Programme',  donor:'Annadata Trust',       anchor:'Grant Anchor 1',  stage:'Grant Awarded',        funding:'Indian',  fund:90.0, days:3,  lostReason:'', reengage:'', sanctioned:79.2},
-    {id:'P-005', name:'Maternal Health Drive',         donor:'Arogya Foundation',    anchor:'Grant Anchor 1',  stage:'Lost opportunity',     funding:'Indian',  fund:5.0,  days:20, lostReason:'Donor priorities did not match the programme', reengage:''},
-    {id:'P-006', name:'Watershed Management',          donor:'BlueDrop Foundation',  anchor:'Rahul Verma', stage:'Initial outreach',     funding:'Foreign', fund:22.0, days:41, lostReason:'', reengage:''},
-    {id:'P-007', name:'Skill Development Hubs',        donor:'Kaushal Trust',        anchor:'Rahul Verma', stage:'MoU Signed',           funding:'Indian',  fund:15.0, days:36, lostReason:'', reengage:''},
-    {id:'P-008', name:'Nutrition for Children',        donor:'Poshan Fund',          anchor:'Rahul Verma', stage:'Initial Conversation', funding:'Indian',  fund:null, days:5,  lostReason:'', reengage:''},
-    {id:'P-009', name:'Digital Literacy Rural',        donor:'TechSeva Foundation',  anchor:'Anjali Rao',  stage:'Initial outreach',     funding:'Indian',  fund:8.0,  days:42, lostReason:'', reengage:''},
-    {id:'P-010', name:'Women Entrepreneurship',        donor:'Shakti Trust',         anchor:'Anjali Rao',  stage:'Grant Awarded',        funding:'Foreign', fund:50.0, days:6,  lostReason:'', reengage:'', sanctioned:44.0},
-    {id:'P-011', name:'Sanitation Coverage',           donor:'Nirmal Fund',          anchor:'Anjali Rao',  stage:'Lost opportunity',     funding:'Indian',  fund:null, days:25, lostReason:'Lapsed before the concept note stage', reengage:'Yes'},
-    {id:'P-012', name:'Tribal Health Outreach',        donor:'Vanbandhu Trust',      anchor:'Sameer Khan', stage:'MoU WIP',              funding:'Indian',  fund:null, days:38, lostReason:'', reengage:''},
-    {id:'P-013', name:'Water Conservation',            donor:'AquaLife Foundation',  anchor:'Sameer Khan', stage:'Lost opportunity',     funding:'Indian',  fund:12.0, days:30, lostReason:'Geography did not align', reengage:''},
-    {id:'P-014', name:'Renewable Microgrids',          donor:'SolarAid',             anchor:'Sameer Khan', stage:'Lost opportunity',     funding:'Foreign', fund:null, days:18, lostReason:'Lost to a competing proposal', reengage:''},
+    // Grant Anchor 1 — "mine" scope proposals
+    {id:'P-001', name:'Rural WASH Initiative',            donor:'Asha Kiran Trust',       anchor:'Grant Anchor 1', stage:'MoU WIP',              funding:'Indian',  fund:36.0,  days:12, lostReason:'', reengage:''},
+    {id:'P-002', name:'Girls Education Access Programme', donor:'Vidya Foundation',       anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:45, lostReason:'', reengage:''},
+    {id:'P-003', name:'Clean Energy Villages',            donor:'GreenEarth Fund',        anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Foreign', fund:18.0,  days:8,  lostReason:'', reengage:''},
+    {id:'P-004', name:'Farmer Livelihoods Programme',     donor:'Annadata Trust',         anchor:'Grant Anchor 1', stage:'Grant Awarded',        funding:'Indian',  fund:90.0,  days:3,  lostReason:'', reengage:'', sanctioned:79.2},
+    {id:'P-005', name:'Maternal Health Drive',            donor:'Arogya Foundation',      anchor:'Grant Anchor 1', stage:'Lost opportunity',     funding:'Indian',  fund:5.0,   days:20, lostReason:'Donor priorities did not match the programme', reengage:''},
+    // Grant Anchor 2
+    {id:'P-006', name:'Watershed Management',             donor:'BlueDrop Foundation',    anchor:'Grant Anchor 2', stage:'Initial outreach',     funding:'Foreign', fund:22.0,  days:41, lostReason:'', reengage:''},
+    {id:'P-007', name:'Skill Development Hubs',           donor:'Kaushal Trust',          anchor:'Grant Anchor 2', stage:'MoU Signed',           funding:'Indian',  fund:15.0,  days:38, lostReason:'', reengage:''},
+    {id:'P-008', name:'Nutrition for Children',           donor:'Poshan Fund',            anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:5,  lostReason:'', reengage:''},
+    {id:'P-009', name:'Digital Literacy for Rural Youth', donor:'TechSeva Foundation',    anchor:'Grant Anchor 2', stage:'Proposal',             funding:'Indian',  fund:8.0,   days:22, lostReason:'', reengage:''},
+    {id:'P-010', name:'Women Entrepreneurship Fund',      donor:'Shakti Trust',           anchor:'Grant Anchor 2', stage:'Grant Awarded',        funding:'Foreign', fund:50.0,  days:6,  lostReason:'', reengage:'', sanctioned:44.0},
+    // Grant Anchor 3
+    {id:'P-011', name:'Sanitation Coverage — Phase 2',   donor:'Nirmal Fund',            anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:25, lostReason:'Lapsed before the concept note stage', reengage:'Yes'},
+    {id:'P-012', name:'Tribal Health Outreach',           donor:'Vanbandhu Trust',        anchor:'Grant Anchor 3', stage:'MoU WIP',              funding:'Indian',  fund:null,  days:43, lostReason:'', reengage:''},
+    {id:'P-013', name:'Community Forest Rights',          donor:'Aranya Foundation',      anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Foreign', fund:28.0,  days:14, lostReason:'', reengage:''},
+    {id:'P-014', name:'Renewable Microgrids',             donor:'SolarAid India',         anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Foreign', fund:null,  days:18, lostReason:'Lost to a competing proposal', reengage:''},
+    {id:'P-015', name:'Adolescent Girls Leadership',      donor:'Nari Shakti Foundation', anchor:'Grant Anchor 3', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:7,  lostReason:'', reengage:''},
+    // Grant Anchor 4
+    {id:'P-016', name:'Water Conservation Rajasthan',     donor:'AquaLife Foundation',    anchor:'Grant Anchor 4', stage:'Lost opportunity',     funding:'Indian',  fund:12.0,  days:30, lostReason:'Geography did not align', reengage:''},
+    {id:'P-017', name:'Agri-Tech Smallholder Support',   donor:'Krishi Vikas Trust',     anchor:'Grant Anchor 4', stage:'Proposal',             funding:'Indian',  fund:45.0,  days:33, lostReason:'', reengage:''},
+    {id:'P-018', name:'Urban Slum Health Initiative',     donor:'Swasthya Foundation',    anchor:'Grant Anchor 4', stage:'MoU WIP',              funding:'Indian',  fund:120.0, days:19, lostReason:'', reengage:''},
+    {id:'P-019', name:'Early Childhood Education',        donor:'Shiksha Trust',          anchor:'Grant Anchor 4', stage:'Project on Hold',      funding:'Foreign', fund:null,  days:60, lostReason:'', reengage:''},
+    {id:'P-020', name:'Coastal Livelihood Restoration',   donor:'SamudraSeva Fund',       anchor:'Grant Anchor 4', stage:'MoU Signed',           funding:'Foreign', fund:55.0,  days:35, lostReason:'', reengage:''},
   ];
 
   /* ================================================================
@@ -2614,14 +2695,22 @@
   const ACTIVE_STAGES = new Set(['Initial Conversation', 'Initial outreach', 'Concept Note', 'Proposal', 'MoU WIP', 'MoU Signed', 'Project on Hold']);
   const TERMINAL      = new Set(['Grant Awarded', 'Lost opportunity']);
 
-  const IN_CONVERSATION = new Set(['Initial Conversation', 'Initial outreach', 'Concept Note', 'Proposal', 'MoU WIP', 'MoU Signed']);
+  // IN_CONVERSATION = Concept Note, Proposal, MoU WIP only (locked v8 definition)
+  const IN_CONVERSATION = new Set(['Concept Note', 'Proposal', 'MoU WIP']);
   function isInConversation(p) { return IN_CONVERSATION.has(p.stage); }
+
+  // ACTIVE POOL = every stage except terminal + Project on Hold
+  function isActivePool(p) {
+    return !['Grant Awarded', 'Project on Hold', 'Lost opportunity'].includes(p.stage);
+  }
 
   function isActive(p) {
     return !TERMINAL.has(p.stage);
   }
+
+  // Stalled = days > 30 AND in active pool (includes Initial stages + MoU Signed)
   function isStalled(p) {
-    return p.days > 30 && isInConversation(p);
+    return p.days > 30 && isActivePool(p);
   }
 
   /* ================================================================
@@ -2653,15 +2742,19 @@
   };
 
   /* ================================================================
-     CURRENT SCOPE STATE
+     CURRENT SCOPE STATE + ANCHOR FILTER
   ================================================================ */
   let currentScope = 'mine';
+  let currentAnchorFilter = '';
 
   function getScopedProposals(scope) {
-    // "mine" scope: in a real system this would be filtered to the logged-in user's proposals.
-    // For wireframe purposes, "mine" shows the first anchor's proposals (Grant Anchor 1).
-    if (scope === 'mine') return PROPOSALS.filter(p => p.anchor === PROPOSALS[0].anchor);
-    return PROPOSALS.slice();
+    // "mine" scope: for wireframe, "mine" shows Grant Anchor 1 proposals.
+    let base;
+    if (scope === 'mine') base = PROPOSALS.filter(p => p.anchor === PROPOSALS[0].anchor);
+    else base = PROPOSALS.slice();
+    // Apply anchor filter if set
+    if (currentAnchorFilter) base = base.filter(p => p.anchor === currentAnchorFilter);
+    return base;
   }
 
   /* ================================================================
@@ -2687,20 +2780,20 @@
     /* ==============================================================
        SECTION 1: PIPELINE OVERVIEW
     ============================================================== */
-    const total          = proposals.filter(isInConversation).length;
-    const newLeads       = proposals.filter(p => p.days <= 30 && EARLY_STAGES.includes(p.stage)).length;
-    const awardedCount   = proposals.filter(p => p.stage === 'Grant Awarded').length;
-    const activeDonors   = distinctDonors(proposals.filter(p => p.stage !== 'Lost opportunity'));
+    const total            = proposals.length;
+    const newLeads         = proposals.filter(p => p.days <= 30 && EARLY_STAGES.includes(p.stage)).length;
+    const awardedCount     = proposals.filter(p => p.stage === 'Grant Awarded').length;
+    const inConvCount      = proposals.filter(isInConversation).length;
 
     document.getElementById('m-total').textContent        = total;
     document.getElementById('m-new-leads').textContent    = newLeads;
     document.getElementById('m-awarded').textContent      = awardedCount;
-    document.getElementById('m-active-donors').textContent = activeDonors;
+    document.getElementById('m-active-donors').textContent = inConvCount;
 
     /* ==============================================================
-       SECTION 2: FUND VALUE
+       FINANCIAL OVERVIEW — computed values (used in §3 after bar chart)
     ============================================================== */
-    // Pipeline Value: In Conversation proposals with a fund figure
+    // In-conversation proposals (Concept Note + Proposal + MoU WIP)
     const inConvProposals = proposals.filter(isInConversation);
     const inConvWithFund  = inConvProposals.filter(p => p.fund !== null);
     const pipelineValue   = sumFund(inConvWithFund);
@@ -2712,41 +2805,10 @@
       return acc + amt;
     }, 0);
 
-    const largestAwarded  = maxFund(awardedProposals);
     const largestPipeline = maxFund(inConvProposals);
 
     const inConvTotal   = inConvProposals.length;
     const inConvFundCnt = inConvWithFund.length;
-    const inConvMissing = inConvTotal - inConvFundCnt;
-
-    document.getElementById('m-coverage-chip').textContent =
-      `⚠ ${inConvFundCnt} of ${inConvTotal} in-conversation proposals have a fund amount — ${inConvMissing} still need one`;
-
-    document.getElementById('m-pipeline-value').textContent      = fmtFund(pipelineValue);
-    document.getElementById('m-pipeline-value-note').textContent =
-      `from ${inConvFundCnt} of ${inConvTotal} in-conversation proposals with a fund figure`;
-
-    document.getElementById('m-awarded-value').textContent      = fmtFund(awardedValue);
-    document.getElementById('m-awarded-value-note').textContent = 'sanctioned amount';
-
-    document.getElementById('m-largest-awarded').textContent      = fmtFund(largestAwarded);
-    document.getElementById('m-largest-awarded-note').textContent = 'by fund size';
-
-    document.getElementById('m-largest-pipeline').textContent      = fmtFund(largestPipeline);
-    document.getElementById('m-largest-pipeline-note').textContent = 'in-conversation proposals';
-
-    /* ==============================================================
-       SECTION 3: STAGE DISTRIBUTION
-    ============================================================== */
-    const earlyCount   = proposals.filter(p => EARLY_STAGES.includes(p.stage)).length;
-    const midCount     = proposals.filter(p => MID_STAGES.includes(p.stage)).length;
-    const mouCount     = proposals.filter(p => p.stage === 'MoU WIP' || p.stage === 'MoU Signed').length;
-    const stalledCount = proposals.filter(isStalled).length;
-
-    document.getElementById('m-early').textContent      = earlyCount;
-    document.getElementById('m-mid').textContent        = midCount;
-    document.getElementById('m-mou').textContent        = mouCount;
-    document.getElementById('m-stalled-dist').textContent = stalledCount;
 
     /* ==============================================================
        SECTION 4: BAR CHART
@@ -2772,7 +2834,7 @@
         ? `width:${widthPct.toFixed(1)}%`
         : `width:${widthPct.toFixed(1)}%;background:${barColor}`;
       chartHTML += `
-        <div class="bar-row">
+        <div class="bar-row" data-stage="${stageName}" style="cursor:pointer;" title="Click to view ${cnt} proposals in '${stageName}'">
           <div class="bar-label">${stageName}</div>
           <div class="bar-track">
             <div class="bar-gridlines">
@@ -2797,21 +2859,33 @@
     chartEl.innerHTML = chartHTML + xHTML;
 
     /* ==============================================================
-       SECTION 5: FINANCIAL OVERVIEW
+       SECTION 3 (Financial Overview) — consolidated cards
     ============================================================== */
-    const finTotal    = proposals.filter(isInConversation).length;
-    const finWithFund = proposals.filter(p => p.fund !== null);
-    const totalFundAsk = sumFund(finWithFund);
+    // Card 1: Total Proposals = active pool (everything except Awarded, On Hold, Not Secured)
+    const finActivePool = proposals.filter(isActivePool);
 
-    document.getElementById('m-fin-total').textContent         = finTotal;
-    document.getElementById('m-fin-with-fund').textContent     = finWithFund.length;
-    document.getElementById('m-fin-total-ask').textContent     = fmtFund(totalFundAsk);
-    document.getElementById('m-fin-total-ask-note').textContent = `from ${finWithFund.length} of ${proposals.length} proposals with a fund figure`;
+    // Card 2: Pipeline Value = sum of fund over in-conversation proposals with a fund figure
+    // Card 3: Largest in Pipeline = max fund over in-conversation proposals
+
+    // Card 4: Awarded Value (already computed above as awardedValue)
+
+    document.getElementById('m-fin-total').textContent         = finActivePool.length;
+
+    document.getElementById('m-pipeline-value').textContent      = fmtFund(pipelineValue);
+    document.getElementById('m-pipeline-value-note').textContent =
+      `from ${inConvFundCnt} of ${inConvTotal} in-conversation proposals with a fund figure`;
+
+    document.getElementById('m-largest-pipeline').textContent      = fmtFund(largestPipeline);
+    document.getElementById('m-largest-pipeline-note').textContent = 'biggest in-conversation opportunity';
+
+    document.getElementById('m-awarded-value').textContent      = fmtFund(awardedValue);
+    document.getElementById('m-awarded-value-note').textContent = 'total sanctioned — selected financial year';
 
     // Table: proposals where fund != null
+    const finWithFund = proposals.filter(p => p.fund !== null);
     const finTbody = document.getElementById('tbody-fin-overview');
     finTbody.innerHTML = finWithFund.length === 0
-      ? '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">No proposals with a fund amount in this view.</td></tr>'
+      ? '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);padding:20px;">No proposals with a fund amount in this view.</td></tr>'
       : finWithFund.map((p, i) => `
           <tr>
             <td>${i + 1}</td>
@@ -2819,7 +2893,6 @@
             <td>${p.anchor}</td>
             <td>${p.funding}</td>
             <td>${fmtFund(p.fund)}</td>
-            <td>${p.stage}</td>
             <td><button class="kebab-btn">⋮</button></td>
           </tr>`).join('');
 
@@ -2856,9 +2929,7 @@
     ============================================================== */
     const stalledProposals  = proposals.filter(isStalled);
     const stalledValue      = sumFund(stalledProposals);
-    const stalledAdvanced   = stalledProposals.filter(p =>
-      ['Concept Note', 'Proposal', 'MoU WIP', 'MoU Signed'].includes(p.stage)
-    ).length;
+    const stalledAdvanced   = stalledProposals.filter(p => p.stage === 'MoU WIP').length;
 
     document.getElementById('m-stalled-count').textContent    = stalledProposals.length;
     document.getElementById('m-stalled-value').textContent    = fmtFund(stalledValue);
@@ -2883,27 +2954,24 @@
      SEGMENT → FILTER MAP (for drill-down modal)
   ================================================================ */
   const SEGMENT_FILTERS = {
-    'total':          { label: 'Total in Pipeline',                fn: isInConversation },
-    'new-leads':      { label: 'New Leads (last 30 days)',         fn: p => p.days <= 30 && EARLY_STAGES.includes(p.stage) },
-    'awarded':        { label: 'Awarded',                          fn: p => p.stage === 'Grant Awarded' },
-    'active-donors':  { label: 'Active Donors',                    fn: p => p.stage !== 'Lost opportunity' },
-    'pipeline-value': { label: 'Pipeline Value',                   fn: p => isInConversation(p) && p.fund !== null },
-    'awarded-value':  { label: 'Awarded Value',                    fn: p => p.stage === 'Grant Awarded' && p.fund !== null },
-    'largest-awarded':{ label: 'Largest Awarded',                  fn: p => p.stage === 'Grant Awarded' && p.fund !== null },
-    'largest-pipeline':{ label: 'Largest in Pipeline',             fn: p => isInConversation(p) && p.fund !== null },
-    'early':          { label: 'Early Stage',                      fn: p => EARLY_STAGES.includes(p.stage) },
-    'mid':            { label: 'Mid Stage (Concept + Proposal)',   fn: p => MID_STAGES.includes(p.stage) },
-    'mou':            { label: 'Near Close (MoU)',                 fn: p => p.stage === 'MoU WIP' || p.stage === 'MoU Signed' },
-    'stalled-card':   { label: 'Stalled (30+ days)',               fn: isStalled },
-    'fin-total':      { label: 'Total Proposals',                  fn: isInConversation },
-    'fin-with-fund':  { label: 'Proposals with Fund',              fn: p => p.fund !== null },
-    'fin-total-ask':  { label: 'Total Fund Ask',                   fn: p => p.fund !== null },
-    'lost-count':     { label: 'Not Secured',                      fn: p => p.stage === 'Lost opportunity' },
-    'lost-value':     { label: 'Value Not Secured',                fn: p => p.stage === 'Lost opportunity' && p.fund !== null },
-    'reengage':       { label: 'Worth Re-engaging',                fn: p => p.stage === 'Lost opportunity' && p.reengage === 'Yes' },
-    'stalled-count':  { label: 'Stalled',                          fn: isStalled },
-    'stalled-value':  { label: 'Stalled Value',                    fn: p => isStalled(p) && p.fund !== null },
-    'stalled-advanced':{ label: 'Stalled at Advanced Stages',      fn: p => isStalled(p) && ['Concept Note','Proposal','MoU WIP','MoU Signed'].includes(p.stage) },
+    // Pipeline Overview cards
+    'total':           { label: 'Total in Pipeline',              fn: p => true },
+    'new-leads':       { label: 'New Leads (last 30 days)',       fn: p => p.days <= 30 && EARLY_STAGES.includes(p.stage) },
+    'awarded':         { label: 'Awarded',                        fn: p => p.stage === 'Grant Awarded' },
+    'active-donors':   { label: 'In Conversation',               fn: isInConversation },
+    // Financial Overview cards
+    'fin-total':       { label: 'Total Proposals (Active Pool)',  fn: isActivePool },
+    'pipeline-value':  { label: 'Pipeline Value',                 fn: p => isInConversation(p) && p.fund !== null },
+    'largest-pipeline':{ label: 'Largest in Pipeline',           fn: p => isInConversation(p) && p.fund !== null },
+    'awarded-value':   { label: 'Awarded Value',                  fn: p => p.stage === 'Grant Awarded' },
+    // Lost Opportunity cards
+    'lost-count':      { label: 'Not Secured',                    fn: p => p.stage === 'Lost opportunity' },
+    'lost-value':      { label: 'Value Not Secured',              fn: p => p.stage === 'Lost opportunity' && p.fund !== null },
+    'reengage':        { label: 'Worth Re-engaging',              fn: p => p.stage === 'Lost opportunity' && p.reengage === 'Yes' },
+    // Stalled cards
+    'stalled-count':   { label: 'Stalled',                        fn: isStalled },
+    'stalled-value':   { label: 'Stalled Value',                  fn: p => isStalled(p) && p.fund !== null },
+    'stalled-advanced':{ label: 'Stalled at MoU stage',          fn: p => isStalled(p) && p.stage === 'MoU WIP' },
   };
 
   /* ================================================================
@@ -2917,7 +2985,7 @@
   function cellReengage(p){ return p.reengage === 'Yes' ? '<span class="badge-yes">Yes</span>' : '<span style="color:var(--text-muted)">—</span>'; }
   function cellDays(p)    { return `<span class="days-badge">${p.days}</span>`; }
 
-  // 1. Pipeline Overview — total, new-leads, awarded, active-donors
+  // Pipeline Overview cards — total, new-leads, awarded, active-donors
   const COLS_PIPELINE = [
     { header: 'Proposal Name', render: p => p.name    },
     { header: 'Donor',         render: p => p.donor   },
@@ -2927,25 +2995,16 @@
     { header: 'Days',          render: p => p.days    },
   ];
 
-  // 2. Fund Value — pipeline-value, awarded-value, largest-awarded, largest-pipeline
+  // Financial Overview — fin-total, pipeline-value, largest-pipeline, awarded-value
   const COLS_FUND_VALUE = [
     { header: 'Proposal Name',   render: p => p.name    },
     { header: 'Donor',           render: p => p.donor   },
+    { header: 'Grant Anchor',    render: p => p.anchor  },
     { header: 'Stage',           render: p => p.stage   },
-    { header: 'Funding Type',    render: p => p.funding },
     { header: 'Fund Requested',  render: cellFund       },
   ];
 
-  // 3. Stage Distribution — early, mid, mou, stalled-card
-  const COLS_STAGE_DIST = [
-    { header: 'Proposal Name',     render: p => p.name    },
-    { header: 'Donor',             render: p => p.donor   },
-    { header: 'Stage',             render: p => p.stage   },
-    { header: 'Days since update', render: cellDays       },
-    { header: 'Funding Type',      render: p => p.funding },
-  ];
-
-  // 4. Financial Overview — fin-total, fin-with-fund, fin-total-ask
+  // Financial Overview detail — fin-total
   const COLS_FINANCIAL = [
     { header: 'Proposal Name',  render: p => p.name    },
     { header: 'Grant Anchor',   render: p => p.anchor  },
@@ -2954,7 +3013,7 @@
     { header: 'Stage',          render: p => p.stage   },
   ];
 
-  // 5. Lost Opportunity — lost-count, lost-value, reengage
+  // Lost Opportunity — lost-count, lost-value, reengage
   const COLS_LOST = [
     { header: 'Proposal Name', render: p => p.name    },
     { header: 'Donor',         render: p => p.donor   },
@@ -2964,14 +3023,14 @@
     { header: 'Re-engage',     render: cellReengage   },
   ];
 
-  // 6. Stalled Proposals — stalled-count, stalled-value, stalled-advanced
+  // Stalled Proposals — stalled-count, stalled-value, stalled-advanced
   const COLS_STALLED = [
-    { header: 'Proposal Name',     render: p => p.name    },
-    { header: 'Donor',             render: p => p.donor   },
-    { header: 'Stage',             render: p => p.stage   },
-    { header: 'Days since update', render: cellDays       },
-    { header: 'Funding Type',      render: p => p.funding },
-    { header: 'Fund',              render: cellFund       },
+    { header: 'Proposal Name',   render: p => p.name    },
+    { header: 'Donor',           render: p => p.donor   },
+    { header: 'Stage',           render: p => p.stage   },
+    { header: 'Stage movement',  render: cellDays       },
+    { header: 'Funding Type',    render: p => p.funding },
+    { header: 'Fund',            render: cellFund       },
   ];
 
   // Segment → column set mapping
@@ -2980,17 +3039,10 @@
     'new-leads':        COLS_PIPELINE,
     'awarded':          COLS_PIPELINE,
     'active-donors':    COLS_PIPELINE,
-    'pipeline-value':   COLS_FUND_VALUE,
-    'awarded-value':    COLS_FUND_VALUE,
-    'largest-awarded':  COLS_FUND_VALUE,
-    'largest-pipeline': COLS_FUND_VALUE,
-    'early':            COLS_STAGE_DIST,
-    'mid':              COLS_STAGE_DIST,
-    'mou':              COLS_STAGE_DIST,
-    'stalled-card':     COLS_STAGE_DIST,
     'fin-total':        COLS_FINANCIAL,
-    'fin-with-fund':    COLS_FINANCIAL,
-    'fin-total-ask':    COLS_FINANCIAL,
+    'pipeline-value':   COLS_FUND_VALUE,
+    'largest-pipeline': COLS_FUND_VALUE,
+    'awarded-value':    COLS_FUND_VALUE,
     'lost-count':       COLS_LOST,
     'lost-value':       COLS_LOST,
     'reengage':         COLS_LOST,
@@ -3000,7 +3052,7 @@
   };
 
   // For fund-value cards that should sort by fund descending
-  const SORT_BY_FUND_DESC = new Set(['largest-awarded', 'largest-pipeline']);
+  const SORT_BY_FUND_DESC = new Set(['largest-pipeline']);
 
   /* ================================================================
      VIEW ROUTER
@@ -3008,10 +3060,11 @@
   window._activeSegment = null;
 
   const STAGE_DATE_OFFSETS = {
-    'P-001': 45, 'P-002': 90, 'P-003': 30, 'P-004': 120,
-    'P-005': 60, 'P-006': 95, 'P-007': 80, 'P-008': 20,
-    'P-009': 110, 'P-010': 55, 'P-011': 75, 'P-012': 100,
-    'P-013': 65, 'P-014': 40,
+    'P-001': 45,  'P-002': 90,  'P-003': 30,  'P-004': 120,
+    'P-005': 60,  'P-006': 95,  'P-007': 80,  'P-008': 20,
+    'P-009': 55,  'P-010': 55,  'P-011': 75,  'P-012': 100,
+    'P-013': 40,  'P-014': 40,  'P-015': 18,  'P-016': 65,
+    'P-017': 50,  'P-018': 35,  'P-019': 85,  'P-020': 70,
   };
 
   function sampleDate(p) {
@@ -3164,11 +3217,78 @@
   }
 
   /* ================================================================
-     CARD CLICK — navigate to list view filtered to segment
+     DRILL-DOWN MODAL — open / close
+  ================================================================ */
+  function openModal(title, rows, colMode) {
+    // colMode: 'standard' = Sr.No · Proposal Name · Donor Name · Grant Anchor · Funds
+    //          'stage'    = Sr.No · Proposal Title · Donor · BD Stage
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalCount').textContent = rows.length + ' proposal' + (rows.length !== 1 ? 's' : '');
+
+    let theadHTML, tbodyHTML;
+    if (colMode === 'stage') {
+      theadHTML = '<tr><th>Sr. No.</th><th>Proposal Title</th><th>Donor</th><th>BD Stage</th></tr>';
+      tbodyHTML = rows.length === 0
+        ? '<tr><td colspan="4" class="modal-empty">No proposals.</td></tr>'
+        : rows.map((p, i) => `<tr>
+            <td>${i + 1}</td>
+            <td>${p.name}</td>
+            <td>${p.donor}</td>
+            <td>${p.stage}</td>
+          </tr>`).join('');
+    } else {
+      theadHTML = '<tr><th>Sr. No.</th><th>Proposal Name</th><th>Donor Name</th><th>Grant Anchor</th><th>Funds</th></tr>';
+      tbodyHTML = rows.length === 0
+        ? '<tr><td colspan="5" class="modal-empty">No proposals match this filter.</td></tr>'
+        : rows.map((p, i) => `<tr>
+            <td>${i + 1}</td>
+            <td>${p.name}</td>
+            <td>${p.donor}</td>
+            <td>${p.anchor}</td>
+            <td>${p.fund !== null ? fmtFund(p.fund) : '<span style="color:var(--text-muted)">—</span>'}</td>
+          </tr>`).join('');
+    }
+
+    document.getElementById('modalThead').innerHTML = theadHTML;
+    document.getElementById('modalTbody').innerHTML = tbodyHTML;
+    document.getElementById('drillModal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('drillModal').classList.remove('open');
+  }
+
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalBackdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  /* ================================================================
+     CARD CLICK — open drill-down modal (replaces showView routing)
   ================================================================ */
   document.addEventListener('click', function(e) {
+    // Bar chart click
+    const barRow = e.target.closest('.bar-row[data-stage]');
+    if (barRow) {
+      const stageName = barRow.dataset.stage;
+      const proposals = getScopedProposals(currentScope);
+      const rows = proposals.filter(p => p.stage === stageName);
+      openModal(stageName, rows, 'stage');
+      return;
+    }
+
+    // Stat card click
     const card = e.target.closest('.stat-card[data-segment]');
-    if (card) showView('list', card.dataset.segment);
+    if (card) {
+      const seg = card.dataset.segment;
+      const def = SEGMENT_FILTERS[seg];
+      if (!def) return;
+      const proposals = getScopedProposals(currentScope);
+      let rows = proposals.filter(def.fn);
+      if (SORT_BY_FUND_DESC.has(seg)) rows = rows.slice().sort((a,b)=>(b.fund||0)-(a.fund||0));
+      openModal(def.label, rows, 'standard');
+    }
   });
 
   /* ================================================================
@@ -3224,17 +3344,28 @@
   });
 
   /* ================================================================
-     FILTER BAR — Reset / Apply (visual only)
+     FILTER BAR — Reset / Apply
   ================================================================ */
   document.getElementById('btnReset').addEventListener('click', function() {
     document.getElementById('filterFY').selectedIndex = 0;
     document.getElementById('filterFundType').selectedIndex = 0;
+    document.getElementById('filterAnchor').selectedIndex = 0;
     document.querySelector('.filter-date-input').value = '';
+    currentAnchorFilter = '';
+    render(currentScope);
   });
 
   document.getElementById('btnApply').addEventListener('click', function() {
+    currentAnchorFilter = document.getElementById('filterAnchor').value;
+    render(currentScope);
     this.textContent = 'Applied ✓';
     setTimeout(() => { this.textContent = 'Apply'; }, 1500);
+  });
+
+  // Anchor filter also reacts on change (for immediacy in the wireframe)
+  document.getElementById('filterAnchor').addEventListener('change', function() {
+    currentAnchorFilter = this.value;
+    render(currentScope);
   });
 
   /* ================================================================
