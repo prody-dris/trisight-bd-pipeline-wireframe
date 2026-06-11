@@ -1193,10 +1193,17 @@
 
     /* ================================================================
        VIEW CONTAINERS — router hides/shows these
+       Must flex-fill the content column and lay out as a column so the
+       inner .page-scroll gets a bounded height and can actually scroll.
        ================================================================ */
-    #view-dashboard { display: block; }
-    #view-list      { display: none;  }
-    #view-kanban    { display: none;  }
+    #view-dashboard, #view-list, #view-kanban {
+      flex: 1 1 auto;
+      min-height: 0;
+      flex-direction: column;
+    }
+    #view-dashboard { display: flex; }
+    #view-list      { display: none; }
+    #view-kanban    { display: none; }
 
     /* ================================================================
        SYSTEM LIST VIEW — .sys-list
@@ -3001,16 +3008,16 @@
     // Update sidebar active state
     document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
     if (name === 'dashboard') {
-      document.getElementById('view-dashboard').style.display = 'block';
+      document.getElementById('view-dashboard').style.display = 'flex';
       const navBd = document.querySelector('.nav-item[data-nav="bd-pipeline"]');
       if (navBd) navBd.classList.add('active');
     } else if (name === 'list') {
-      document.getElementById('view-list').style.display = 'block';
+      document.getElementById('view-list').style.display = 'flex';
       const navBd = document.querySelector('.nav-item[data-nav="bd-pipeline"]');
       if (navBd) navBd.classList.add('active');
       renderListView(segment);
     } else if (name === 'kanban') {
-      document.getElementById('view-kanban').style.display = 'block';
+      document.getElementById('view-kanban').style.display = 'flex';
       const navKb = document.querySelector('.nav-item[data-nav="bd-kanban"]');
       if (navKb) navKb.classList.add('active');
       renderKanbanView();
