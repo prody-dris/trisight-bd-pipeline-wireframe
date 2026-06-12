@@ -796,151 +796,6 @@
     .pag-btn:disabled { opacity: 0.4; cursor: default; }
 
     /* ================================================================
-       PORTFOLIO DISTRIBUTION (Section 6)
-       ================================================================ */
-    .portfolio-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top: 0;
-    }
-    .placeholder-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 24px;
-      box-shadow: var(--shadow-card);
-    }
-    .placeholder-card-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 18px;
-    }
-
-    /* CSS Donut chart (Thematic Area placeholder) */
-    .donut-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px 0 10px;
-    }
-    .donut-ring {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: conic-gradient(
-        #811622 0deg 130deg,
-        #b85060 130deg 230deg,
-        #d89098 230deg 290deg,
-        #e8c8cc 290deg 360deg
-      );
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .donut-hole {
-      width: 68px;
-      height: 68px;
-      border-radius: 50%;
-      background: var(--bg-card);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-    .donut-hole-label {
-      font-size: 10px;
-      color: var(--label);
-      text-align: center;
-      line-height: 1.3;
-    }
-    .donut-legend {
-      margin-top: 14px;
-      font-size: 11.5px;
-      color: var(--label);
-      text-align: center;
-      font-style: italic;
-    }
-    .donut-legend-items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      margin-top: 10px;
-      justify-content: center;
-    }
-    .donut-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
-      color: var(--text-primary);
-    }
-    .donut-swatch {
-      width: 10px;
-      height: 10px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    /* India map placeholder */
-    .map-placeholder {
-      min-height: 220px;
-      background: #f8f5f5;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .map-placeholder-inner {
-      text-align: center;
-    }
-    .map-placeholder-label {
-      font-size: 13px;
-      color: var(--label);
-      font-style: italic;
-    }
-    .map-india-outline {
-      font-size: 64px;
-      line-height: 1;
-      color: #c8a0a5;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .map-legend {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 6px 10px;
-      font-size: 11px;
-    }
-    .map-legend-title {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 5px;
-      font-size: 10.5px;
-    }
-    .map-legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-primary);
-      margin-bottom: 3px;
-    }
-    .map-swatch {
-      width: 14px;
-      height: 10px;
-      border-radius: 2px;
-    }
-
-    /* ================================================================
        RE-ENGAGE BADGE
        ================================================================ */
     .badge-yes {
@@ -2192,11 +2047,11 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>S.No.</th>
+                <th>Sr. No.</th>
                 <th>Proposal Name</th>
+                <th>Donor Name</th>
                 <th>Grant Anchor</th>
-                <th>Funding Type</th>
-                <th>Fund Requested (INR)</th>
+                <th>Funds</th>
                 <th></th>
               </tr>
             </thead>
@@ -2213,82 +2068,6 @@
           </div>
         </div><!-- /table-card -->
 
-      </section>
-
-      <!-- ============================================================
-           SECTION 4: PORTFOLIO DISTRIBUTION
-           ============================================================ -->
-      <section class="section" id="section-portfolio-distribution">
-        <h2 class="section-heading">Portfolio Distribution</h2>
-
-        <div class="portfolio-row">
-
-          <!-- Left: Proposals by thematic area (CSS donut placeholder) -->
-          <div class="placeholder-card">
-            <div class="placeholder-card-title">Proposals by thematic area</div>
-            <div class="donut-placeholder">
-              <div class="donut-ring">
-                <div class="donut-hole">
-                  <span class="donut-hole-label">Thematic<br>distribution</span>
-                </div>
-              </div>
-              <div class="donut-legend-items">
-                <div class="donut-legend-item">
-                  <div class="donut-swatch" style="background:#811622;"></div>
-                  <span>Livelihoods</span>
-                </div>
-                <div class="donut-legend-item">
-                  <div class="donut-swatch" style="background:#b85060;"></div>
-                  <span>Agriculture</span>
-                </div>
-                <div class="donut-legend-item">
-                  <div class="donut-swatch" style="background:#d89098;"></div>
-                  <span>Education</span>
-                </div>
-                <div class="donut-legend-item">
-                  <div class="donut-swatch" style="background:#e8c8cc;"></div>
-                  <span>Other</span>
-                </div>
-              </div>
-              <div class="donut-legend">v1 placeholder — thematic breakdown forthcoming</div>
-            </div>
-          </div>
-
-          <!-- Right: Proposals by state (India choropleth placeholder) -->
-          <div class="placeholder-card">
-            <div class="placeholder-card-title">Proposals by state</div>
-            <div class="card-subnote" style="margin-top:-10px; margin-bottom:10px;">Reflects the proposals in your current view.</div>
-            <div class="map-placeholder">
-              <div class="map-placeholder-inner">
-                <svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.35;">
-                  <path d="M55 5 C30 8 15 20 10 35 C5 50 8 60 15 70 C20 78 18 88 22 95
-                           C26 102 30 108 38 115 C44 120 50 128 55 135
-                           C57 138 63 138 65 135 C70 128 76 120 82 115
-                           C90 108 94 102 98 95 C102 88 100 78 105 70
-                           C112 60 115 50 110 35 C105 20 90 8 65 5 Z"
-                        fill="#c8a0a5"/>
-                </svg>
-                <div class="map-placeholder-label">India — proposals by state</div>
-              </div>
-              <div class="map-legend">
-                <div class="map-legend-title">Proposals</div>
-                <div class="map-legend-item">
-                  <div class="map-swatch" style="background:#e8c8cc;"></div>
-                  <span>0 – 1</span>
-                </div>
-                <div class="map-legend-item">
-                  <div class="map-swatch" style="background:#b85060;"></div>
-                  <span>1 – 1</span>
-                </div>
-                <div class="map-legend-item">
-                  <div class="map-swatch" style="background:#811622;"></div>
-                  <span>1 and above</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /portfolio-row -->
       </section>
 
       <!-- ============================================================
@@ -2338,15 +2117,12 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>S.No.</th>
+                <th>Sr. No.</th>
                 <th>Proposal Name</th>
-                <th>Grant Anchor</th>
                 <th>Donor Name</th>
-                <th>Funding Type</th>
-                <th>Amount</th>
+                <th>Grant Anchor</th>
+                <th>Funds</th>
                 <th>Reason</th>
-                <th>Stage</th>
-                <th>Re-engage</th>
                 <th></th>
               </tr>
             </thead>
@@ -2413,12 +2189,12 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>S.No.</th>
+                <th>Sr. No.</th>
                 <th>Proposal Name</th>
                 <th>Donor Name</th>
-                <th>Stage</th>
+                <th>Grant Anchor</th>
+                <th>Funds</th>
                 <th>Stage movement</th>
-                <th>Funding Type</th>
                 <th></th>
               </tr>
             </thead>
@@ -2638,30 +2414,73 @@
      DATASET — single source of truth
   ================================================================ */
   const PROPOSALS = [
-    // Grant Anchor 1 — "mine" scope proposals
-    {id:'P-001', name:'Rural WASH Initiative',            donor:'Asha Kiran Trust',       anchor:'Grant Anchor 1', stage:'MoU WIP',              funding:'Indian',  fund:36.0,  days:12, lostReason:'', reengage:''},
-    {id:'P-002', name:'Girls Education Access Programme', donor:'Vidya Foundation',       anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:45, lostReason:'', reengage:''},
-    {id:'P-003', name:'Clean Energy Villages',            donor:'GreenEarth Fund',        anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Foreign', fund:18.0,  days:8,  lostReason:'', reengage:''},
-    {id:'P-004', name:'Farmer Livelihoods Programme',     donor:'Annadata Trust',         anchor:'Grant Anchor 1', stage:'Grant Awarded',        funding:'Indian',  fund:90.0,  days:3,  lostReason:'', reengage:'', sanctioned:79.2},
-    {id:'P-005', name:'Maternal Health Drive',            donor:'Arogya Foundation',      anchor:'Grant Anchor 1', stage:'Lost opportunity',     funding:'Indian',  fund:5.0,   days:20, lostReason:'Donor priorities did not match the programme', reengage:''},
-    // Grant Anchor 2
-    {id:'P-006', name:'Watershed Management',             donor:'BlueDrop Foundation',    anchor:'Grant Anchor 2', stage:'Initial outreach',     funding:'Foreign', fund:22.0,  days:41, lostReason:'', reengage:''},
-    {id:'P-007', name:'Skill Development Hubs',           donor:'Kaushal Trust',          anchor:'Grant Anchor 2', stage:'MoU Signed',           funding:'Indian',  fund:15.0,  days:38, lostReason:'', reengage:''},
-    {id:'P-008', name:'Nutrition for Children',           donor:'Poshan Fund',            anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:5,  lostReason:'', reengage:''},
-    {id:'P-009', name:'Digital Literacy for Rural Youth', donor:'TechSeva Foundation',    anchor:'Grant Anchor 2', stage:'Proposal',             funding:'Indian',  fund:8.0,   days:22, lostReason:'', reengage:''},
-    {id:'P-010', name:'Women Entrepreneurship Fund',      donor:'Shakti Trust',           anchor:'Grant Anchor 2', stage:'Grant Awarded',        funding:'Foreign', fund:50.0,  days:6,  lostReason:'', reengage:'', sanctioned:44.0},
-    // Grant Anchor 3
-    {id:'P-011', name:'Sanitation Coverage — Phase 2',   donor:'Nirmal Fund',            anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:25, lostReason:'Lapsed before the concept note stage', reengage:'Yes'},
-    {id:'P-012', name:'Tribal Health Outreach',           donor:'Vanbandhu Trust',        anchor:'Grant Anchor 3', stage:'MoU WIP',              funding:'Indian',  fund:null,  days:43, lostReason:'', reengage:''},
-    {id:'P-013', name:'Community Forest Rights',          donor:'Aranya Foundation',      anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Foreign', fund:28.0,  days:14, lostReason:'', reengage:''},
-    {id:'P-014', name:'Renewable Microgrids',             donor:'SolarAid India',         anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Foreign', fund:null,  days:18, lostReason:'Lost to a competing proposal', reengage:''},
-    {id:'P-015', name:'Adolescent Girls Leadership',      donor:'Nari Shakti Foundation', anchor:'Grant Anchor 3', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:7,  lostReason:'', reengage:''},
-    // Grant Anchor 4
-    {id:'P-016', name:'Water Conservation Rajasthan',     donor:'AquaLife Foundation',    anchor:'Grant Anchor 4', stage:'Lost opportunity',     funding:'Indian',  fund:12.0,  days:30, lostReason:'Geography did not align', reengage:''},
-    {id:'P-017', name:'Agri-Tech Smallholder Support',   donor:'Krishi Vikas Trust',     anchor:'Grant Anchor 4', stage:'Proposal',             funding:'Indian',  fund:45.0,  days:33, lostReason:'', reengage:''},
-    {id:'P-018', name:'Urban Slum Health Initiative',     donor:'Swasthya Foundation',    anchor:'Grant Anchor 4', stage:'MoU WIP',              funding:'Indian',  fund:120.0, days:19, lostReason:'', reengage:''},
-    {id:'P-019', name:'Early Childhood Education',        donor:'Shiksha Trust',          anchor:'Grant Anchor 4', stage:'Project on Hold',      funding:'Foreign', fund:null,  days:60, lostReason:'', reengage:''},
-    {id:'P-020', name:'Coastal Livelihood Restoration',   donor:'SamudraSeva Fund',       anchor:'Grant Anchor 4', stage:'MoU Signed',           funding:'Foreign', fund:55.0,  days:35, lostReason:'', reengage:''},
+    // ── Grant Anchor 1 — 17 records (rich funnel spread, forms the "mine" scope) ──
+    {id:'P-001', name:'Rural WASH Infrastructure — Phase 3',             donor:'Asha Kiran Trust',               anchor:'Grant Anchor 1', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:12, lostReason:'', reengage:''},
+    {id:'P-002', name:'Girls Secondary Education Access',                donor:'Vidya Daan Foundation',          anchor:'Grant Anchor 1', stage:'Initial Conversation', funding:'Indian',  fund:75.0,  days:8,  lostReason:'', reengage:''},
+    {id:'P-003', name:'Smallholder Climate Resilience Programme',        donor:'NABARD Foundation',              anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:18, lostReason:'', reengage:''},
+    {id:'P-004', name:'Digital Financial Inclusion — Bihar',             donor:'SIDBI Foundation',               anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:120.0, days:22, lostReason:'', reengage:''},
+    {id:'P-005', name:'Community Forest Governance Initiative',          donor:'Aranya Bhumi Foundation',        anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Foreign', fund:185.0, days:14, lostReason:'', reengage:''},
+    {id:'P-006', name:'Maternal and Newborn Care — MP Clusters',         donor:'HDFC Parivartan',                anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Indian',  fund:null,  days:9,  lostReason:'', reengage:''},
+    {id:'P-007', name:'Adolescent Nutrition and Menstrual Health',       donor:'Tata Trusts',                    anchor:'Grant Anchor 1', stage:'Proposal',             funding:'Indian',  fund:260.0, days:27, lostReason:'', reengage:''},
+    {id:'P-008', name:'Tribal Education and Skill Bridges',              donor:'Azim Premji Foundation',         anchor:'Grant Anchor 1', stage:'Proposal',             funding:'Indian',  fund:340.0, days:19, lostReason:'', reengage:''},
+    {id:'P-009', name:'Rainfed Agriculture Productivity — Odisha',       donor:'GreenEarth Fund',                anchor:'Grant Anchor 1', stage:'MoU WIP',              funding:'Foreign', fund:420.0, days:38, lostReason:'', reengage:''},
+    {id:'P-010', name:'Women-Led SHG Livelihoods Cluster',               donor:'Axis Bank Foundation',           anchor:'Grant Anchor 1', stage:'MoU WIP',              funding:'Indian',  fund:150.0, days:45, lostReason:'', reengage:''},
+    {id:'P-011', name:'Renewable Energy Access — Jharkhand Villages',    donor:'Shell Foundation India',         anchor:'Grant Anchor 1', stage:'MoU Signed',           funding:'Foreign', fund:580.0, days:11, lostReason:'', reengage:''},
+    {id:'P-012', name:'Farmer Livelihoods — Vidarbha Phase 2',           donor:'Annadata Trust',                 anchor:'Grant Anchor 1', stage:'Grant Awarded',        funding:'Indian',  fund:310.0, days:5,  lostReason:'', reengage:'', sanctioned:275.0},
+    {id:'P-013', name:'Rural MSME Cluster Development',                  donor:'SIDBI MSME Foundation',          anchor:'Grant Anchor 1', stage:'Project on Hold',      funding:'Indian',  fund:null,  days:72, lostReason:'', reengage:''},
+    {id:'P-014', name:'Drought Proofing — Bundelkhand',                  donor:'Sir Ratan Tata Trust',           anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:55, lostReason:'', reengage:''},
+    {id:'P-015', name:'Natural Farming Transition Programme',            donor:'Krishi Vikas Trust',             anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Indian',  fund:95.0,  days:6,  lostReason:'', reengage:''},
+    {id:'P-016', name:'Urban Slum Sanitation Initiative — Raipur',       donor:'Hindustan Unilever Foundation',  anchor:'Grant Anchor 1', stage:'Lost opportunity',     funding:'Indian',  fund:80.0,  days:24, lostReason:'Programme scope misaligned with donor priorities', reengage:''},
+    {id:'P-017', name:'Child Labour Prevention and Education',           donor:'Bachpan Bachao Foundation',      anchor:'Grant Anchor 1', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:17, lostReason:'Donor paused all new grants for the year', reengage:'Yes'},
+
+    // ── Grant Anchor 2 — 14 records ──
+    {id:'P-018', name:'Watershed Management — Marathwada',               donor:'BlueDrop Foundation',            anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Foreign', fund:null,  days:7,  lostReason:'', reengage:''},
+    {id:'P-019', name:'Nutrition for Children Under Five',               donor:'Poshan Suraksha Fund',           anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Indian',  fund:130.0, days:14, lostReason:'', reengage:''},
+    {id:'P-020', name:'Digital Literacy for Rural Women',                donor:'TechSeva Foundation',            anchor:'Grant Anchor 2', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:28, lostReason:'', reengage:''},
+    {id:'P-021', name:'Skill Development Hubs — Eastern UP',             donor:'Kaushal Vikas Trust',            anchor:'Grant Anchor 2', stage:'Initial outreach',     funding:'Indian',  fund:200.0, days:42, lostReason:'', reengage:''},
+    {id:'P-022', name:'Women Entrepreneurs Access to Credit',            donor:'Shakti Mahila Trust',            anchor:'Grant Anchor 2', stage:'Concept Note',         funding:'Indian',  fund:175.0, days:16, lostReason:'', reengage:''},
+    {id:'P-023', name:'Participatory Natural Resource Management',       donor:'Ford Foundation India',          anchor:'Grant Anchor 2', stage:'Proposal',             funding:'Foreign', fund:680.0, days:21, lostReason:'', reengage:''},
+    {id:'P-024', name:'Adolescent Girls Leadership — Chhattisgarh',      donor:'Nari Shakti Foundation',         anchor:'Grant Anchor 2', stage:'MoU WIP',              funding:'Indian',  fund:null,  days:52, lostReason:'', reengage:''},
+    {id:'P-025', name:'Accessible Education for Children with Disabilities', donor:'Shiksha Setu Trust',         anchor:'Grant Anchor 2', stage:'MoU Signed',           funding:'Indian',  fund:290.0, days:9,  lostReason:'', reengage:''},
+    {id:'P-026', name:'Women Entrepreneurship Scale-Up Fund',            donor:'Omidyar Network India',          anchor:'Grant Anchor 2', stage:'Grant Awarded',        funding:'Foreign', fund:780.0, days:4,  lostReason:'', reengage:'', sanctioned:700.0},
+    {id:'P-027', name:'Agri-Tech Adoption — Smallholders',               donor:'ICICI Foundation',               anchor:'Grant Anchor 2', stage:'Concept Note',         funding:'Indian',  fund:145.0, days:11, lostReason:'', reengage:''},
+    {id:'P-028', name:'Mental Health Awareness — Rural Madhya Pradesh',  donor:'Wellbeing Foundation',           anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:6,  lostReason:'', reengage:''},
+    {id:'P-029', name:'Sanitation and Hygiene Behaviour Change',         donor:'Nirmal Bharat Trust',            anchor:'Grant Anchor 2', stage:'Lost opportunity',     funding:'Indian',  fund:65.0,  days:20, lostReason:'Budget not sanctioned by donor board', reengage:''},
+    {id:'P-030', name:'Inland Fisheries Livelihood Programme',           donor:'SamudraSeva Fund',               anchor:'Grant Anchor 2', stage:'Project on Hold',      funding:'Indian',  fund:null,  days:90, lostReason:'', reengage:''},
+    {id:'P-031', name:'Solar Irrigation Pumps — Rajasthan Farmers',     donor:'GreenEarth Fund',                anchor:'Grant Anchor 2', stage:'Lost opportunity',     funding:'Foreign', fund:220.0, days:15, lostReason:'Donor shifted focus to urban programming', reengage:''},
+
+    // ── Grant Anchor 3 — 15 records ──
+    {id:'P-032', name:'Tribal Health Outreach — Bastar',                 donor:'Vanbandhu Kalyan Samiti',        anchor:'Grant Anchor 3', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:9,  lostReason:'', reengage:''},
+    {id:'P-033', name:'Community Forest Rights — Phase 2',               donor:'Aranya Foundation',              anchor:'Grant Anchor 3', stage:'Initial outreach',     funding:'Foreign', fund:null,  days:31, lostReason:'', reengage:''},
+    {id:'P-034', name:'Early Childhood Education Centres — Odisha',      donor:'Shiksha Trust',                  anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Indian',  fund:170.0, days:18, lostReason:'', reengage:''},
+    {id:'P-035', name:'Pastoralist Livelihood Security',                  donor:'BAIF Development Research',     anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Indian',  fund:null,  days:10, lostReason:'', reengage:''},
+    {id:'P-036', name:'Coastal Climate Adaptation — Tamil Nadu',         donor:'GIZ India',                      anchor:'Grant Anchor 3', stage:'Proposal',             funding:'Foreign', fund:860.0, days:26, lostReason:'', reengage:''},
+    {id:'P-037', name:'Girls STEM Access Programme',                     donor:'Infosys Foundation',             anchor:'Grant Anchor 3', stage:'Proposal',             funding:'Indian',  fund:230.0, days:16, lostReason:'', reengage:''},
+    {id:'P-038', name:'Urban Poor Housing Rights Initiative',            donor:'Tata Housing Foundation',        anchor:'Grant Anchor 3', stage:'MoU WIP',              funding:'Indian',  fund:350.0, days:48, lostReason:'', reengage:''},
+    {id:'P-039', name:'Holistic Village Development — Telangana',        donor:'IL&FS Social Development',       anchor:'Grant Anchor 3', stage:'MoU Signed',           funding:'Indian',  fund:490.0, days:7,  lostReason:'', reengage:''},
+    {id:'P-040', name:'One Health: Zoonotic Disease Prevention',         donor:'Wellcome Trust India',           anchor:'Grant Anchor 3', stage:'Grant Awarded',        funding:'Foreign', fund:720.0, days:3,  lostReason:'', reengage:'', sanctioned:640.0},
+    {id:'P-041', name:'Flood-Resilient Agriculture — Assam',             donor:'Piramal Foundation',             anchor:'Grant Anchor 3', stage:'Initial outreach',     funding:'Indian',  fund:110.0, days:36, lostReason:'', reengage:''},
+    {id:'P-042', name:'Disability-Inclusive Livelihoods',                donor:'VSO India',                      anchor:'Grant Anchor 3', stage:'Initial Conversation', funding:'Foreign', fund:null,  days:5,  lostReason:'', reengage:''},
+    {id:'P-043', name:'Right to Food Campaign — Jharkhand',              donor:'Pratham Education Foundation',   anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Indian',  fund:55.0,  days:13, lostReason:'', reengage:''},
+    {id:'P-044', name:'Renewable Microgrids — Central India',            donor:'SolarAid India',                 anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Foreign', fund:null,  days:19, lostReason:'Lost to a competing proposal with stronger track record', reengage:''},
+    {id:'P-045', name:'Sanitation Coverage — Phase 3',                   donor:'Nirmal Fund',                    anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:23, lostReason:'Proposal lapsed before concept note review', reengage:'Yes'},
+    {id:'P-046', name:'Migrant Worker Welfare Programme',                donor:'Labour Rights Foundation',       anchor:'Grant Anchor 3', stage:'Project on Hold',      funding:'Indian',  fund:160.0, days:65, lostReason:'', reengage:''},
+
+    // ── Grant Anchor 4 — 14 records ──
+    {id:'P-047', name:'Water Conservation — Rajasthan Drylands',         donor:'AquaLife Foundation',            anchor:'Grant Anchor 4', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:11, lostReason:'', reengage:''},
+    {id:'P-048', name:'Zero Hunger Village Cluster — Bihar',             donor:'Hunger Free India Trust',        anchor:'Grant Anchor 4', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:24, lostReason:'', reengage:''},
+    {id:'P-049', name:'Social Protection and Entitlements Access',       donor:'Oxfam India',                    anchor:'Grant Anchor 4', stage:'Initial outreach',     funding:'Foreign', fund:250.0, days:37, lostReason:'', reengage:''},
+    {id:'P-050', name:'Adolescent Sports and Life Skills — UP',          donor:'Magic Bus Foundation',           anchor:'Grant Anchor 4', stage:'Concept Note',         funding:'Indian',  fund:90.0,  days:8,  lostReason:'', reengage:''},
+    {id:'P-051', name:'Inclusive Finance for Artisan Clusters',          donor:'Artisan Trust India',            anchor:'Grant Anchor 4', stage:'Concept Note',         funding:'Indian',  fund:null,  days:15, lostReason:'', reengage:''},
+    {id:'P-052', name:'Digital Agriculture Advisory Platform',           donor:'Godrej Agrovet Foundation',      anchor:'Grant Anchor 4', stage:'Proposal',             funding:'Indian',  fund:380.0, days:29, lostReason:'', reengage:''},
+    {id:'P-053', name:'Livestock Vaccination and Vet Services',          donor:'Annadata Trust',                 anchor:'Grant Anchor 4', stage:'Proposal',             funding:'Indian',  fund:140.0, days:22, lostReason:'', reengage:''},
+    {id:'P-054', name:'Slum Upgrading and Land Tenure — Pune',           donor:'Swasthya Foundation',            anchor:'Grant Anchor 4', stage:'MoU WIP',              funding:'Indian',  fund:530.0, days:41, lostReason:'', reengage:''},
+    {id:'P-055', name:'Coastal Livelihood Restoration — Odisha',         donor:'SamudraSeva Fund',               anchor:'Grant Anchor 4', stage:'MoU Signed',           funding:'Foreign', fund:450.0, days:14, lostReason:'', reengage:''},
+    {id:'P-056', name:'Youth Employment Skilling — North-East',          donor:'Kaushal Vikas Trust',            anchor:'Grant Anchor 4', stage:'Grant Awarded',        funding:'Indian',  fund:280.0, days:6,  lostReason:'', reengage:'', sanctioned:248.0},
+    {id:'P-057', name:'School Water and Sanitation — Meghalaya',         donor:'UNICEF India Programme Fund',    anchor:'Grant Anchor 4', stage:'Grant Awarded',        funding:'Foreign', fund:640.0, days:4,  lostReason:'', reengage:'', sanctioned:572.0},
+    {id:'P-058', name:'Water Conservation Rajasthan — Follow-on',        donor:'AquaLife Foundation',            anchor:'Grant Anchor 4', stage:'Lost opportunity',     funding:'Indian',  fund:45.0,  days:16, lostReason:'Geography of proposed intervention did not align', reengage:''},
+    {id:'P-059', name:'Handloom Weavers Market Linkage',                 donor:'Artisan Trust India',            anchor:'Grant Anchor 4', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:21, lostReason:'Donor diverted funds to emergency relief response', reengage:''},
+    {id:'P-060', name:'Integrated Child Development — Rajasthan',        donor:'CARE India',                     anchor:'Grant Anchor 4', stage:'Lost opportunity',     funding:'Foreign', fund:310.0, days:18, lostReason:'Proposal did not meet the co-funding requirement', reengage:'Yes'},
   ];
 
   /* ================================================================
@@ -2890,8 +2709,8 @@
           <tr>
             <td>${i + 1}</td>
             <td>${p.name}</td>
+            <td>${p.donor}</td>
             <td>${p.anchor}</td>
-            <td>${p.funding}</td>
             <td>${fmtFund(p.fund)}</td>
             <td><button class="kebab-btn">⋮</button></td>
           </tr>`).join('');
@@ -2909,18 +2728,15 @@
 
     const lostTbody = document.getElementById('tbody-lost-opp');
     lostTbody.innerHTML = lostProposals.length === 0
-      ? '<tr><td colspan="10" style="text-align:center;color:var(--text-muted);padding:20px;">No lost opportunities in this view.</td></tr>'
+      ? '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:20px;">No lost opportunities in this view.</td></tr>'
       : lostProposals.map((p, i) => `
           <tr>
             <td>${i + 1}</td>
             <td>${p.name}</td>
-            <td>${p.anchor}</td>
             <td>${p.donor}</td>
-            <td>${p.funding}</td>
+            <td>${p.anchor}</td>
             <td>${p.fund !== null ? fmtFund(p.fund) : '—'}</td>
-            <td>${p.lostReason || '<span class="muted">—</span>'}</td>
-            <td>Lost opportunity</td>
-            <td>${p.reengage === 'Yes' ? '<span class="badge-yes">Yes</span>' : '<span style="color:var(--text-muted);">—</span>'}</td>
+            <td>${p.lostReason || '—'}</td>
             <td><button class="kebab-btn">⋮</button></td>
           </tr>`).join('');
 
@@ -2943,9 +2759,9 @@
             <td>${i + 1}</td>
             <td>${p.name}</td>
             <td>${p.donor}</td>
-            <td>${p.stage}</td>
+            <td>${p.anchor}</td>
+            <td>${p.fund !== null ? fmtFund(p.fund) : '—'}</td>
             <td><span class="days-badge">${p.days}</span></td>
-            <td>${p.funding}</td>
             <td><button class="kebab-btn">⋮</button></td>
           </tr>`).join('');
   }
@@ -3060,11 +2876,21 @@
   window._activeSegment = null;
 
   const STAGE_DATE_OFFSETS = {
-    'P-001': 45,  'P-002': 90,  'P-003': 30,  'P-004': 120,
-    'P-005': 60,  'P-006': 95,  'P-007': 80,  'P-008': 20,
-    'P-009': 55,  'P-010': 55,  'P-011': 75,  'P-012': 100,
-    'P-013': 40,  'P-014': 40,  'P-015': 18,  'P-016': 65,
-    'P-017': 50,  'P-018': 35,  'P-019': 85,  'P-020': 70,
+    'P-001': 18,  'P-002': 14,  'P-003': 30,  'P-004': 38,
+    'P-005': 22,  'P-006': 16,  'P-007': 42,  'P-008': 35,
+    'P-009': 55,  'P-010': 60,  'P-011': 20,  'P-012': 12,
+    'P-013': 88,  'P-014': 70,  'P-015': 14,  'P-016': 34,
+    'P-017': 27,  'P-018': 15,  'P-019': 22,  'P-020': 48,
+    'P-021': 55,  'P-022': 28,  'P-023': 38,  'P-024': 66,
+    'P-025': 18,  'P-026': 12,  'P-027': 20,  'P-028': 12,
+    'P-029': 30,  'P-030': 105, 'P-031': 25,  'P-032': 16,
+    'P-033': 42,  'P-034': 30,  'P-035': 18,  'P-036': 44,
+    'P-037': 32,  'P-038': 62,  'P-039': 16,  'P-040': 10,
+    'P-041': 48,  'P-042': 12,  'P-043': 22,  'P-044': 28,
+    'P-045': 32,  'P-046': 80,  'P-047': 18,  'P-048': 35,
+    'P-049': 50,  'P-050': 16,  'P-051': 24,  'P-052': 45,
+    'P-053': 36,  'P-054': 58,  'P-055': 22,  'P-056': 14,
+    'P-057': 11,  'P-058': 26,  'P-059': 30,  'P-060': 28,
   };
 
   function sampleDate(p) {
