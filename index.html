@@ -1610,6 +1610,217 @@
       background: var(--maroon-dim);
     }
 
+    /* ================================================================
+       BD PIPELINE KANBAN (interactive) — drag-and-drop + stage popup
+       ================================================================ */
+    #view-bd-kanban { flex: 1 1 auto; min-height: 0; flex-direction: column; display: none; }
+
+    /* Popup-style toggle in the kanban header */
+    .popup-style-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .popup-style-toggle .pst-label {
+      font-size: 12px;
+      color: var(--label);
+      font-weight: 600;
+    }
+    .pst-group {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .pst-btn {
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 500;
+      font-family: var(--font);
+      background: var(--bg-card);
+      color: var(--text-sidebar);
+      border: none;
+      cursor: pointer;
+      border-right: 1px solid var(--border);
+      transition: background 0.12s, color 0.12s;
+    }
+    .pst-btn:last-child { border-right: none; }
+    .pst-btn:hover { background: #f5f5f5; color: var(--text-primary); }
+    .pst-btn.active { background: var(--maroon); color: #fff; font-weight: 600; }
+
+    /* Drag affordances on the interactive board */
+    #bdKanbanBoard .kanban-card { cursor: grab; }
+    #bdKanbanBoard .kanban-card.dragging { opacity: 0.45; cursor: grabbing; }
+    #bdKanbanBoard .kanban-col.drop-target { outline: 2px dashed var(--maroon); outline-offset: -2px; background: var(--maroon-dim); }
+    #bdKanbanBoard .kanban-col.fanout .kanban-col-title::after {
+      content: '⑂';
+      margin-left: 5px;
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    /* Detailed-stage pill shown on a card */
+    .stage-pill {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--maroon-dim);
+      color: var(--maroon);
+      font-size: 10.5px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    /* ── Variant A — centered modal ─────────────────────────────────── */
+    #stageModal { display: none; position: fixed; inset: 0; z-index: 1100; }
+    #stageModal.open { display: flex; align-items: center; justify-content: center; }
+    #stageModal .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.38); }
+    .stage-modal-panel {
+      position: relative;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      width: 90%;
+      max-width: 420px;
+      overflow: hidden;
+    }
+    .stage-modal-head {
+      padding: 16px 20px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stage-modal-title { font-size: 16px; font-weight: 700; color: var(--value); }
+    .stage-modal-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .stage-modal-body { padding: 14px 20px; }
+    .stage-modal-foot {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 12px 20px 16px;
+    }
+
+    /* Radio list shared by variants A and C */
+    .stage-radio-list { display: flex; flex-direction: column; gap: 6px; }
+    .stage-radio {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-primary);
+      transition: border-color 0.12s, background 0.12s;
+    }
+    .stage-radio:hover { border-color: #ccc; background: #f7f7f7; }
+    .stage-radio.selected { border-color: var(--maroon); background: var(--maroon-dim); font-weight: 600; }
+    .stage-radio input { accent-color: var(--maroon); cursor: pointer; }
+
+    /* ── Variant B — inline editor on the card ──────────────────────── */
+    .inline-stage-editor {
+      margin-top: 9px;
+      padding-top: 9px;
+      border-top: 1px solid var(--border);
+    }
+    .inline-stage-label { font-size: 10.5px; font-weight: 600; color: var(--label); margin-bottom: 5px; }
+    .inline-stage-row { display: flex; align-items: center; gap: 6px; }
+    .inline-stage-select {
+      flex: 1;
+      height: 30px;
+      padding: 0 8px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: var(--bg-card);
+      font-family: var(--font);
+      font-size: 12px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    .inline-stage-select:focus { outline: none; border-color: var(--maroon); }
+    .inline-btn {
+      width: 28px;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.12s, color 0.12s, border-color 0.12s;
+    }
+    .inline-btn.confirm { color: #fff; background: var(--maroon); border-color: var(--maroon); }
+    .inline-btn.confirm:hover { background: var(--maroon-light); }
+    .inline-btn.cancel { color: var(--label); }
+    .inline-btn.cancel:hover { background: #f0f0f0; color: var(--text-primary); }
+    #bdKanbanBoard .kanban-card.editing { cursor: default; border-color: var(--maroon); box-shadow: 0 3px 12px rgba(129,22,34,0.12); }
+
+    /* ── Variant C — slide-in side panel ────────────────────────────── */
+    #stagePanel { position: fixed; inset: 0; z-index: 1100; display: none; }
+    #stagePanel.open { display: block; }
+    #stagePanel .panel-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.28); }
+    .stage-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 360px;
+      max-width: 90%;
+      height: 100%;
+      background: var(--bg-card);
+      box-shadow: -4px 0 24px rgba(0,0,0,0.14);
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.22s ease;
+    }
+    #stagePanel.open .stage-panel { transform: translateX(0); }
+    .stage-panel-head {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .stage-panel-title { font-size: 16px; font-weight: 700; color: var(--value); }
+    .stage-panel-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .stage-panel-body { padding: 16px 20px; overflow-y: auto; flex: 1; }
+    .stage-panel-context {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+    }
+    .stage-ctx-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 3px 0; }
+    .stage-ctx-row .k { color: var(--label); }
+    .stage-ctx-row .v { color: var(--value); font-weight: 600; text-align: right; }
+    .stage-flow {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--maroon);
+      margin: 4px 0 14px;
+    }
+    .stage-flow .arrow { color: var(--text-muted); }
+    .stage-panel-foot {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .panel-section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--label); margin-bottom: 8px; }
+
   </style>
 </head>
 
@@ -1657,7 +1868,7 @@
         BD Pipeline
       </div>
 
-      <!-- BD Pipeline Kanban -->
+      <!-- Pipeline Kanban (interactive drag-and-drop) -->
       <div class="nav-item" data-nav="bd-kanban">
         <span class="nav-icon">
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1666,7 +1877,7 @@
             <rect x="10" y="1.5" width="3.5" height="10" rx="1"/>
           </svg>
         </span>
-        BD Pipeline Kanban
+        Pipeline Kanban
       </div>
 
       <!-- Grants -->
@@ -2385,6 +2596,38 @@
     </div><!-- /view-kanban -->
 
     <!-- ============================================================
+         VIEW: BD PIPELINE KANBAN (interactive drag-and-drop)
+         ============================================================ -->
+    <div id="view-bd-kanban">
+      <div class="page-scroll" style="display:flex;flex-direction:column;overflow:hidden;padding:0;">
+        <div class="sys-kanban-page">
+
+          <!-- Header -->
+          <div class="sys-list-header" style="margin-bottom:12px;">
+            <div class="sys-list-title-block">
+              <div class="sys-list-title">Pipeline Kanban</div>
+              <div class="sys-list-caption">Drag a proposal across the 8 BD pipeline stages. Dropping into Proposal or MOU asks for the precise project stage.</div>
+            </div>
+            <div class="popup-style-toggle">
+              <span class="pst-label">Popup style:</span>
+              <div class="pst-group" id="popupStyleToggle">
+                <button class="pst-btn active" data-style="A">A Modal</button>
+                <button class="pst-btn" data-style="B">B Inline</button>
+                <button class="pst-btn" data-style="C">C Side panel</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Kanban board -->
+          <div class="kanban-board" id="bdKanbanBoard">
+            <!-- Columns injected by renderBdKanban() -->
+          </div>
+
+        </div><!-- /sys-kanban-page -->
+      </div><!-- /page-scroll -->
+    </div><!-- /view-bd-kanban -->
+
+    <!-- ============================================================
          GRANTS DASHBOARD VIEW
          ============================================================ -->
     <div id="view-grants">
@@ -2914,6 +3157,52 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
 </div>
 
 <!-- ================================================================
+     STAGE POPUP — Variant A (centered modal)
+     ================================================================ -->
+<div id="stageModal">
+  <div class="modal-backdrop" id="stageModalBackdrop"></div>
+  <div class="stage-modal-panel">
+    <div class="stage-modal-head">
+      <div class="stage-modal-title" id="stageModalTitle">Set project stage</div>
+      <div class="stage-modal-sub" id="stageModalSub"></div>
+    </div>
+    <div class="stage-modal-body">
+      <div class="stage-radio-list" id="stageModalList"></div>
+    </div>
+    <div class="stage-modal-foot">
+      <button class="btn btn-outline" id="stageModalCancel">Cancel</button>
+      <button class="btn btn-primary" id="stageModalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     STAGE POPUP — Variant C (slide-in side panel)
+     ================================================================ -->
+<div id="stagePanel">
+  <div class="panel-backdrop" id="stagePanelBackdrop"></div>
+  <div class="stage-panel">
+    <div class="stage-panel-head">
+      <div>
+        <div class="stage-panel-title" id="stagePanelTitle">Set project stage</div>
+        <div class="stage-panel-sub" id="stagePanelSub"></div>
+      </div>
+      <button class="modal-close" id="stagePanelClose">×</button>
+    </div>
+    <div class="stage-panel-body">
+      <div class="stage-flow" id="stagePanelFlow"></div>
+      <div class="stage-panel-context" id="stagePanelContext"></div>
+      <div class="panel-section-label">Detailed project stage</div>
+      <div class="stage-radio-list" id="stagePanelList"></div>
+    </div>
+    <div class="stage-panel-foot">
+      <button class="btn btn-outline" id="stagePanelCancel">Cancel</button>
+      <button class="btn btn-primary" id="stagePanelConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
      JAVASCRIPT — data-driven render engine + interactions
      ================================================================ -->
 <script>
@@ -3419,6 +3708,8 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     document.getElementById('view-dashboard').style.display = 'none';
     document.getElementById('view-list').style.display      = 'none';
     document.getElementById('view-kanban').style.display    = 'none';
+    const vBdKanban = document.getElementById('view-bd-kanban');
+    if (vBdKanban) vBdKanban.style.display = 'none';
     const vGrants = document.getElementById('view-grants');
     if (vGrants) vGrants.style.display = 'none';
 
@@ -3449,6 +3740,12 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
       if (navKb) navKb.classList.add('active');
       renderKanbanView();
       setBreadcrumb('BD Pipeline', 'BD Pipeline');
+    } else if (name === 'bd-kanban') {
+      if (vBdKanban) vBdKanban.style.display = 'flex';
+      const navKb = document.querySelector('.nav-item[data-nav="bd-kanban"]');
+      if (navKb) navKb.classList.add('active');
+      if (typeof window.renderBdKanban === 'function') window.renderBdKanban();
+      setBreadcrumb('BD Pipeline', 'Pipeline Kanban');
     } else if (name === 'grants') {
       if (vGrants) vGrants.style.display = 'flex';
       const navGr = document.querySelector('.nav-item[data-nav="grants"]');
@@ -3684,7 +3981,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
         return;
       }
       if (navKey === 'bd-kanban') {
-        showView('kanban');
+        showView('bd-kanban');
         return;
       }
       if (navKey === 'grants') {
@@ -4020,6 +4317,311 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     }
 
     renderGrants();
+  })();
+
+  /* ================================================================
+     BD PIPELINE KANBAN MODULE (interactive)
+     Columns = 8 BD pipeline stages. Dragging into a column that maps
+     to more than one detailed sub-stage (Proposal, MOU) fires a popup
+     to pick the precise stage; every other column moves silently.
+  ================================================================ */
+  (function() {
+    /* BD column order */
+    const BD_COLUMNS = [
+      'Initial outreach',
+      'Initial Conversation/ Pitching',
+      'Concept Note',
+      'Proposal',
+      'MOU',
+      'Grant Awarded',
+      'Project on Hold',
+      'Lost opportunity',
+    ];
+
+    /* BD column -> ordered detailed sub-stages. Index 0 is the earliest (default). */
+    const DETAILED_STAGES = {
+      'Initial outreach':               ['Initial outreach'],
+      'Initial Conversation/ Pitching': ['Application submitted', 'Application submitted, field visit pending from donor'],
+      'Concept Note':                   ['Concept note submitted', 'Concept note under donor review'],
+      'Proposal':                       ['Proposal submitted', 'Proposal under donor review', 'Proposal submitted, field visit pending from donor'],
+      'MOU':                            ['MoU WIP', 'MOU Signed- WIP', 'MoU Signed'],
+      'Grant Awarded':                  ['Grant Awarded- fund realised'],
+      'Project on Hold':                ['Project on Hold'],
+      'Lost opportunity':               ['Opportunity Lost'],
+    };
+
+    /* Only columns with more than one detailed sub-stage fan out into a popup */
+    function isFanout(col) { return DETAILED_STAGES[col].length > 1; }
+
+    const COLUMN_DOTS = {
+      'Initial outreach':               'dot-early',
+      'Initial Conversation/ Pitching': 'dot-early',
+      'Concept Note':                   'dot-proposal',
+      'Proposal':                       'dot-proposal',
+      'MOU':                            'dot-mou',
+      'Grant Awarded':                  'dot-awarded',
+      'Project on Hold':                'dot-hold',
+      'Lost opportunity':               'dot-lost',
+    };
+
+    /* Demo proposals — seeded across the 8 columns, each carrying a detailed sub-stage */
+    const CARDS = [
+      {id:'BD-01', name:'Rural WASH Infrastructure — Phase 3',        donor:'Asha Kiran Trust',          anchor:'Grant Anchor 1', fund:95.0,  bd:'Initial outreach',                detail:'Initial outreach'},
+      {id:'BD-02', name:'Smallholder Climate Resilience Programme',   donor:'NABARD Foundation',         anchor:'Grant Anchor 2', fund:120.0, bd:'Initial outreach',                detail:'Initial outreach'},
+      {id:'BD-03', name:'Girls Secondary Education Access',           donor:'Vidya Daan Foundation',     anchor:'Grant Anchor 1', fund:75.0,  bd:'Initial Conversation/ Pitching',  detail:'Application submitted'},
+      {id:'BD-04', name:'Digital Financial Inclusion — Bihar',        donor:'SIDBI Foundation',          anchor:'Grant Anchor 3', fund:130.0, bd:'Initial Conversation/ Pitching',  detail:'Application submitted, field visit pending from donor'},
+      {id:'BD-05', name:'Community Forest Governance Initiative',     donor:'Aranya Bhumi Foundation',   anchor:'Grant Anchor 2', fund:185.0, bd:'Concept Note',                    detail:'Concept note submitted'},
+      {id:'BD-06', name:'Maternal and Newborn Care — MP Clusters',    donor:'HDFC Parivartan',           anchor:'Grant Anchor 1', fund:160.0, bd:'Concept Note',                    detail:'Concept note under donor review'},
+      {id:'BD-07', name:'Adolescent Nutrition and Menstrual Health',  donor:'Tata Trusts',               anchor:'Grant Anchor 1', fund:260.0, bd:'Proposal',                        detail:'Proposal submitted'},
+      {id:'BD-08', name:'Tribal Education and Skill Bridges',         donor:'Azim Premji Foundation',    anchor:'Grant Anchor 2', fund:340.0, bd:'Proposal',                        detail:'Proposal under donor review'},
+      {id:'BD-09', name:'Coastal Climate Adaptation — Tamil Nadu',    donor:'GIZ India',                 anchor:'Grant Anchor 3', fund:860.0, bd:'MOU',                             detail:'MoU WIP'},
+      {id:'BD-10', name:'Women-Led SHG Livelihoods Cluster',          donor:'Axis Bank Foundation',      anchor:'Grant Anchor 1', fund:150.0, bd:'MOU',                             detail:'MoU Signed'},
+      {id:'BD-11', name:'Farmer Livelihoods — Vidarbha Phase 2',      donor:'Annadata Trust',            anchor:'Grant Anchor 1', fund:310.0, bd:'Grant Awarded',                   detail:'Grant Awarded- fund realised'},
+      {id:'BD-12', name:'Rural MSME Cluster Development',             donor:'SIDBI MSME Foundation',     anchor:'Grant Anchor 4', fund:null,  bd:'Project on Hold',                 detail:'Project on Hold'},
+      {id:'BD-13', name:'Urban Slum Sanitation Initiative — Raipur',  donor:'Hindustan Unilever Found.', anchor:'Grant Anchor 2', fund:80.0,  bd:'Lost opportunity',                detail:'Opportunity Lost'},
+    ];
+
+    function fund(v) {
+      if (v === null || v === undefined) return '—';
+      if (v >= 100) return '₹ ' + (v / 100).toFixed(2) + ' Cr';
+      return '₹ ' + v.toFixed(2) + ' L';
+    }
+
+    let popupStyle = 'A';      // A modal · B inline · C side panel
+    let dragId = null;         // card currently being dragged
+    let pending = null;        // { card, sourceBd, targetBd } awaiting a popup decision
+
+    const board = document.getElementById('bdKanbanBoard');
+
+    function cardHTML(c) {
+      return '<div class="kanban-card" draggable="true" data-card="' + c.id + '">' +
+               '<div class="kanban-card-title">' + c.name + '</div>' +
+               '<div class="kanban-card-meta">' +
+                 'Donor: <span>' + c.donor + '</span><br>' +
+                 'Grant Anchor: <span>' + c.anchor + '</span><br>' +
+                 'Fund Requested: <span>' + fund(c.fund) + '</span>' +
+               '</div>' +
+               '<span class="stage-pill">' + c.detail + '</span>' +
+             '</div>';
+    }
+
+    function renderBdKanban() {
+      let html = '';
+      BD_COLUMNS.forEach(function(col) {
+        const cards = CARDS.filter(c => c.bd === col);
+        const body = cards.length === 0
+          ? '<div class="kanban-col-empty">Drop a proposal here</div>'
+          : cards.map(cardHTML).join('');
+        html +=
+          '<div class="kanban-col' + (isFanout(col) ? ' fanout' : '') + '" data-col="' + col + '">' +
+            '<div class="kanban-col-header">' +
+              '<div class="kanban-col-dot ' + (COLUMN_DOTS[col] || '') + '"></div>' +
+              '<div class="kanban-col-title">' + col + '</div>' +
+              '<div class="kanban-col-count">' + cards.length + '</div>' +
+            '</div>' +
+            '<div class="kanban-cards">' + body + '</div>' +
+          '</div>';
+      });
+      board.innerHTML = html;
+    }
+    window.renderBdKanban = renderBdKanban;
+
+    /* ── Drag-and-drop ──────────────────────────────────────────────── */
+    board.addEventListener('dragstart', function(e) {
+      const card = e.target.closest('.kanban-card');
+      if (!card) return;
+      dragId = card.dataset.card;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', dragId); } catch (err) {}
+    });
+
+    board.addEventListener('dragend', function(e) {
+      const card = e.target.closest('.kanban-card');
+      if (card) card.classList.remove('dragging');
+      board.querySelectorAll('.kanban-col.drop-target').forEach(c => c.classList.remove('drop-target'));
+    });
+
+    board.addEventListener('dragover', function(e) {
+      const col = e.target.closest('.kanban-col');
+      if (!col) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      board.querySelectorAll('.kanban-col.drop-target').forEach(c => { if (c !== col) c.classList.remove('drop-target'); });
+      col.classList.add('drop-target');
+    });
+
+    board.addEventListener('dragleave', function(e) {
+      const col = e.target.closest('.kanban-col');
+      if (col && !col.contains(e.relatedTarget)) col.classList.remove('drop-target');
+    });
+
+    board.addEventListener('drop', function(e) {
+      const col = e.target.closest('.kanban-col');
+      if (!col || !dragId) return;
+      e.preventDefault();
+      col.classList.remove('drop-target');
+      const card = CARDS.find(c => c.id === dragId);
+      const targetBd = col.dataset.col;
+      const id = dragId;
+      dragId = null;
+      if (!card || card.bd === targetBd) return;
+
+      if (isFanout(targetBd)) {
+        pending = { card: card, sourceBd: card.bd, targetBd: targetBd };
+        openPopup();
+      } else {
+        // Single sub-stage: move silently.
+        card.bd = targetBd;
+        card.detail = DETAILED_STAGES[targetBd][0];
+        renderBdKanban();
+      }
+      void id;
+    });
+
+    /* Apply a confirmed move, then re-render */
+    function commit(detail) {
+      if (!pending) return;
+      pending.card.bd = pending.targetBd;
+      pending.card.detail = detail;
+      pending = null;
+      closeAllPopups();
+      renderBdKanban();
+    }
+
+    /* Cancel: card stays in its original column, nothing changes */
+    function cancel() {
+      pending = null;
+      closeAllPopups();
+      renderBdKanban();
+    }
+
+    function defaultDetail() { return DETAILED_STAGES[pending.targetBd][0]; }
+
+    /* ── Popup dispatch ─────────────────────────────────────────────── */
+    function openPopup() {
+      if (popupStyle === 'A') openModal();
+      else if (popupStyle === 'B') openInline();
+      else openPanel();
+    }
+
+    function closeAllPopups() {
+      document.getElementById('stageModal').classList.remove('open');
+      document.getElementById('stagePanel').classList.remove('open');
+      board.querySelectorAll('.kanban-card.editing').forEach(c => c.classList.remove('editing'));
+      board.querySelectorAll('.inline-stage-editor').forEach(el => el.remove());
+    }
+
+    /* Build a radio list (shared by variants A and C). selected = default detail. */
+    function radioListHTML(listId, selected) {
+      return DETAILED_STAGES[pending.targetBd].map(function(s, i) {
+        const isSel = s === selected;
+        return '<label class="stage-radio' + (isSel ? ' selected' : '') + '">' +
+                 '<input type="radio" name="' + listId + '" value="' + i + '"' + (isSel ? ' checked' : '') + '>' +
+                 '<span>' + s + '</span>' +
+               '</label>';
+      }).join('');
+    }
+
+    function bindRadioList(container) {
+      container.querySelectorAll('.stage-radio').forEach(function(r) {
+        r.addEventListener('click', function() {
+          container.querySelectorAll('.stage-radio').forEach(x => x.classList.remove('selected'));
+          r.classList.add('selected');
+          const input = r.querySelector('input');
+          if (input) input.checked = true;
+        });
+      });
+    }
+
+    function selectedDetail(container) {
+      const checked = container.querySelector('input:checked');
+      const idx = checked ? parseInt(checked.value, 10) : 0;
+      return DETAILED_STAGES[pending.targetBd][idx];
+    }
+
+    /* ── Variant A — centered modal ─────────────────────────────────── */
+    function openModal() {
+      document.getElementById('stageModalTitle').textContent = 'Set project stage — ' + pending.targetBd;
+      document.getElementById('stageModalSub').textContent = pending.card.name + ' · ' + pending.card.donor;
+      const list = document.getElementById('stageModalList');
+      list.innerHTML = radioListHTML('stageModalRadio', defaultDetail());
+      bindRadioList(list);
+      document.getElementById('stageModal').classList.add('open');
+    }
+    document.getElementById('stageModalConfirm').addEventListener('click', function() {
+      commit(selectedDetail(document.getElementById('stageModalList')));
+    });
+    document.getElementById('stageModalCancel').addEventListener('click', cancel);
+    document.getElementById('stageModalBackdrop').addEventListener('click', cancel);
+
+    /* ── Variant B — inline editor on the dropped card ──────────────── */
+    function openInline() {
+      renderBdKanban();
+      const cardEl = board.querySelector('.kanban-card[data-card="' + pending.card.id + '"]');
+      if (!cardEl) return;
+      cardEl.classList.add('editing');
+      const def = defaultDetail();
+      const options = DETAILED_STAGES[pending.targetBd].map(function(s) {
+        return '<option value="' + s + '"' + (s === def ? ' selected' : '') + '>' + s + '</option>';
+      }).join('');
+      const editor = document.createElement('div');
+      editor.className = 'inline-stage-editor';
+      editor.innerHTML =
+        '<div class="inline-stage-label">Project stage — ' + pending.targetBd + '</div>' +
+        '<div class="inline-stage-row">' +
+          '<select class="inline-stage-select" id="inlineStageSelect">' + options + '</select>' +
+          '<button class="inline-btn confirm" id="inlineConfirm" title="Confirm">✓</button>' +
+          '<button class="inline-btn cancel" id="inlineCancel" title="Cancel">✕</button>' +
+        '</div>';
+      cardEl.appendChild(editor);
+      editor.addEventListener('click', e => e.stopPropagation());
+      document.getElementById('inlineConfirm').addEventListener('click', function() {
+        commit(document.getElementById('inlineStageSelect').value);
+      });
+      document.getElementById('inlineCancel').addEventListener('click', cancel);
+    }
+
+    /* ── Variant C — slide-in side panel ────────────────────────────── */
+    function openPanel() {
+      document.getElementById('stagePanelTitle').textContent = 'Set project stage';
+      document.getElementById('stagePanelSub').textContent = pending.targetBd;
+      document.getElementById('stagePanelFlow').innerHTML =
+        '<span>' + pending.sourceBd + '</span><span class="arrow">→</span><span>' + pending.targetBd + '</span>';
+      document.getElementById('stagePanelContext').innerHTML =
+        '<div class="stage-ctx-row"><span class="k">Proposal</span><span class="v">' + pending.card.name + '</span></div>' +
+        '<div class="stage-ctx-row"><span class="k">Donor</span><span class="v">' + pending.card.donor + '</span></div>' +
+        '<div class="stage-ctx-row"><span class="k">Grant Anchor</span><span class="v">' + pending.card.anchor + '</span></div>' +
+        '<div class="stage-ctx-row"><span class="k">Fund Requested</span><span class="v">' + fund(pending.card.fund) + '</span></div>';
+      const list = document.getElementById('stagePanelList');
+      list.innerHTML = radioListHTML('stagePanelRadio', defaultDetail());
+      bindRadioList(list);
+      document.getElementById('stagePanel').classList.add('open');
+    }
+    document.getElementById('stagePanelConfirm').addEventListener('click', function() {
+      commit(selectedDetail(document.getElementById('stagePanelList')));
+    });
+    document.getElementById('stagePanelCancel').addEventListener('click', cancel);
+    document.getElementById('stagePanelClose').addEventListener('click', cancel);
+    document.getElementById('stagePanelBackdrop').addEventListener('click', cancel);
+
+    /* Esc cancels any open stage popup */
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && pending) cancel();
+    });
+
+    /* ── Popup-style toggle ─────────────────────────────────────────── */
+    document.getElementById('popupStyleToggle').addEventListener('click', function(e) {
+      const btn = e.target.closest('.pst-btn');
+      if (!btn) return;
+      popupStyle = btn.dataset.style;
+      this.querySelectorAll('.pst-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      // Switching style mid-edit cancels any in-flight popup
+      if (pending) cancel();
+    });
+
+    renderBdKanban();
   })();
 
 </script>
