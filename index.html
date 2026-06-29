@@ -1615,40 +1615,6 @@
        ================================================================ */
     #view-bd-kanban { flex: 1 1 auto; min-height: 0; flex-direction: column; display: none; }
 
-    /* Popup-style toggle in the kanban header */
-    .popup-style-toggle {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-    .popup-style-toggle .pst-label {
-      font-size: 12px;
-      color: var(--label);
-      font-weight: 600;
-    }
-    .pst-group {
-      display: inline-flex;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    .pst-btn {
-      padding: 6px 12px;
-      font-size: 12.5px;
-      font-weight: 500;
-      font-family: var(--font);
-      background: var(--bg-card);
-      color: var(--text-sidebar);
-      border: none;
-      cursor: pointer;
-      border-right: 1px solid var(--border);
-      transition: background 0.12s, color 0.12s;
-    }
-    .pst-btn:last-child { border-right: none; }
-    .pst-btn:hover { background: #f5f5f5; color: var(--text-primary); }
-    .pst-btn.active { background: var(--maroon); color: #fff; font-weight: 600; }
-
     /* Drag affordances on the interactive board */
     #bdKanbanBoard .kanban-card { cursor: grab; }
     #bdKanbanBoard .kanban-card.dragging { opacity: 0.45; cursor: grabbing; }
@@ -1673,153 +1639,74 @@
       line-height: 1.4;
     }
 
-    /* ── Variant A — centered modal ─────────────────────────────────── */
-    #stageModal { display: none; position: fixed; inset: 0; z-index: 1100; }
-    #stageModal.open { display: flex; align-items: center; justify-content: center; }
-    #stageModal .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.38); }
-    .stage-modal-panel {
+    /* ── Stage dialog — mimics frappe.ui.Dialog ─────────────────────── */
+    #stageDialog { display: none; position: fixed; inset: 0; z-index: 1100; }
+    #stageDialog.open { display: flex; align-items: center; justify-content: center; }
+    #stageDialog .frappe-dialog-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+    }
+    .frappe-dialog {
       position: relative;
       background: var(--bg-card);
-      border-radius: var(--radius);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      border-radius: 6px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
       width: 90%;
-      max-width: 420px;
+      max-width: 480px;
       overflow: hidden;
     }
-    .stage-modal-head {
-      padding: 16px 20px 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .stage-modal-title { font-size: 16px; font-weight: 700; color: var(--value); }
-    .stage-modal-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-    .stage-modal-body { padding: 14px 20px; }
-    .stage-modal-foot {
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-      padding: 12px 20px 16px;
-    }
-
-    /* Radio list shared by variants A and C */
-    .stage-radio-list { display: flex; flex-direction: column; gap: 6px; }
-    .stage-radio {
+    .frappe-dialog-head {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 9px 11px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .frappe-dialog-title { font-size: 15px; font-weight: 600; color: var(--value); }
+    .frappe-dialog-close {
+      background: none;
+      border: none;
       cursor: pointer;
-      font-size: 13px;
-      color: var(--text-primary);
-      transition: border-color 0.12s, background 0.12s;
+      font-size: 20px;
+      line-height: 1;
+      color: var(--label);
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: background 0.12s, color 0.12s;
     }
-    .stage-radio:hover { border-color: #ccc; background: #f7f7f7; }
-    .stage-radio.selected { border-color: var(--maroon); background: var(--maroon-dim); font-weight: 600; }
-    .stage-radio input { accent-color: var(--maroon); cursor: pointer; }
-
-    /* ── Variant B — inline editor on the card ──────────────────────── */
-    .inline-stage-editor {
-      margin-top: 9px;
-      padding-top: 9px;
-      border-top: 1px solid var(--border);
+    .frappe-dialog-close:hover { background: #f0f0f0; color: var(--text-primary); }
+    .frappe-dialog-body { padding: 18px; }
+    .frappe-form-label {
+      display: block;
+      font-size: 12px;
+      color: var(--label);
+      margin-bottom: 6px;
     }
-    .inline-stage-label { font-size: 10.5px; font-weight: 600; color: var(--label); margin-bottom: 5px; }
-    .inline-stage-row { display: flex; align-items: center; gap: 6px; }
-    .inline-stage-select {
-      flex: 1;
-      height: 30px;
-      padding: 0 8px;
-      border: 1px solid var(--border);
-      border-radius: 5px;
+    .frappe-form-control {
+      width: 100%;
+      height: 34px;
+      padding: 6px 10px;
+      border: 1px solid #d1d8dd;
+      border-radius: 6px;
       background: var(--bg-card);
       font-family: var(--font);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-primary);
       cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
     }
-    .inline-stage-select:focus { outline: none; border-color: var(--maroon); }
-    .inline-btn {
-      width: 28px;
-      height: 30px;
-      border-radius: 5px;
-      border: 1px solid var(--border);
-      background: var(--bg-card);
-      cursor: pointer;
-      font-size: 14px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.12s, color 0.12s, border-color 0.12s;
-    }
-    .inline-btn.confirm { color: #fff; background: var(--maroon); border-color: var(--maroon); }
-    .inline-btn.confirm:hover { background: var(--maroon-light); }
-    .inline-btn.cancel { color: var(--label); }
-    .inline-btn.cancel:hover { background: #f0f0f0; color: var(--text-primary); }
-    #bdKanbanBoard .kanban-card.editing { cursor: default; border-color: var(--maroon); box-shadow: 0 3px 12px rgba(129,22,34,0.12); }
-
-    /* ── Variant C — slide-in side panel ────────────────────────────── */
-    #stagePanel { position: fixed; inset: 0; z-index: 1100; display: none; }
-    #stagePanel.open { display: block; }
-    #stagePanel .panel-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.28); }
-    .stage-panel {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 360px;
-      max-width: 90%;
-      height: 100%;
-      background: var(--bg-card);
-      box-shadow: -4px 0 24px rgba(0,0,0,0.14);
-      display: flex;
-      flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.22s ease;
-    }
-    #stagePanel.open .stage-panel { transform: translateX(0); }
-    .stage-panel-head {
-      padding: 18px 20px 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-    .stage-panel-title { font-size: 16px; font-weight: 700; color: var(--value); }
-    .stage-panel-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-    .stage-panel-body { padding: 16px 20px; overflow-y: auto; flex: 1; }
-    .stage-panel-context {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px 14px;
-      margin-bottom: 16px;
-    }
-    .stage-ctx-row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 3px 0; }
-    .stage-ctx-row .k { color: var(--label); }
-    .stage-ctx-row .v { color: var(--value); font-weight: 600; text-align: right; }
-    .stage-flow {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--maroon);
-      margin: 4px 0 14px;
-    }
-    .stage-flow .arrow { color: var(--text-muted); }
-    .stage-panel-foot {
+    .frappe-form-control:focus { outline: none; border-color: var(--maroon); }
+    .frappe-dialog-foot {
       display: flex;
       justify-content: flex-end;
       gap: 8px;
-      padding: 14px 20px;
+      padding: 12px 18px;
       border-top: 1px solid var(--border);
-      flex-shrink: 0;
     }
-    .panel-section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--label); margin-bottom: 8px; }
 
   </style>
 </head>
@@ -2608,14 +2495,6 @@
               <div class="sys-list-title">Pipeline Kanban</div>
               <div class="sys-list-caption">Drag a proposal across the 8 BD pipeline stages. Dropping into Proposal or MOU asks for the precise project stage.</div>
             </div>
-            <div class="popup-style-toggle">
-              <span class="pst-label">Popup style:</span>
-              <div class="pst-group" id="popupStyleToggle">
-                <button class="pst-btn active" data-style="A">A Modal</button>
-                <button class="pst-btn" data-style="B">B Inline</button>
-                <button class="pst-btn" data-style="C">C Side panel</button>
-              </div>
-            </div>
           </div>
 
           <!-- Kanban board -->
@@ -3157,47 +3036,22 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
 </div>
 
 <!-- ================================================================
-     STAGE POPUP — Variant A (centered modal)
+     STAGE DIALOG — mimics frappe.ui.Dialog
      ================================================================ -->
-<div id="stageModal">
-  <div class="modal-backdrop" id="stageModalBackdrop"></div>
-  <div class="stage-modal-panel">
-    <div class="stage-modal-head">
-      <div class="stage-modal-title" id="stageModalTitle">Set project stage</div>
-      <div class="stage-modal-sub" id="stageModalSub"></div>
+<div id="stageDialog">
+  <div class="frappe-dialog-backdrop" id="stageDialogBackdrop"></div>
+  <div class="frappe-dialog">
+    <div class="frappe-dialog-head">
+      <div class="frappe-dialog-title">Set Project Stage</div>
+      <button class="frappe-dialog-close" id="stageDialogClose">×</button>
     </div>
-    <div class="stage-modal-body">
-      <div class="stage-radio-list" id="stageModalList"></div>
+    <div class="frappe-dialog-body">
+      <label class="frappe-form-label" for="stageDialogSelect">Project Stage</label>
+      <select class="frappe-form-control" id="stageDialogSelect"></select>
     </div>
-    <div class="stage-modal-foot">
-      <button class="btn btn-outline" id="stageModalCancel">Cancel</button>
-      <button class="btn btn-primary" id="stageModalConfirm">Confirm</button>
-    </div>
-  </div>
-</div>
-
-<!-- ================================================================
-     STAGE POPUP — Variant C (slide-in side panel)
-     ================================================================ -->
-<div id="stagePanel">
-  <div class="panel-backdrop" id="stagePanelBackdrop"></div>
-  <div class="stage-panel">
-    <div class="stage-panel-head">
-      <div>
-        <div class="stage-panel-title" id="stagePanelTitle">Set project stage</div>
-        <div class="stage-panel-sub" id="stagePanelSub"></div>
-      </div>
-      <button class="modal-close" id="stagePanelClose">×</button>
-    </div>
-    <div class="stage-panel-body">
-      <div class="stage-flow" id="stagePanelFlow"></div>
-      <div class="stage-panel-context" id="stagePanelContext"></div>
-      <div class="panel-section-label">Detailed project stage</div>
-      <div class="stage-radio-list" id="stagePanelList"></div>
-    </div>
-    <div class="stage-panel-foot">
-      <button class="btn btn-outline" id="stagePanelCancel">Cancel</button>
-      <button class="btn btn-primary" id="stagePanelConfirm">Confirm</button>
+    <div class="frappe-dialog-foot">
+      <button class="btn btn-outline" id="stageDialogCancel">Cancel</button>
+      <button class="btn btn-primary" id="stageDialogSubmit">Submit</button>
     </div>
   </div>
 </div>
@@ -4387,7 +4241,6 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
       return '₹ ' + v.toFixed(2) + ' L';
     }
 
-    let popupStyle = 'A';      // A modal · B inline · C side panel
     let dragId = null;         // card currently being dragged
     let pending = null;        // { card, sourceBd, targetBd } awaiting a popup decision
 
@@ -4469,7 +4322,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
 
       if (isFanout(targetBd)) {
         pending = { card: card, sourceBd: card.bd, targetBd: targetBd };
-        openPopup();
+        openDialog();
       } else {
         // Single sub-stage: move silently.
         card.bd = targetBd;
@@ -4498,127 +4351,30 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
 
     function defaultDetail() { return DETAILED_STAGES[pending.targetBd][0]; }
 
-    /* ── Popup dispatch ─────────────────────────────────────────────── */
-    function openPopup() {
-      if (popupStyle === 'A') openModal();
-      else if (popupStyle === 'B') openInline();
-      else openPanel();
-    }
-
+    /* ── Stage dialog (frappe.ui.Dialog style) ──────────────────────── */
     function closeAllPopups() {
-      document.getElementById('stageModal').classList.remove('open');
-      document.getElementById('stagePanel').classList.remove('open');
-      board.querySelectorAll('.kanban-card.editing').forEach(c => c.classList.remove('editing'));
-      board.querySelectorAll('.inline-stage-editor').forEach(el => el.remove());
+      document.getElementById('stageDialog').classList.remove('open');
     }
 
-    /* Build a radio list (shared by variants A and C). selected = default detail. */
-    function radioListHTML(listId, selected) {
-      return DETAILED_STAGES[pending.targetBd].map(function(s, i) {
-        const isSel = s === selected;
-        return '<label class="stage-radio' + (isSel ? ' selected' : '') + '">' +
-                 '<input type="radio" name="' + listId + '" value="' + i + '"' + (isSel ? ' checked' : '') + '>' +
-                 '<span>' + s + '</span>' +
-               '</label>';
-      }).join('');
-    }
-
-    function bindRadioList(container) {
-      container.querySelectorAll('.stage-radio').forEach(function(r) {
-        r.addEventListener('click', function() {
-          container.querySelectorAll('.stage-radio').forEach(x => x.classList.remove('selected'));
-          r.classList.add('selected');
-          const input = r.querySelector('input');
-          if (input) input.checked = true;
-        });
-      });
-    }
-
-    function selectedDetail(container) {
-      const checked = container.querySelector('input:checked');
-      const idx = checked ? parseInt(checked.value, 10) : 0;
-      return DETAILED_STAGES[pending.targetBd][idx];
-    }
-
-    /* ── Variant A — centered modal ─────────────────────────────────── */
-    function openModal() {
-      document.getElementById('stageModalTitle').textContent = 'Set project stage — ' + pending.targetBd;
-      document.getElementById('stageModalSub').textContent = pending.card.name + ' · ' + pending.card.donor;
-      const list = document.getElementById('stageModalList');
-      list.innerHTML = radioListHTML('stageModalRadio', defaultDetail());
-      bindRadioList(list);
-      document.getElementById('stageModal').classList.add('open');
-    }
-    document.getElementById('stageModalConfirm').addEventListener('click', function() {
-      commit(selectedDetail(document.getElementById('stageModalList')));
-    });
-    document.getElementById('stageModalCancel').addEventListener('click', cancel);
-    document.getElementById('stageModalBackdrop').addEventListener('click', cancel);
-
-    /* ── Variant B — inline editor on the dropped card ──────────────── */
-    function openInline() {
-      renderBdKanban();
-      const cardEl = board.querySelector('.kanban-card[data-card="' + pending.card.id + '"]');
-      if (!cardEl) return;
-      cardEl.classList.add('editing');
+    function openDialog() {
       const def = defaultDetail();
-      const options = DETAILED_STAGES[pending.targetBd].map(function(s) {
+      const select = document.getElementById('stageDialogSelect');
+      select.innerHTML = DETAILED_STAGES[pending.targetBd].map(function(s) {
         return '<option value="' + s + '"' + (s === def ? ' selected' : '') + '>' + s + '</option>';
       }).join('');
-      const editor = document.createElement('div');
-      editor.className = 'inline-stage-editor';
-      editor.innerHTML =
-        '<div class="inline-stage-label">Project stage — ' + pending.targetBd + '</div>' +
-        '<div class="inline-stage-row">' +
-          '<select class="inline-stage-select" id="inlineStageSelect">' + options + '</select>' +
-          '<button class="inline-btn confirm" id="inlineConfirm" title="Confirm">✓</button>' +
-          '<button class="inline-btn cancel" id="inlineCancel" title="Cancel">✕</button>' +
-        '</div>';
-      cardEl.appendChild(editor);
-      editor.addEventListener('click', e => e.stopPropagation());
-      document.getElementById('inlineConfirm').addEventListener('click', function() {
-        commit(document.getElementById('inlineStageSelect').value);
-      });
-      document.getElementById('inlineCancel').addEventListener('click', cancel);
+      document.getElementById('stageDialog').classList.add('open');
     }
 
-    /* ── Variant C — slide-in side panel ────────────────────────────── */
-    function openPanel() {
-      document.getElementById('stagePanelTitle').textContent = 'Set project stage';
-      document.getElementById('stagePanelSub').textContent = pending.targetBd;
-      document.getElementById('stagePanelFlow').innerHTML =
-        '<span>' + pending.sourceBd + '</span><span class="arrow">→</span><span>' + pending.targetBd + '</span>';
-      document.getElementById('stagePanelContext').innerHTML =
-        '<div class="stage-ctx-row"><span class="k">Proposal</span><span class="v">' + pending.card.name + '</span></div>' +
-        '<div class="stage-ctx-row"><span class="k">Donor</span><span class="v">' + pending.card.donor + '</span></div>' +
-        '<div class="stage-ctx-row"><span class="k">Grant Anchor</span><span class="v">' + pending.card.anchor + '</span></div>' +
-        '<div class="stage-ctx-row"><span class="k">Fund Requested</span><span class="v">' + fund(pending.card.fund) + '</span></div>';
-      const list = document.getElementById('stagePanelList');
-      list.innerHTML = radioListHTML('stagePanelRadio', defaultDetail());
-      bindRadioList(list);
-      document.getElementById('stagePanel').classList.add('open');
-    }
-    document.getElementById('stagePanelConfirm').addEventListener('click', function() {
-      commit(selectedDetail(document.getElementById('stagePanelList')));
+    document.getElementById('stageDialogSubmit').addEventListener('click', function() {
+      commit(document.getElementById('stageDialogSelect').value);
     });
-    document.getElementById('stagePanelCancel').addEventListener('click', cancel);
-    document.getElementById('stagePanelClose').addEventListener('click', cancel);
-    document.getElementById('stagePanelBackdrop').addEventListener('click', cancel);
+    document.getElementById('stageDialogCancel').addEventListener('click', cancel);
+    document.getElementById('stageDialogClose').addEventListener('click', cancel);
+    document.getElementById('stageDialogBackdrop').addEventListener('click', cancel);
 
-    /* Esc cancels any open stage popup */
+    /* Esc cancels an open stage dialog */
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && pending) cancel();
-    });
-
-    /* ── Popup-style toggle ─────────────────────────────────────────── */
-    document.getElementById('popupStyleToggle').addEventListener('click', function(e) {
-      const btn = e.target.closest('.pst-btn');
-      if (!btn) return;
-      popupStyle = btn.dataset.style;
-      this.querySelectorAll('.pst-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      // Switching style mid-edit cancels any in-flight popup
-      if (pending) cancel();
     });
 
     renderBdKanban();
