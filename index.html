@@ -1917,7 +1917,7 @@
           </div>
           <div class="stat-card" data-segment="new-leads">
             <span class="drill-icon">↗</span>
-            <div class="card-label">New leads (last 30 days)<span class="tip">i<span class="tip-bubble">Proposals that entered the pipeline (Initial Conversation or Initial Outreach) within the last 30 days.</span></span></div>
+            <div class="card-label">New leads (last 30 days)<span class="tip">i<span class="tip-bubble">Proposals that entered the pipeline (Initial outreach or Initial Conversation/ Pitching) within the last 30 days.</span></span></div>
             <div class="card-value" id="m-new-leads">—</div>
           </div>
           <div class="stat-card" data-segment="awarded">
@@ -1927,7 +1927,7 @@
           </div>
           <div class="stat-card" data-segment="active-donors">
             <span class="drill-icon">↗</span>
-            <div class="card-label">In Conversation<span class="tip">i<span class="tip-bubble">Live conversations: Concept Note + Proposal + MoU (WIP). Excludes Initial Outreach, MoU Signed, Awarded, On Hold and Not Secured.</span></span></div>
+            <div class="card-label">In Conversation<span class="tip">i<span class="tip-bubble">Live conversations: Concept Note + Proposal + MOU. Excludes Initial outreach, Awarded, On Hold and Not Secured.</span></span></div>
             <div class="card-value" id="m-active-donors">—</div>
           </div>
         </div>
@@ -1938,18 +1938,8 @@
            ============================================================ -->
       <section class="section" id="section-pipeline-chart">
         <h2 class="section-heading">Stage Distribution</h2>
-        <div class="chart-card">
-          <div class="chart-card-header">
-            <div class="chart-card-title">Count of proposals per pipeline stage — click a bar to drill in</div>
-            <button class="icon-btn" title="More options">⋯</button>
-          </div>
 
-          <div class="h-bar-chart" id="stageBarChart">
-            <!-- Populated by render() -->
-          </div>
-        </div><!-- /chart-card -->
-
-        <!-- Stage Glossary -->
+        <!-- Stage Glossary — moved above the chart per TRIF feedback -->
         <div class="glossary collapsed" id="stageGlossary">
           <div class="glossary-title glossary-toggle" id="glossaryToggle">
             What each stage means
@@ -1958,32 +1948,28 @@
           <div class="glossary-body">
             <div class="glossary-grid">
               <div class="glossary-item">
-                <span class="glossary-stage">Initial Conversation</span>
-                <span class="glossary-meaning">First discussion with the donor — no formal submission yet.</span>
-              </div>
-              <div class="glossary-item">
                 <span class="glossary-stage">Initial outreach</span>
                 <span class="glossary-meaning">First contact has been made with the donor.</span>
               </div>
               <div class="glossary-item">
+                <span class="glossary-stage">Initial Conversation/ Pitching</span>
+                <span class="glossary-meaning">Application submitted to the donor — incl. where a donor field visit is still pending.</span>
+              </div>
+              <div class="glossary-item">
                 <span class="glossary-stage">Concept Note</span>
-                <span class="glossary-meaning">A short summary of the proposed project has been shared with the donor.</span>
+                <span class="glossary-meaning">Concept note submitted and under donor review.</span>
               </div>
               <div class="glossary-item">
                 <span class="glossary-stage">Proposal</span>
-                <span class="glossary-meaning">A full proposal has been submitted to the donor.</span>
+                <span class="glossary-meaning">Full proposal submitted and under donor review — incl. where a field visit is pending.</span>
               </div>
               <div class="glossary-item">
-                <span class="glossary-stage">MoU WIP</span>
-                <span class="glossary-meaning">Memorandum of Understanding still being drafted — close to a deal.</span>
-              </div>
-              <div class="glossary-item">
-                <span class="glossary-stage">MoU Signed</span>
-                <span class="glossary-meaning">The MoU has been signed — the near-final agreement before the grant is confirmed.</span>
+                <span class="glossary-stage">MOU</span>
+                <span class="glossary-meaning">MoU in progress or signed — covers MoU WIP, MoU Signed–WIP and MoU Signed.</span>
               </div>
               <div class="glossary-item">
                 <span class="glossary-stage">Grant Awarded</span>
-                <span class="glossary-meaning">The donor has confirmed the grant.</span>
+                <span class="glossary-meaning">Grant awarded and funds realised.</span>
               </div>
               <div class="glossary-item">
                 <span class="glossary-stage">Project on Hold</span>
@@ -1997,6 +1983,17 @@
           </div>
         </div><!-- /glossary -->
 
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <div class="chart-card-title">Count of proposals per pipeline stage — click a bar to drill in</div>
+            <button class="icon-btn" title="More options">⋯</button>
+          </div>
+
+          <div class="h-bar-chart" id="stageBarChart">
+            <!-- Populated by render() -->
+          </div>
+        </div><!-- /chart-card -->
+
       </section>
 
       <!-- ============================================================
@@ -2009,24 +2006,24 @@
         <div class="card-row card-row-4">
           <div class="stat-card" data-segment="fin-total">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Total Proposals<span class="tip">i<span class="tip-bubble">All live proposals — everything except Awarded, On Hold and Not Secured. Same basis as Stalled.</span></span></div>
+            <div class="card-label">Total Proposals<span class="tip">i<span class="tip-bubble">Includes active proposals, exceptions: Awarded, On Hold and Not Secured.</span></span></div>
             <div class="card-value" id="m-fin-total">—</div>
           </div>
           <div class="stat-card" data-segment="pipeline-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Pipeline Value<span class="tip">i<span class="tip-bubble">Total funding in play across in-conversation proposals (Concept + Proposal + MoU WIP) that have a fund figure. Fund is optional, so this is partial.</span></span></div>
+            <div class="card-label">Pipeline Value<span class="tip">i<span class="tip-bubble">Total funding of active proposals; exception: Awarded, On Hold, Not Secured.</span></span></div>
             <div class="card-value" id="m-pipeline-value">—</div>
             <div class="card-subnote" id="m-pipeline-value-note">—</div>
           </div>
           <div class="stat-card" data-segment="largest-pipeline">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Largest in Pipeline<span class="tip">i<span class="tip-bubble">Biggest single in-conversation opportunity, by fund requested.</span></span></div>
+            <div class="card-label">Highest Valued Proposal<span class="tip">i<span class="tip-bubble">Biggest single in-conversation opportunity, by fund requested.</span></span></div>
             <div class="card-value" id="m-largest-pipeline">—</div>
             <div class="card-subnote" id="m-largest-pipeline-note">—</div>
           </div>
           <div class="stat-card" data-segment="awarded-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Awarded Value<span class="tip">i<span class="tip-bubble">Total sanctioned amount across all Awarded proposals for the selected financial year.</span></span></div>
+            <div class="card-label">Awarded Value<span class="tip">i<span class="tip-bubble">Total amount granted from the selected financial year.</span></span></div>
             <div class="card-value" id="m-awarded-value">—</div>
             <div class="card-subnote" id="m-awarded-value-note">—</div>
           </div>
@@ -2087,17 +2084,17 @@
         <div class="card-row card-row-3">
           <div class="stat-card" data-segment="lost-count">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Not Secured<span class="tip">i<span class="tip-bubble">Opportunities that did not proceed.</span></span></div>
+            <div class="card-label">Not Secured<span class="tip">i<span class="tip-bubble">Opportunity did not convert.</span></span></div>
             <div class="card-value" id="m-lost-count">—</div>
           </div>
           <div class="stat-card" data-segment="lost-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Value Not Secured<span class="tip">i<span class="tip-bubble">Total funding value of the opportunities we lost.</span></span></div>
+            <div class="card-label">Value Not Secured<span class="tip">i<span class="tip-bubble">Total fund value of the opportunities lost.</span></span></div>
             <div class="card-value" id="m-lost-value">—</div>
           </div>
           <div class="stat-card" data-segment="reengage">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Worth Re-engaging<span class="tip">i<span class="tip-bubble">Lost opportunities the team marked as worth revisiting later.</span></span></div>
+            <div class="card-label">Worth Re-engaging<span class="tip">i<span class="tip-bubble">Lost opportunities marked as worth revisiting.</span></span></div>
             <div class="card-value" id="m-reengage">—</div>
           </div>
         </div>
@@ -2152,24 +2149,24 @@
            SECTION 8: STALLED PROPOSALS
            ============================================================ -->
       <section class="section" id="section-stalled-proposals">
-        <h2 class="section-heading">Stalled Proposals</h2>
+        <h2 class="section-heading">Proposals Awaiting Action</h2>
         <p class="section-subtitle">Proposals with no stage movement in 30+ days</p>
 
         <!-- 3 stat cards: Stalled → Stalled at MoU stage → Total Stalled Value -->
         <div class="card-row card-row-3">
           <div class="stat-card" data-segment="stalled-count">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Stalled<span class="tip">i<span class="tip-bubble">No stage movement in 30+ days. Everything except Awarded, On Hold and Not Secured — includes Initial Outreach and MoU Signed.</span></span></div>
+            <div class="card-label">Proposal Awaiting Action<span class="tip">i<span class="tip-bubble">Proposals with no stage movement in 30+ days; Excluded Stages: Awarded / On Hold / Not Secured.</span></span></div>
             <div class="card-value" id="m-stalled-count">—</div>
           </div>
           <div class="stat-card" data-segment="stalled-advanced">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Stalled at MoU stage<span class="tip">i<span class="tip-bubble">Stalled proposals sitting at MoU (WIP) — closest to a deal, most urgent to chase. Excludes MoU Signed.</span></span></div>
+            <div class="card-label">Proposal at MoU stage<span class="tip">i<span class="tip-bubble">MOU stage not moved from 30+ days.</span></span></div>
             <div class="card-value" id="m-stalled-advanced">—</div>
           </div>
           <div class="stat-card" data-segment="stalled-value">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Total Stalled Value<span class="tip">i<span class="tip-bubble">Total fund value sitting in stalled proposals.</span></span></div>
+            <div class="card-label">Total value of proposal awaiting action<span class="tip">i<span class="tip-bubble">Total fund value of proposal awaiting action.</span></span></div>
             <div class="card-value" id="m-stalled-value">—</div>
           </div>
         </div>
@@ -2177,7 +2174,7 @@
         <!-- Stalled Proposals table -->
         <div class="table-card">
           <div class="table-card-header">
-            <div class="table-card-title">Stalled Proposals — Action Required</div>
+            <div class="table-card-title">Proposals Awaiting Action – Details</div>
             <div class="table-actions">
               <button class="btn btn-ghost">
                 <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3h11M3 6.5h7M5 10h3"/></svg>
@@ -2443,12 +2440,12 @@
         <div class="card-row card-row-5">
           <div class="stat-card" data-segment="gr-total">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Total Grants<span class="tip">i<span class="tip-bubble">Every grant on record, across all statuses.</span></span></div>
+            <div class="card-label">Total Grants<span class="tip">i<span class="tip-bubble">All grants (Active + Closed).</span></span></div>
             <div class="card-value" id="g-total">—</div>
           </div>
           <div class="stat-card" data-segment="gr-active">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Active Grants<span class="tip">i<span class="tip-bubble">Grants currently running — those whose end date is still ahead.</span></span></div>
+            <div class="card-label">Active Grants<span class="tip">i<span class="tip-bubble">Grants currently in progress with future end dates.</span></span></div>
             <div class="card-value" id="g-active">—</div>
           </div>
           <div class="stat-card" data-segment="gr-closing">
@@ -2461,22 +2458,17 @@
             <div class="card-label">Closed Grants<span class="tip">i<span class="tip-bubble">Grants whose end date has already passed.</span></span></div>
             <div class="card-value" id="g-closed">—</div>
           </div>
-          <div class="stat-card" data-segment="gr-mou">
+          <div class="stat-card" data-segment="gr-pending">
             <span class="drill-icon">↗</span>
-            <div class="card-label">MoU yet to be attached<span class="tip">i<span class="tip-bubble">Sanctioned grants where the signed MoU document has not yet been uploaded against the grant record.</span></span></div>
-            <div class="card-value" id="g-mou">—</div>
+            <div class="card-label">Profiling Pending<span class="tip">i<span class="tip-bubble">Grants missing key profile fields — end date, owner or classification — or where the signed MoU document has not yet been attached.</span></span></div>
+            <div class="card-value" id="g-pending">—</div>
           </div>
         </div>
       </section>
 
       <section class="section" id="section-grants-financial">
         <h2 class="section-heading">Financial Overview</h2>
-        <div class="card-row card-row-4">
-          <div class="stat-card" data-segment="gr-pending">
-            <span class="drill-icon">↗</span>
-            <div class="card-label">Profiling Pending<span class="tip">i<span class="tip-bubble">Grants missing key profile fields — end date, owner or classification.</span></span></div>
-            <div class="card-value" id="g-pending">—</div>
-          </div>
+        <div class="card-row card-row-3">
           <div class="stat-card" data-segment="gr-sanctioned">
             <span class="drill-icon">↗</span>
             <div class="card-label">Total Sanctioned Amount<span class="tip">i<span class="tip-bubble">Total committed funding across all grants — sum of the planned budgets.</span></span></div>
@@ -2489,7 +2481,7 @@
           </div>
           <div class="stat-card" data-segment="gr-pendingt">
             <span class="drill-icon">↗</span>
-            <div class="card-label">Pending Tranches<span class="tip">i<span class="tip-bubble">Sanctioned amount still to be disbursed — total planned minus total received.</span></span></div>
+            <div class="card-label">Pending Tranches<span class="tip">i<span class="tip-bubble">Sanctioned amount still to be disbursed (total planned − total received). A tranche is marked 'paid' only after a user manually maps a Volac disbursement to specific tranches, so 'pending' reflects tranches not yet mapped/paid.</span></span></div>
             <div class="card-value" id="g-pendingt">—</div>
           </div>
         </div>
@@ -2574,6 +2566,7 @@
           </div>
           <div class="chart-card">
             <div class="chart-card-header"><div class="chart-card-title">Geographic Distribution</div></div>
+            <div class="chart-illustrative-note" style="margin:2px 0 6px 0;">Click a state marker to view its grants.</div>
 
             <svg viewBox="0 0 420 360" width="100%" preserveAspectRatio="xMidYMid meet" style="display:block;">
               <g transform="translate(60, 20) scale(0.29)">
@@ -2708,36 +2701,14 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
 -21 32 -43 37 -43 9 -67 32 -67 64 0 15 -6 33 -14 39 -23 19 -79 23 -106 6z" fill="#fafafa" stroke="#999" stroke-width="6"/>
                 </g>
               </g>
-              <circle cx="140" cy="110" r="9" fill="#811622" opacity="0.78"/>
-              <text x="140" y="114" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">2</text>
-              <text x="140" y="95" font-size="11" fill="#374151" text-anchor="middle">Rajasthan</text>
-              <circle cx="165" cy="155" r="9" fill="#811622" opacity="0.78"/>
-              <text x="165" y="159" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">2</text>
-              <text x="165" y="142" font-size="11" fill="#374151" text-anchor="middle">MP</text>
-              <circle cx="240" cy="125" r="9" fill="#811622" opacity="0.78"/>
-              <text x="240" y="129" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">2</text>
-              <text x="240" y="110" font-size="11" fill="#374151" text-anchor="middle">Bihar</text>
-              <circle cx="135" cy="195" r="11" fill="#811622" opacity="0.82"/>
-              <text x="135" y="200" font-size="12" fill="#fff" text-anchor="middle" font-weight="700">3</text>
-              <text x="135" y="220" font-size="11" fill="#374151" text-anchor="middle">Maharashtra</text>
-              <circle cx="255" cy="180" r="9" fill="#811622" opacity="0.78"/>
-              <text x="255" y="184" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">2</text>
-              <text x="273" y="180" font-size="11" fill="#374151" text-anchor="start">Odisha</text>
-              <circle cx="223" cy="158" r="7" fill="#811622" opacity="0.65"/>
-              <text x="223" y="161" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">1</text>
-              <text x="210" y="180" font-size="10" fill="#374151" text-anchor="middle">Jharkhand</text>
-              <circle cx="278" cy="155" r="7" fill="#811622" opacity="0.65"/>
-              <text x="278" y="158" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">1</text>
-              <text x="293" y="155" font-size="10" fill="#374151" text-anchor="start">WB</text>
-              <circle cx="165" cy="260" r="7" fill="#811622" opacity="0.65"/>
-              <text x="165" y="263" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">1</text>
-              <text x="165" y="280" font-size="11" fill="#374151" text-anchor="middle">Karnataka</text>
+              <!-- State markers rendered by renderMapMarkers() — click a marker to drill into that state's grants -->
+              <g id="mapMarkers"></g>
               <g transform="translate(60, 348)">
                 <text x="0" y="0" font-size="11" fill="#6b7280" font-weight="600">Grants by state:</text>
-                <circle cx="120" cy="-3" r="7" fill="#811622" opacity="0.65"/>
-                <text x="132" y="0" font-size="11" fill="#374151">1</text>
-                <circle cx="160" cy="-3" r="9" fill="#811622" opacity="0.78"/>
-                <text x="176" y="0" font-size="11" fill="#374151">2–3</text>
+                <circle cx="108" cy="-3" r="6" fill="#811622" opacity="0.65"/>
+                <text x="119" y="0" font-size="11" fill="#374151">1</text>
+                <circle cx="150" cy="-3" r="9" fill="#811622" opacity="0.82"/>
+                <text x="166" y="0" font-size="11" fill="#374151">2+</text>
               </g>
             </svg>
           </div>
@@ -2951,17 +2922,17 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
   ================================================================ */
   const PROPOSALS = [
     // ── Grant Anchor 1 — 17 records (rich funnel spread, forms the "mine" scope) ──
-    {id:'P-001', name:'Rural WASH Infrastructure — Phase 3',             donor:'Asha Kiran Trust',               anchor:'Grant Anchor 1', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:12, lostReason:'', reengage:''},
-    {id:'P-002', name:'Girls Secondary Education Access',                donor:'Vidya Daan Foundation',          anchor:'Grant Anchor 1', stage:'Initial Conversation', funding:'Indian',  fund:75.0,  days:8,  lostReason:'', reengage:''},
+    {id:'P-001', name:'Rural WASH Infrastructure — Phase 3',             donor:'Asha Kiran Trust',               anchor:'Grant Anchor 1', stage:'Initial Conversation/ Pitching', funding:'Indian',  fund:null,  days:12, lostReason:'', reengage:''},
+    {id:'P-002', name:'Girls Secondary Education Access',                donor:'Vidya Daan Foundation',          anchor:'Grant Anchor 1', stage:'Initial Conversation/ Pitching', funding:'Indian',  fund:75.0,  days:8,  lostReason:'', reengage:''},
     {id:'P-003', name:'Smallholder Climate Resilience Programme',        donor:'NABARD Foundation',              anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:18, lostReason:'', reengage:''},
     {id:'P-004', name:'Digital Financial Inclusion — Bihar',             donor:'SIDBI Foundation',               anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:120.0, days:22, lostReason:'', reengage:''},
     {id:'P-005', name:'Community Forest Governance Initiative',          donor:'Aranya Bhumi Foundation',        anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Foreign', fund:185.0, days:14, lostReason:'', reengage:''},
     {id:'P-006', name:'Maternal and Newborn Care — MP Clusters',         donor:'HDFC Parivartan',                anchor:'Grant Anchor 1', stage:'Concept Note',         funding:'Indian',  fund:null,  days:9,  lostReason:'', reengage:''},
     {id:'P-007', name:'Adolescent Nutrition and Menstrual Health',       donor:'Tata Trusts',                    anchor:'Grant Anchor 1', stage:'Proposal',             funding:'Indian',  fund:260.0, days:27, lostReason:'', reengage:''},
     {id:'P-008', name:'Tribal Education and Skill Bridges',              donor:'Azim Premji Foundation',         anchor:'Grant Anchor 1', stage:'Proposal',             funding:'Indian',  fund:340.0, days:19, lostReason:'', reengage:''},
-    {id:'P-009', name:'Rainfed Agriculture Productivity — Odisha',       donor:'GreenEarth Fund',                anchor:'Grant Anchor 1', stage:'MoU WIP',              funding:'Foreign', fund:420.0, days:38, lostReason:'', reengage:''},
-    {id:'P-010', name:'Women-Led SHG Livelihoods Cluster',               donor:'Axis Bank Foundation',           anchor:'Grant Anchor 1', stage:'MoU WIP',              funding:'Indian',  fund:150.0, days:45, lostReason:'', reengage:''},
-    {id:'P-011', name:'Renewable Energy Access — Jharkhand Villages',    donor:'Shell Foundation India',         anchor:'Grant Anchor 1', stage:'MoU Signed',           funding:'Foreign', fund:580.0, days:11, lostReason:'', reengage:''},
+    {id:'P-009', name:'Rainfed Agriculture Productivity — Odisha',       donor:'GreenEarth Fund',                anchor:'Grant Anchor 1', stage:'MOU',              funding:'Foreign', fund:420.0, days:38, lostReason:'', reengage:''},
+    {id:'P-010', name:'Women-Led SHG Livelihoods Cluster',               donor:'Axis Bank Foundation',           anchor:'Grant Anchor 1', stage:'MOU',              funding:'Indian',  fund:150.0, days:45, lostReason:'', reengage:''},
+    {id:'P-011', name:'Renewable Energy Access — Jharkhand Villages',    donor:'Shell Foundation India',         anchor:'Grant Anchor 1', stage:'MOU',           funding:'Foreign', fund:580.0, days:11, lostReason:'', reengage:''},
     {id:'P-012', name:'Farmer Livelihoods — Vidarbha Phase 2',           donor:'Annadata Trust',                 anchor:'Grant Anchor 1', stage:'Grant Awarded',        funding:'Indian',  fund:310.0, days:5,  lostReason:'', reengage:'', sanctioned:275.0},
     {id:'P-013', name:'Rural MSME Cluster Development',                  donor:'SIDBI MSME Foundation',          anchor:'Grant Anchor 1', stage:'Project on Hold',      funding:'Indian',  fund:null,  days:72, lostReason:'', reengage:''},
     {id:'P-014', name:'Drought Proofing — Bundelkhand',                  donor:'Sir Ratan Tata Trust',           anchor:'Grant Anchor 1', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:55, lostReason:'', reengage:''},
@@ -2970,48 +2941,48 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     {id:'P-017', name:'Child Labour Prevention and Education',           donor:'Bachpan Bachao Foundation',      anchor:'Grant Anchor 1', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:17, lostReason:'Donor paused all new grants for the year', reengage:'Yes'},
 
     // ── Grant Anchor 2 — 14 records ──
-    {id:'P-018', name:'Watershed Management — Marathwada',               donor:'BlueDrop Foundation',            anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Foreign', fund:null,  days:7,  lostReason:'', reengage:''},
-    {id:'P-019', name:'Nutrition for Children Under Five',               donor:'Poshan Suraksha Fund',           anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Indian',  fund:130.0, days:14, lostReason:'', reengage:''},
+    {id:'P-018', name:'Watershed Management — Marathwada',               donor:'BlueDrop Foundation',            anchor:'Grant Anchor 2', stage:'Initial Conversation/ Pitching', funding:'Foreign', fund:null,  days:7,  lostReason:'', reengage:''},
+    {id:'P-019', name:'Nutrition for Children Under Five',               donor:'Poshan Suraksha Fund',           anchor:'Grant Anchor 2', stage:'Initial Conversation/ Pitching', funding:'Indian',  fund:130.0, days:14, lostReason:'', reengage:''},
     {id:'P-020', name:'Digital Literacy for Rural Women',                donor:'TechSeva Foundation',            anchor:'Grant Anchor 2', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:28, lostReason:'', reengage:''},
     {id:'P-021', name:'Skill Development Hubs — Eastern UP',             donor:'Kaushal Vikas Trust',            anchor:'Grant Anchor 2', stage:'Initial outreach',     funding:'Indian',  fund:200.0, days:42, lostReason:'', reengage:''},
     {id:'P-022', name:'Women Entrepreneurs Access to Credit',            donor:'Shakti Mahila Trust',            anchor:'Grant Anchor 2', stage:'Concept Note',         funding:'Indian',  fund:175.0, days:16, lostReason:'', reengage:''},
     {id:'P-023', name:'Participatory Natural Resource Management',       donor:'Ford Foundation India',          anchor:'Grant Anchor 2', stage:'Proposal',             funding:'Foreign', fund:680.0, days:21, lostReason:'', reengage:''},
-    {id:'P-024', name:'Adolescent Girls Leadership — Chhattisgarh',      donor:'Nari Shakti Foundation',         anchor:'Grant Anchor 2', stage:'MoU WIP',              funding:'Indian',  fund:null,  days:52, lostReason:'', reengage:''},
-    {id:'P-025', name:'Accessible Education for Children with Disabilities', donor:'Shiksha Setu Trust',         anchor:'Grant Anchor 2', stage:'MoU Signed',           funding:'Indian',  fund:290.0, days:9,  lostReason:'', reengage:''},
+    {id:'P-024', name:'Adolescent Girls Leadership — Chhattisgarh',      donor:'Nari Shakti Foundation',         anchor:'Grant Anchor 2', stage:'MOU',              funding:'Indian',  fund:null,  days:52, lostReason:'', reengage:''},
+    {id:'P-025', name:'Accessible Education for Children with Disabilities', donor:'Shiksha Setu Trust',         anchor:'Grant Anchor 2', stage:'MOU',           funding:'Indian',  fund:290.0, days:9,  lostReason:'', reengage:''},
     {id:'P-026', name:'Women Entrepreneurship Scale-Up Fund',            donor:'Omidyar Network India',          anchor:'Grant Anchor 2', stage:'Grant Awarded',        funding:'Foreign', fund:780.0, days:4,  lostReason:'', reengage:'', sanctioned:700.0},
     {id:'P-027', name:'Agri-Tech Adoption — Smallholders',               donor:'ICICI Foundation',               anchor:'Grant Anchor 2', stage:'Concept Note',         funding:'Indian',  fund:145.0, days:11, lostReason:'', reengage:''},
-    {id:'P-028', name:'Mental Health Awareness — Rural Madhya Pradesh',  donor:'Wellbeing Foundation',           anchor:'Grant Anchor 2', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:6,  lostReason:'', reengage:''},
+    {id:'P-028', name:'Mental Health Awareness — Rural Madhya Pradesh',  donor:'Wellbeing Foundation',           anchor:'Grant Anchor 2', stage:'Initial Conversation/ Pitching', funding:'Indian',  fund:null,  days:6,  lostReason:'', reengage:''},
     {id:'P-029', name:'Sanitation and Hygiene Behaviour Change',         donor:'Nirmal Bharat Trust',            anchor:'Grant Anchor 2', stage:'Lost opportunity',     funding:'Indian',  fund:65.0,  days:20, lostReason:'Budget not sanctioned by donor board', reengage:''},
     {id:'P-030', name:'Inland Fisheries Livelihood Programme',           donor:'SamudraSeva Fund',               anchor:'Grant Anchor 2', stage:'Project on Hold',      funding:'Indian',  fund:null,  days:90, lostReason:'', reengage:''},
     {id:'P-031', name:'Solar Irrigation Pumps — Rajasthan Farmers',     donor:'GreenEarth Fund',                anchor:'Grant Anchor 2', stage:'Lost opportunity',     funding:'Foreign', fund:220.0, days:15, lostReason:'Donor shifted focus to urban programming', reengage:''},
 
     // ── Grant Anchor 3 — 15 records ──
-    {id:'P-032', name:'Tribal Health Outreach — Bastar',                 donor:'Vanbandhu Kalyan Samiti',        anchor:'Grant Anchor 3', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:9,  lostReason:'', reengage:''},
+    {id:'P-032', name:'Tribal Health Outreach — Bastar',                 donor:'Vanbandhu Kalyan Samiti',        anchor:'Grant Anchor 3', stage:'Initial Conversation/ Pitching', funding:'Indian',  fund:null,  days:9,  lostReason:'', reengage:''},
     {id:'P-033', name:'Community Forest Rights — Phase 2',               donor:'Aranya Foundation',              anchor:'Grant Anchor 3', stage:'Initial outreach',     funding:'Foreign', fund:null,  days:31, lostReason:'', reengage:''},
     {id:'P-034', name:'Early Childhood Education Centres — Odisha',      donor:'Shiksha Trust',                  anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Indian',  fund:170.0, days:18, lostReason:'', reengage:''},
     {id:'P-035', name:'Pastoralist Livelihood Security',                  donor:'BAIF Development Research',     anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Indian',  fund:null,  days:10, lostReason:'', reengage:''},
     {id:'P-036', name:'Coastal Climate Adaptation — Tamil Nadu',         donor:'GIZ India',                      anchor:'Grant Anchor 3', stage:'Proposal',             funding:'Foreign', fund:860.0, days:26, lostReason:'', reengage:''},
     {id:'P-037', name:'Girls STEM Access Programme',                     donor:'Infosys Foundation',             anchor:'Grant Anchor 3', stage:'Proposal',             funding:'Indian',  fund:230.0, days:16, lostReason:'', reengage:''},
-    {id:'P-038', name:'Urban Poor Housing Rights Initiative',            donor:'Tata Housing Foundation',        anchor:'Grant Anchor 3', stage:'MoU WIP',              funding:'Indian',  fund:350.0, days:48, lostReason:'', reengage:''},
-    {id:'P-039', name:'Holistic Village Development — Telangana',        donor:'IL&FS Social Development',       anchor:'Grant Anchor 3', stage:'MoU Signed',           funding:'Indian',  fund:490.0, days:7,  lostReason:'', reengage:''},
+    {id:'P-038', name:'Urban Poor Housing Rights Initiative',            donor:'Tata Housing Foundation',        anchor:'Grant Anchor 3', stage:'MOU',              funding:'Indian',  fund:350.0, days:48, lostReason:'', reengage:''},
+    {id:'P-039', name:'Holistic Village Development — Telangana',        donor:'IL&FS Social Development',       anchor:'Grant Anchor 3', stage:'MOU',           funding:'Indian',  fund:490.0, days:7,  lostReason:'', reengage:''},
     {id:'P-040', name:'One Health: Zoonotic Disease Prevention',         donor:'Wellcome Trust India',           anchor:'Grant Anchor 3', stage:'Grant Awarded',        funding:'Foreign', fund:720.0, days:3,  lostReason:'', reengage:'', sanctioned:640.0},
     {id:'P-041', name:'Flood-Resilient Agriculture — Assam',             donor:'Piramal Foundation',             anchor:'Grant Anchor 3', stage:'Initial outreach',     funding:'Indian',  fund:110.0, days:36, lostReason:'', reengage:''},
-    {id:'P-042', name:'Disability-Inclusive Livelihoods',                donor:'VSO India',                      anchor:'Grant Anchor 3', stage:'Initial Conversation', funding:'Foreign', fund:null,  days:5,  lostReason:'', reengage:''},
+    {id:'P-042', name:'Disability-Inclusive Livelihoods',                donor:'VSO India',                      anchor:'Grant Anchor 3', stage:'Initial Conversation/ Pitching', funding:'Foreign', fund:null,  days:5,  lostReason:'', reengage:''},
     {id:'P-043', name:'Right to Food Campaign — Jharkhand',              donor:'Pratham Education Foundation',   anchor:'Grant Anchor 3', stage:'Concept Note',         funding:'Indian',  fund:55.0,  days:13, lostReason:'', reengage:''},
     {id:'P-044', name:'Renewable Microgrids — Central India',            donor:'SolarAid India',                 anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Foreign', fund:null,  days:19, lostReason:'Lost to a competing proposal with stronger track record', reengage:''},
     {id:'P-045', name:'Sanitation Coverage — Phase 3',                   donor:'Nirmal Fund',                    anchor:'Grant Anchor 3', stage:'Lost opportunity',     funding:'Indian',  fund:null,  days:23, lostReason:'Proposal lapsed before concept note review', reengage:'Yes'},
     {id:'P-046', name:'Migrant Worker Welfare Programme',                donor:'Labour Rights Foundation',       anchor:'Grant Anchor 3', stage:'Project on Hold',      funding:'Indian',  fund:160.0, days:65, lostReason:'', reengage:''},
 
     // ── Grant Anchor 4 — 14 records ──
-    {id:'P-047', name:'Water Conservation — Rajasthan Drylands',         donor:'AquaLife Foundation',            anchor:'Grant Anchor 4', stage:'Initial Conversation', funding:'Indian',  fund:null,  days:11, lostReason:'', reengage:''},
+    {id:'P-047', name:'Water Conservation — Rajasthan Drylands',         donor:'AquaLife Foundation',            anchor:'Grant Anchor 4', stage:'Initial Conversation/ Pitching', funding:'Indian',  fund:null,  days:11, lostReason:'', reengage:''},
     {id:'P-048', name:'Zero Hunger Village Cluster — Bihar',             donor:'Hunger Free India Trust',        anchor:'Grant Anchor 4', stage:'Initial outreach',     funding:'Indian',  fund:null,  days:24, lostReason:'', reengage:''},
     {id:'P-049', name:'Social Protection and Entitlements Access',       donor:'Oxfam India',                    anchor:'Grant Anchor 4', stage:'Initial outreach',     funding:'Foreign', fund:250.0, days:37, lostReason:'', reengage:''},
     {id:'P-050', name:'Adolescent Sports and Life Skills — UP',          donor:'Magic Bus Foundation',           anchor:'Grant Anchor 4', stage:'Concept Note',         funding:'Indian',  fund:90.0,  days:8,  lostReason:'', reengage:''},
     {id:'P-051', name:'Inclusive Finance for Artisan Clusters',          donor:'Artisan Trust India',            anchor:'Grant Anchor 4', stage:'Concept Note',         funding:'Indian',  fund:null,  days:15, lostReason:'', reengage:''},
     {id:'P-052', name:'Digital Agriculture Advisory Platform',           donor:'Godrej Agrovet Foundation',      anchor:'Grant Anchor 4', stage:'Proposal',             funding:'Indian',  fund:380.0, days:29, lostReason:'', reengage:''},
     {id:'P-053', name:'Livestock Vaccination and Vet Services',          donor:'Annadata Trust',                 anchor:'Grant Anchor 4', stage:'Proposal',             funding:'Indian',  fund:140.0, days:22, lostReason:'', reengage:''},
-    {id:'P-054', name:'Slum Upgrading and Land Tenure — Pune',           donor:'Swasthya Foundation',            anchor:'Grant Anchor 4', stage:'MoU WIP',              funding:'Indian',  fund:530.0, days:41, lostReason:'', reengage:''},
-    {id:'P-055', name:'Coastal Livelihood Restoration — Odisha',         donor:'SamudraSeva Fund',               anchor:'Grant Anchor 4', stage:'MoU Signed',           funding:'Foreign', fund:450.0, days:14, lostReason:'', reengage:''},
+    {id:'P-054', name:'Slum Upgrading and Land Tenure — Pune',           donor:'Swasthya Foundation',            anchor:'Grant Anchor 4', stage:'MOU',              funding:'Indian',  fund:530.0, days:41, lostReason:'', reengage:''},
+    {id:'P-055', name:'Coastal Livelihood Restoration — Odisha',         donor:'SamudraSeva Fund',               anchor:'Grant Anchor 4', stage:'MOU',           funding:'Foreign', fund:450.0, days:14, lostReason:'', reengage:''},
     {id:'P-056', name:'Youth Employment Skilling — North-East',          donor:'Kaushal Vikas Trust',            anchor:'Grant Anchor 4', stage:'Grant Awarded',        funding:'Indian',  fund:280.0, days:6,  lostReason:'', reengage:'', sanctioned:248.0},
     {id:'P-057', name:'School Water and Sanitation — Meghalaya',         donor:'UNICEF India Programme Fund',    anchor:'Grant Anchor 4', stage:'Grant Awarded',        funding:'Foreign', fund:640.0, days:4,  lostReason:'', reengage:'', sanctioned:572.0},
     {id:'P-058', name:'Water Conservation Rajasthan — Follow-on',        donor:'AquaLife Foundation',            anchor:'Grant Anchor 4', stage:'Lost opportunity',     funding:'Indian',  fund:45.0,  days:16, lostReason:'Geography of proposed intervention did not align', reengage:''},
@@ -3045,13 +3016,13 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     return new Set(arr.map(p => p.donor)).size;
   }
 
-  const EARLY_STAGES  = ['Initial Conversation', 'Initial outreach'];
+  const EARLY_STAGES  = ['Initial outreach', 'Initial Conversation/ Pitching'];
   const MID_STAGES    = ['Concept Note', 'Proposal'];
-  const ACTIVE_STAGES = new Set(['Initial Conversation', 'Initial outreach', 'Concept Note', 'Proposal', 'MoU WIP', 'MoU Signed', 'Project on Hold']);
+  const ACTIVE_STAGES = new Set(['Initial outreach', 'Initial Conversation/ Pitching', 'Concept Note', 'Proposal', 'MOU', 'Project on Hold']);
   const TERMINAL      = new Set(['Grant Awarded', 'Lost opportunity']);
 
-  // IN_CONVERSATION = Concept Note, Proposal, MoU WIP only (locked v8 definition)
-  const IN_CONVERSATION = new Set(['Concept Note', 'Proposal', 'MoU WIP']);
+  // IN_CONVERSATION = Concept Note, Proposal, MOU (MoU WIP + MoU Signed consolidated into one MOU stage)
+  const IN_CONVERSATION = new Set(['Concept Note', 'Proposal', 'MOU']);
   function isInConversation(p) { return IN_CONVERSATION.has(p.stage); }
 
   // ACTIVE POOL = every stage except terminal + Project on Hold
@@ -3063,7 +3034,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     return !TERMINAL.has(p.stage);
   }
 
-  // Stalled = days > 30 AND in active pool (includes Initial stages + MoU Signed)
+  // Stalled = days > 30 AND in active pool (includes Initial stages + MOU)
   function isStalled(p) {
     return p.days > 30 && isActivePool(p);
   }
@@ -3072,12 +3043,11 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
      CHART STAGES — fixed display order
   ================================================================ */
   const CHART_STAGES = [
-    'Initial Conversation',
     'Initial outreach',
+    'Initial Conversation/ Pitching',
     'Concept Note',
     'Proposal',
-    'MoU WIP',
-    'MoU Signed',
+    'MOU',
     'Grant Awarded',
     'Project on Hold',
     'Lost opportunity',
@@ -3085,15 +3055,14 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
 
   /* Stage bar colours — maroon ramp, terminal stages distinct */
   const STAGE_COLORS = {
-    'Initial Conversation': '#d89098',
-    'Initial outreach':     '#cc7a84',
-    'Concept Note':         '#b85060',
-    'Proposal':             '#a83a4b',
-    'MoU WIP':              '#8f2233',
-    'MoU Signed':           '#811622',
-    'Grant Awarded':        '#2e7d52',
-    'Project on Hold':      '#9e9e9e',
-    'Lost opportunity':     '#c0392b',
+    'Initial outreach':               '#d89098',
+    'Initial Conversation/ Pitching': '#cc7a84',
+    'Concept Note':                   '#b85060',
+    'Proposal':                       '#a83a4b',
+    'MOU':                            '#811622',
+    'Grant Awarded':                  '#2e7d52',
+    'Project on Hold':                '#9e9e9e',
+    'Lost opportunity':               '#c0392b',
   };
 
   /* ================================================================
@@ -3148,7 +3117,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     /* ==============================================================
        FINANCIAL OVERVIEW — computed values (used in §3 after bar chart)
     ============================================================== */
-    // In-conversation proposals (Concept Note + Proposal + MoU WIP)
+    // In-conversation proposals (Concept Note + Proposal + MOU)
     const inConvProposals = proposals.filter(isInConversation);
     const inConvWithFund  = inConvProposals.filter(p => p.fund !== null);
     const pipelineValue   = sumFund(inConvWithFund);
@@ -3220,7 +3189,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     const finActivePool = proposals.filter(isActivePool);
 
     // Card 2: Pipeline Value = sum of fund over in-conversation proposals with a fund figure
-    // Card 3: Largest in Pipeline = max fund over in-conversation proposals
+    // Card 3: Highest Valued Proposal = max fund over in-conversation proposals
 
     // Card 4: Awarded Value (already computed above as awardedValue)
 
@@ -3281,7 +3250,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     ============================================================== */
     const stalledProposals  = proposals.filter(isStalled);
     const stalledValue      = sumFund(stalledProposals);
-    const stalledAdvanced   = stalledProposals.filter(p => p.stage === 'MoU WIP').length;
+    const stalledAdvanced   = stalledProposals.filter(p => p.stage === 'MOU').length;
 
     document.getElementById('m-stalled-count').textContent    = stalledProposals.length;
     document.getElementById('m-stalled-value').textContent    = fmtFund(stalledValue);
@@ -3314,16 +3283,16 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     // Financial Overview cards
     'fin-total':       { label: 'Total Proposals (Active Pool)',  fn: isActivePool },
     'pipeline-value':  { label: 'Pipeline Value',                 fn: p => isInConversation(p) && p.fund !== null },
-    'largest-pipeline':{ label: 'Largest in Pipeline',           fn: p => isInConversation(p) && p.fund !== null },
+    'largest-pipeline':{ label: 'Highest Valued Proposal',       fn: p => isInConversation(p) && p.fund !== null },
     'awarded-value':   { label: 'Awarded Value',                  fn: p => p.stage === 'Grant Awarded' },
     // Lost Opportunity cards
     'lost-count':      { label: 'Not Secured',                    fn: p => p.stage === 'Lost opportunity' },
     'lost-value':      { label: 'Value Not Secured',              fn: p => p.stage === 'Lost opportunity' && p.fund !== null },
     'reengage':        { label: 'Worth Re-engaging',              fn: p => p.stage === 'Lost opportunity' && p.reengage === 'Yes' },
     // Stalled cards
-    'stalled-count':   { label: 'Stalled',                        fn: isStalled },
-    'stalled-value':   { label: 'Stalled Value',                  fn: p => isStalled(p) && p.fund !== null },
-    'stalled-advanced':{ label: 'Stalled at MoU stage',          fn: p => isStalled(p) && p.stage === 'MoU WIP' },
+    'stalled-count':   { label: 'Proposal Awaiting Action',       fn: isStalled },
+    'stalled-value':   { label: 'Total value of proposal awaiting action', fn: p => isStalled(p) && p.fund !== null },
+    'stalled-advanced':{ label: 'Proposal at MoU stage',          fn: p => isStalled(p) && p.stage === 'MOU' },
   };
 
   /* ================================================================
@@ -3440,7 +3409,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
     if (stage === 'Grant Awarded')    return 'status-pill stage-awarded';
     if (stage === 'Lost opportunity') return 'status-pill stage-lost';
     if (stage === 'Project on Hold')  return 'status-pill stage-hold';
-    if (stage === 'MoU WIP' || stage === 'MoU Signed') return 'status-pill stage-mou';
+    if (stage === 'MOU') return 'status-pill stage-mou';
     if (stage === 'Concept Note' || stage === 'Proposal') return 'status-pill stage-concept';
     return 'status-pill stage-early';
   }
@@ -3547,15 +3516,14 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
      KANBAN VIEW RENDERER
   ================================================================ */
   const KANBAN_STAGE_DOTS = {
-    'Initial Conversation': 'dot-early',
-    'Initial outreach':     'dot-early',
-    'Concept Note':         'dot-proposal',
-    'Proposal':             'dot-proposal',
-    'MoU WIP':              'dot-mou',
-    'MoU Signed':           'dot-mou',
-    'Grant Awarded':        'dot-awarded',
-    'Project on Hold':      'dot-hold',
-    'Lost opportunity':     'dot-lost',
+    'Initial outreach':               'dot-early',
+    'Initial Conversation/ Pitching': 'dot-early',
+    'Concept Note':                   'dot-proposal',
+    'Proposal':                       'dot-proposal',
+    'MOU':                            'dot-mou',
+    'Grant Awarded':                  'dot-awarded',
+    'Project on Hold':                'dot-hold',
+    'Lost opportunity':               'dot-lost',
   };
 
   function renderKanbanView() {
@@ -3602,20 +3570,21 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
   ================================================================ */
   function openModal(title, rows, colMode) {
     // colMode: 'standard' = Sr.No · Proposal Name · Donor Name · Grant Anchor · Funds
-    //          'stage'    = Sr.No · Proposal Title · Donor · BD Stage
+    //          'stage'    = Sr.No · Proposal Title · Donor  (BD Stage omitted — same for every row in a stage drill-down)
     document.getElementById('modalTitle').textContent = title;
     document.getElementById('modalCount').textContent = rows.length + ' proposal' + (rows.length !== 1 ? 's' : '');
 
     let theadHTML, tbodyHTML;
     if (colMode === 'stage') {
-      theadHTML = '<tr><th>Sr. No.</th><th>Proposal Title</th><th>Donor</th><th>BD Stage</th></tr>';
+      theadHTML = '<tr><th>Sr. No.</th><th>Proposal Title</th><th>Donor</th><th>Grant Anchor</th><th>Funds</th></tr>';
       tbodyHTML = rows.length === 0
-        ? '<tr><td colspan="4" class="modal-empty">No proposals.</td></tr>'
+        ? '<tr><td colspan="5" class="modal-empty">No proposals.</td></tr>'
         : rows.map((p, i) => `<tr>
             <td>${i + 1}</td>
             <td>${p.name}</td>
             <td>${p.donor}</td>
-            <td>${p.stage}</td>
+            <td>${p.anchor}</td>
+            <td>${p.fund !== null ? fmtFund(p.fund) : '<span style="color:var(--text-muted)">—</span>'}</td>
           </tr>`).join('');
     } else {
       theadHTML = '<tr><th>Sr. No.</th><th>Proposal Name</th><th>Donor Name</th><th>Grant Anchor</th><th>Funds</th></tr>';
@@ -3808,28 +3777,28 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
   ================================================================ */
   (function() {
     const GRANTS = [
-      {id:'G-001', name:'Adolescent Nutrition and Menstrual Health',     donor:'Tata Trusts',                 owner:'Grant Anchor 1', funding:'Indian',  sanctioned:12.50, received:4.20,  startDate:'2026-04-01', endDate:'2027-03-15', status:'Active',  utilisation:34, mouAttached:true,  missing:''},
-      {id:'G-002', name:'Rainfed Agriculture Productivity — Odisha',     donor:'GreenEarth Fund',             owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 8.00, received:0.80,  startDate:'2026-05-15', endDate:'2027-01-20', status:'Active',  utilisation:10, mouAttached:false, missing:''},
-      {id:'G-003', name:'Tribal Education and Skill Bridges',            donor:'Azim Premji Foundation',      owner:'Grant Anchor 1', funding:'Indian',  sanctioned:15.00, received:3.50,  startDate:'2026-06-01', endDate:'2027-05-10', status:'Active',  utilisation:23, mouAttached:true,  missing:''},
-      {id:'G-004', name:'Maternal and Newborn Care — MP Clusters',       donor:'HDFC Parivartan',             owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 6.20, received:1.80,  startDate:'2026-07-01', endDate:'2027-08-30', status:'Active',  utilisation:29, mouAttached:true,  missing:''},
-      {id:'G-005', name:'Women-Led SHG Livelihoods Cluster',             donor:'Axis Bank Foundation',        owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 4.50, received:2.10,  startDate:'2026-08-15', endDate:'2028-03-31', status:'Active',  utilisation:47, mouAttached:false, missing:''},
-      {id:'G-006', name:'Smallholder Climate Resilience Programme',      donor:'NABARD Foundation',           owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 9.80, received:1.20,  startDate:'2026-09-01', endDate:'2027-12-31', status:'Active',  utilisation:12, mouAttached:true,  missing:''},
-      {id:'G-007', name:'Renewable Energy Access — Jharkhand Villages',  donor:'Shell Foundation India',      owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 5.30, received:0.50,  startDate:'2026-10-01', endDate:'2028-06-30', status:'Active',  utilisation: 9, mouAttached:true,  missing:''},
-      {id:'G-008', name:'Digital Financial Inclusion — Bihar',           donor:'SIDBI Foundation',            owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 3.20, received:0.80,  startDate:'2025-09-15', endDate:'2026-09-15', status:'Active',  utilisation:25, mouAttached:false, missing:''},
-      {id:'G-009', name:'Community Forest Governance Initiative',        donor:'Aranya Bhumi Foundation',     owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 7.60, received:2.40,  startDate:'2025-09-28', endDate:'2026-09-28', status:'Active',  utilisation:32, mouAttached:true,  missing:''},
-      {id:'G-010', name:'Farmer Livelihoods — Vidarbha Phase 1',         donor:'Annadata Trust',              owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 4.00, received:4.00,  startDate:'2024-01-01', endDate:'2025-12-31', status:'Closed',  utilisation:96, mouAttached:true,  missing:''},
-      {id:'G-011', name:'Girls Education Pilot — Phase 1',               donor:'Vidya Daan Foundation',       owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 2.50, received:2.30,  startDate:'2024-04-01', endDate:'2026-03-31', status:'Closed',  utilisation:88, mouAttached:true,  missing:''},
-      {id:'G-012', name:'Drought Proofing Pilot — Bundelkhand',          donor:'Sir Ratan Tata Trust',        owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 3.10, received:2.90,  startDate:'2023-10-01', endDate:'2025-09-30', status:'Closed',  utilisation:92, mouAttached:true,  missing:''},
-      {id:'G-013', name:'WASH In Schools — Rajasthan',                   donor:'Reckitt India',               owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 2.00, received:0.00,  startDate:'',           endDate:'',           status:'Pending', utilisation: 0, mouAttached:false, missing:'End Date, Owner, Classification'},
-      {id:'G-014', name:'Skilling for Migrant Workers',                  donor:'IKEA Foundation',             owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 1.50, received:0.00,  startDate:'',           endDate:'',           status:'Pending', utilisation: 0, mouAttached:false, missing:'End Date, Owner, Classification'},
-      {id:'G-015', name:'Maternal Health Workforce Strengthening',       donor:'MSD for Mothers',             owner:'Grant Anchor 2', funding:'Foreign', sanctioned:18.00, received:5.00,  startDate:'2026-01-01', endDate:'2027-12-31', status:'Active',  utilisation:28, mouAttached:true,  missing:''},
-      {id:'G-016', name:'Solar Irrigation — Marathwada',                 donor:'Tata Power Community Trust',  owner:'Grant Anchor 2', funding:'Indian',  sanctioned: 6.80, received:2.20,  startDate:'2026-03-01', endDate:'2027-09-30', status:'Active',  utilisation:32, mouAttached:true,  missing:''},
-      {id:'G-017', name:'Adolescent Girls Safe Spaces',                  donor:'Bajaj Allianz CSR',           owner:'Grant Anchor 2', funding:'Indian',  sanctioned: 3.50, received:1.50,  startDate:'2026-04-15', endDate:'2027-04-14', status:'Active',  utilisation:43, mouAttached:false, missing:''},
-      {id:'G-018', name:'Coastal Livelihoods — Sundarbans',              donor:'Wipro Foundation',            owner:'Grant Anchor 3', funding:'Indian',  sanctioned: 5.00, received:1.00,  startDate:'2026-05-01', endDate:'2027-04-30', status:'Active',  utilisation:20, mouAttached:true,  missing:''},
-      {id:'G-019', name:'Sanitation Workforce Welfare',                  donor:'Dasra',                       owner:'Grant Anchor 3', funding:'Foreign', sanctioned: 4.20, received:0.80,  startDate:'2026-06-15', endDate:'2028-06-14', status:'Active',  utilisation:19, mouAttached:true,  missing:''},
-      {id:'G-020', name:'Adivasi Health Workforce',                      donor:'Mphasis F1 Foundation',       owner:'Grant Anchor 3', funding:'Indian',  sanctioned: 2.80, received:1.40,  startDate:'2025-08-01', endDate:'2026-07-31', status:'Active',  utilisation:50, mouAttached:false, missing:''},
-      {id:'G-021', name:'Pre-Primary Learning — Phase 1',                donor:'Pratham Foundation',          owner:'Grant Anchor 4', funding:'Indian',  sanctioned: 1.80, received:1.80,  startDate:'2023-04-01', endDate:'2025-03-31', status:'Closed',  utilisation:100,mouAttached:true,  missing:''},
-      {id:'G-022', name:'Water Resource Management — Karnataka',         donor:'Wells Fargo CSR',             owner:'Grant Anchor 4', funding:'Foreign', sanctioned: 4.50, received:1.20,  startDate:'2026-02-01', endDate:'2027-01-31', status:'Active',  utilisation:27, mouAttached:true,  missing:''},
+      {id:'G-001', name:'Adolescent Nutrition and Menstrual Health',     donor:'Tata Trusts',                 owner:'Grant Anchor 1', funding:'Indian',  sanctioned:12.50, received:4.20,  startDate:'2026-04-01', endDate:'2027-03-15', status:'Active',  utilisation:34, mouAttached:true,  missing:'', locations:[{state:'Rajasthan', district:'Udaipur', block:'Girwa'}]},
+      {id:'G-002', name:'Rainfed Agriculture Productivity — Odisha',     donor:'GreenEarth Fund',             owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 8.00, received:0.80,  startDate:'2026-05-15', endDate:'2027-01-20', status:'Active',  utilisation:10, mouAttached:false, missing:'', locations:[{state:'Odisha', district:'Kalahandi', block:'Bhawanipatna'}]},
+      {id:'G-003', name:'Tribal Education and Skill Bridges',            donor:'Azim Premji Foundation',      owner:'Grant Anchor 1', funding:'Indian',  sanctioned:15.00, received:3.50,  startDate:'2026-06-01', endDate:'2027-05-10', status:'Active',  utilisation:23, mouAttached:true,  missing:'', locations:[{state:'Jharkhand', district:'Ranchi', block:'Angara'}, {state:'Odisha', district:'Mayurbhanj', block:'Karanjia'}]},
+      {id:'G-004', name:'Maternal and Newborn Care — MP Clusters',       donor:'HDFC Parivartan',             owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 6.20, received:1.80,  startDate:'2026-07-01', endDate:'2027-08-30', status:'Active',  utilisation:29, mouAttached:true,  missing:'', locations:[{state:'Madhya Pradesh', district:'Rewa', block:'Sirmour'}]},
+      {id:'G-005', name:'Women-Led SHG Livelihoods Cluster',             donor:'Axis Bank Foundation',        owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 4.50, received:2.10,  startDate:'2026-08-15', endDate:'2028-03-31', status:'Active',  utilisation:47, mouAttached:false, missing:'', locations:[{state:'Maharashtra', district:'Nashik', block:'Igatpuri'}]},
+      {id:'G-006', name:'Smallholder Climate Resilience Programme',      donor:'NABARD Foundation',           owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 9.80, received:1.20,  startDate:'2026-09-01', endDate:'2027-12-31', status:'Active',  utilisation:12, mouAttached:true,  missing:'', locations:[{state:'Madhya Pradesh', district:'Chhatarpur', block:'Rajnagar'}, {state:'Maharashtra', district:'Amravati', block:'Dharni'}]},
+      {id:'G-007', name:'Renewable Energy Access — Jharkhand Villages',  donor:'Shell Foundation India',      owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 5.30, received:0.50,  startDate:'2026-10-01', endDate:'2028-06-30', status:'Active',  utilisation: 9, mouAttached:true,  missing:'', locations:[{state:'Jharkhand', district:'Gumla', block:'Bishunpur'}]},
+      {id:'G-008', name:'Digital Financial Inclusion — Bihar',           donor:'SIDBI Foundation',            owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 3.20, received:0.80,  startDate:'2025-09-15', endDate:'2026-09-15', status:'Active',  utilisation:25, mouAttached:false, missing:'', locations:[{state:'Bihar', district:'Gaya', block:'Bodh Gaya'}]},
+      {id:'G-009', name:'Community Forest Governance Initiative',        donor:'Aranya Bhumi Foundation',     owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 7.60, received:2.40,  startDate:'2025-09-28', endDate:'2026-09-28', status:'Active',  utilisation:32, mouAttached:true,  missing:'', locations:[{state:'Odisha', district:'Mayurbhanj', block:'Karanjia'}]},
+      {id:'G-010', name:'Farmer Livelihoods — Vidarbha Phase 1',         donor:'Annadata Trust',              owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 4.00, received:4.00,  startDate:'2024-01-01', endDate:'2025-12-31', status:'Closed',  utilisation:96, mouAttached:true,  missing:'', locations:[{state:'Maharashtra', district:'Amravati', block:'Dharni'}]},
+      {id:'G-011', name:'Girls Education Pilot — Phase 1',               donor:'Vidya Daan Foundation',       owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 2.50, received:2.30,  startDate:'2024-04-01', endDate:'2026-03-31', status:'Closed',  utilisation:88, mouAttached:true,  missing:'', locations:[{state:'Bihar', district:'Muzaffarpur', block:'Kanti'}]},
+      {id:'G-012', name:'Drought Proofing Pilot — Bundelkhand',          donor:'Sir Ratan Tata Trust',        owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 3.10, received:2.90,  startDate:'2023-10-01', endDate:'2025-09-30', status:'Closed',  utilisation:92, mouAttached:true,  missing:'', locations:[{state:'Madhya Pradesh', district:'Tikamgarh', block:'Jatara'}]},
+      {id:'G-013', name:'WASH In Schools — Rajasthan',                   donor:'Reckitt India',               owner:'Grant Anchor 1', funding:'Indian',  sanctioned: 2.00, received:0.00,  startDate:'',           endDate:'',           status:'Pending', utilisation: 0, mouAttached:false, missing:'End Date, Owner, Classification', locations:[{state:'Rajasthan', district:'Barmer', block:'Sheo'}]},
+      {id:'G-014', name:'Skilling for Migrant Workers',                  donor:'IKEA Foundation',             owner:'Grant Anchor 1', funding:'Foreign', sanctioned: 1.50, received:0.00,  startDate:'',           endDate:'',           status:'Pending', utilisation: 0, mouAttached:false, missing:'End Date, Owner, Classification', locations:[{state:'West Bengal', district:'Kolkata', block:'Maheshtala'}]},
+      {id:'G-015', name:'Maternal Health Workforce Strengthening',       donor:'MSD for Mothers',             owner:'Grant Anchor 2', funding:'Foreign', sanctioned:18.00, received:5.00,  startDate:'2026-01-01', endDate:'2027-12-31', status:'Active',  utilisation:28, mouAttached:true,  missing:'', locations:[{state:'Karnataka', district:'Belagavi', block:'Khanapur'}]},
+      {id:'G-016', name:'Solar Irrigation — Marathwada',                 donor:'Tata Power Community Trust',  owner:'Grant Anchor 2', funding:'Indian',  sanctioned: 6.80, received:2.20,  startDate:'2026-03-01', endDate:'2027-09-30', status:'Active',  utilisation:32, mouAttached:true,  missing:'', locations:[{state:'Maharashtra', district:'Beed', block:'Georai'}, {state:'Karnataka', district:'Belagavi', block:'Khanapur'}]},
+      {id:'G-017', name:'Adolescent Girls Safe Spaces',                  donor:'Bajaj Allianz CSR',           owner:'Grant Anchor 2', funding:'Indian',  sanctioned: 3.50, received:1.50,  startDate:'2026-04-15', endDate:'2027-04-14', status:'Active',  utilisation:43, mouAttached:false, missing:'', locations:[{state:'Rajasthan', district:'Jaipur', block:'Sanganer'}]},
+      {id:'G-018', name:'Coastal Livelihoods — Sundarbans',              donor:'Wipro Foundation',            owner:'Grant Anchor 3', funding:'Indian',  sanctioned: 5.00, received:1.00,  startDate:'2026-05-01', endDate:'2027-04-30', status:'Active',  utilisation:20, mouAttached:true,  missing:'', locations:[{state:'West Bengal', district:'South 24 Parganas', block:'Gosaba'}, {state:'Odisha', district:'Balasore', block:'Bhograi'}]},
+      {id:'G-019', name:'Sanitation Workforce Welfare',                  donor:'Dasra',                       owner:'Grant Anchor 3', funding:'Foreign', sanctioned: 4.20, received:0.80,  startDate:'2026-06-15', endDate:'2028-06-14', status:'Active',  utilisation:19, mouAttached:true,  missing:'', locations:[{state:'Bihar', district:'Patna', block:'Phulwari'}]},
+      {id:'G-020', name:'Adivasi Health Workforce',                      donor:'Mphasis F1 Foundation',       owner:'Grant Anchor 3', funding:'Indian',  sanctioned: 2.80, received:1.40,  startDate:'2025-08-01', endDate:'2026-07-31', status:'Active',  utilisation:50, mouAttached:false, missing:'', locations:[{state:'Jharkhand', district:'West Singhbhum', block:'Chaibasa'}]},
+      {id:'G-021', name:'Pre-Primary Learning — Phase 1',                donor:'Pratham Foundation',          owner:'Grant Anchor 4', funding:'Indian',  sanctioned: 1.80, received:1.80,  startDate:'2023-04-01', endDate:'2025-03-31', status:'Closed',  utilisation:100,mouAttached:true,  missing:'', locations:[{state:'Karnataka', district:'Mysuru', block:'Hunsur'}]},
+      {id:'G-022', name:'Water Resource Management — Karnataka',         donor:'Wells Fargo CSR',             owner:'Grant Anchor 4', funding:'Foreign', sanctioned: 4.50, received:1.20,  startDate:'2026-02-01', endDate:'2027-01-31', status:'Active',  utilisation:27, mouAttached:true,  missing:'', locations:[{state:'Karnataka', district:'Tumakuru', block:'Sira'}]},
     ];
 
     let grantsScope = 'mine';
@@ -3867,7 +3836,7 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
       return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
     }
 
-    function openGrantsModal(title, rows, mode) {
+    function openGrantsModal(title, rows, mode, geoState) {
       document.getElementById('modalTitle').textContent = title;
       document.getElementById('modalCount').textContent = rows.length + ' grant' + (rows.length !== 1 ? 's' : '');
 
@@ -3897,6 +3866,20 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
               '<td>' + (i+1) + '</td><td>' + g.name + '</td><td>' + g.donor + '</td>' +
               '<td>' + g.funding + '</td><td>' + fmtCr(g.sanctioned) + '</td><td>' + g.status + '</td>' +
             '</tr>').join('');
+      } else if (mode === 'gr-geo') {
+        thead = '<tr><th>Sr. No.</th><th>Grant Name</th><th>Donor</th><th>District</th><th>Block</th><th>Status</th></tr>';
+        tbody = rows.length === 0
+          ? '<tr><td colspan="6" class="modal-empty">No grants in this state.</td></tr>'
+          : rows.map((g, i) => {
+              // show the district(s)/block(s) for THIS state (a grant may operate in several states)
+              const here = (g.locations || []).filter(l => l.state === geoState);
+              const districts = here.map(l => l.district).join(', ') || '—';
+              const blocks    = here.map(l => l.block).join(', ')    || '—';
+              return '<tr>' +
+                '<td>' + (i+1) + '</td><td>' + g.name + '</td><td>' + g.donor + '</td>' +
+                '<td>' + districts + '</td><td>' + blocks + '</td><td>' + g.status + '</td>' +
+              '</tr>';
+            }).join('');
       } else {
         thead = '<tr><th>Sr. No.</th><th>Grant Name</th><th>Donor</th><th>Missing Fields</th></tr>';
         tbody = rows.length === 0
@@ -3947,6 +3930,8 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
       setVal('g-received',   '₹ ' + received.toFixed(2) + ' Cr');
       setVal('g-pendingt',   '₹ ' + pendingT.toFixed(2) + ' Cr');
 
+      renderMapMarkers(scoped);
+
       const scopeLabel = document.getElementById('grantsScopeLabel');
       if (scopeLabel) {
         scopeLabel.textContent = grantsScope === 'mine'
@@ -3954,6 +3939,55 @@ l30 31 -38 32 c-25 21 -46 31 -60 28 -13 -2 -29 3 -40 15 -18 20 -11 34 21 40
           : 'Showing all grants in the organisation';
       }
     }
+    /* ── Geographic Distribution map: state marker positions ──────── */
+    const STATE_COORDS = {
+      'Rajasthan':      { cx:140, cy:110, lx:140, ly:95,  anchor:'middle' },
+      'Madhya Pradesh': { cx:165, cy:155, lx:165, ly:140, anchor:'middle', short:'MP' },
+      'Bihar':          { cx:240, cy:125, lx:240, ly:110, anchor:'middle' },
+      'Maharashtra':    { cx:135, cy:195, lx:135, ly:222, anchor:'middle' },
+      'Odisha':         { cx:255, cy:180, lx:273, ly:184, anchor:'start'  },
+      'Jharkhand':      { cx:223, cy:158, lx:210, ly:182, anchor:'middle' },
+      'West Bengal':    { cx:278, cy:155, lx:293, ly:158, anchor:'start', short:'WB' },
+      'Karnataka':      { cx:165, cy:260, lx:165, ly:282, anchor:'middle' },
+    };
+
+    // Draw a clickable marker per state, sized by the number of grants in the current scope.
+    function renderMapMarkers(scoped) {
+      const layer = document.getElementById('mapMarkers');
+      if (!layer) return;
+      const counts = {};
+      // a grant operating in several states is counted once under each of its states
+      scoped.forEach(g => {
+        const states = new Set((g.locations || []).map(l => l.state));
+        states.forEach(st => { counts[st] = (counts[st] || 0) + 1; });
+      });
+      let html = '';
+      Object.keys(STATE_COORDS).forEach(state => {
+        const n = counts[state] || 0;
+        if (n === 0) return;                       // hide states with no grants in this scope
+        const c = STATE_COORDS[state];
+        const r = Math.min(14, 6 + n * 1.6);
+        const op = n >= 2 ? 0.82 : 0.65;
+        const label = c.short || state;
+        html += '<g class="map-marker" data-state="' + state + '" style="cursor:pointer;">' +
+                  '<title>' + state + ' — ' + n + ' grant' + (n !== 1 ? 's' : '') + ' (click to view)</title>' +
+                  '<circle cx="' + c.cx + '" cy="' + c.cy + '" r="' + r + '" fill="#811622" opacity="' + op + '"/>' +
+                  '<text x="' + c.cx + '" y="' + (c.cy + 4) + '" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">' + n + '</text>' +
+                  '<text x="' + c.lx + '" y="' + c.ly + '" font-size="11" fill="#374151" text-anchor="' + c.anchor + '">' + label + '</text>' +
+                '</g>';
+      });
+      layer.innerHTML = html;
+    }
+
+    // Click a state marker -> drill into that state's grants (District / Block columns)
+    document.addEventListener('click', function(e) {
+      const marker = e.target.closest && e.target.closest('.map-marker[data-state]');
+      if (!marker) return;
+      const state = marker.dataset.state;
+      const rows = getScopedGrants().filter(g => (g.locations || []).some(l => l.state === state));
+      openGrantsModal('Grants in ' + state, rows, 'gr-geo', state);
+    });
+
     window.renderGrants = renderGrants;
 
     const grantsScopeToggle = document.getElementById('grantsScopeToggle');
