@@ -4,6 +4,27 @@
 
 ---
 
+## 2026-06-30 — BD Pipeline Kanban with stage-pick popup (PR #4, merged)
+
+**Done:**
+- Added an interactive **Pipeline Kanban** view to `index.html` (+605/-3). Merged via PR #4 (commit `b943347`).
+- 8 BD-stage columns (`custom_bd_pipeline` order), draggable proposal cards (13 demo proposals). Dragging into a column that maps to >1 detailed `stage` opens a popup to pick the sub-stage; earliest sub-stage pre-selected so the user usually just confirms. Other columns move silently. Cancel reverts to origin column.
+- **Fan-out columns** (popup fires): Proposal (3), MOU (3), Initial Conversation/ Pitching (2), Concept Note (2) — derived from the live `tri` stage→BD mapping, read in reverse.
+- **3 popup variants** behind a toggle, same board + data: A centered modal · B inline `<select>` on the card · C right slide-in panel with proposal context + source→target flow.
+
+**Pending:**
+- Pick the winning popup variant (A/B/C); strip the other two in a follow-up.
+- Confirm GitHub Pages build finished; verify at https://prody-dris.github.io/trisight-bd-pipeline-wireframe/.
+
+**Blocked:**
+- None.
+
+**Decisions:**
+- **Wireframe flips the live direction.** Live `tri` derives BD stage FROM the detailed `stage` (client script). This kanban makes BD the input and detailed the output. Fine for a wireframe; the real build must resolve which field is master.
+- **Popup fires on any fan-out column (>1 sub-stage), all 4** — not just Proposal/MOU. Earliest sub-stage as the prefilled default.
+
+---
+
 ## 2026-06-30 — Merged PR #2 (BD Pipeline & Grants wireframe per TRIF feedback)
 
 **Done:**
