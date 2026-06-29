@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-06-30 — Single Frappe-style stage dialog replaces the 3 popup variants (PR #6, merged)
+
+**Done:**
+- Removed the A/B/C popup variants + the style toggle; replaced with ONE dialog mimicking Frappe's stock `frappe.ui.Dialog` — native `<select>` (platform-default dropdown), maroon Submit, plain Cancel. Net +76/-320.
+- Fan-out-only popup (Proposal, MOU, Concept Note, Initial Conversation/ Pitching), earliest sub-stage pre-selected, silent move for single-mapping columns, Cancel/Esc/backdrop revert — all preserved.
+
+**Pending:**
+- Confirm Pages build; verify at https://prody-dris.github.io/trisight-bd-pipeline-wireframe/.
+- Pick is settled — native dialog is the chosen interaction.
+
+**Blocked:**
+- None.
+
+**Decisions:**
+- **Use the platform-default Frappe dialog, not bespoke UI.** The 3 variants were a one-time comparison aid; the agreed interaction now renders as the native form the real build would use.
+
+---
+
 ## 2026-06-30 — BD Pipeline Kanban with stage-pick popup (PR #4, merged)
 
 **Done:**
